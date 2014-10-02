@@ -3,7 +3,7 @@
 <cfinclude template="../../public/views/templates/_slatwall-header.cfm" >
 <div class="container">
 	<div class="row">
-		<div class="span12">
+		<div class="col-md-12">
 			This is the sample Slatwall application.  It is a very simple example of how a custom frontend website can be built.
 		</div>
 	</div>

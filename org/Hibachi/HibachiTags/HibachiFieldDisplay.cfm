@@ -34,7 +34,7 @@
 		<cfcase value="dl">
 			<cfif attributes.edit>
 				<cfoutput>
-					<div class="control-group">
+					<div class="form-group">
 						<label for="#attributes.fieldName#" class="control-label">#attributes.title#<cfif len(attributes.hint)> <a href="##" tabindex="-1" data-toggle="tooltip" class="hint" data-title="#attributes.hint#"><i class="icon-question-sign"></i></a></cfif></label></dt>
 						<div class="controls">
 							<cf_HibachiFormField attributecollection="#attributes#" />
