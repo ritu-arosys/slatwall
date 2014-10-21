@@ -312,12 +312,12 @@ Notes:
                                             <legend>Returning Customer</legend>
                                             <div class="form-group">
                                                 <label for="username">Username</label>
-                                                <sw:FormField type="text" valueObject="#accountLoginObj#" valueObjectProperty="emailAddress" class="form-control" fieldAttributes=" id='username' required='required'"  />
+                                                <sw:FormField type="text" valueObject="#accountLoginObj#" valueObjectProperty="emailAddress" class="form-control s-required" fieldAttributes=" id='username' required='required'"  />
                                                 <p class="help-block"><sw:ErrorDisplay object="#accountLoginObj#" errorName="emailAddress" /></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Passsword</label>
-                                                <sw:FormField type="password" valueObject="#accountLoginObj#" valueObjectProperty="password" class="form-control j-accountPassword" fieldAttributes=" id='password' required='required'" />
+                                                <sw:FormField type="password" valueObject="#accountLoginObj#" valueObjectProperty="password" class="form-control j-accountPassword s-required" fieldAttributes=" id='password' required='required'" />
                                                 <p class="help-block"><sw:ErrorDisplay object="#accountLoginObj#" errorName="password" /></p>
                                             </div>
                                             <div class="form-group">
@@ -345,7 +345,7 @@ Notes:
                                             <legend>Forgot Password</legend>
                                             <div class="form-group">
                                                 <label for="username">Email</label>
-                                                <sw:FormField type="text" valueObject="#accountLoginObj#" valueObjectProperty="emailAddress" class="form-control" fieldAttributes=" id='username' required='required'"  />
+                                                <sw:FormField type="text" valueObject="#accountLoginObj#" valueObjectProperty="emailAddress" class="form-control s-required" fieldAttributes=" id='username' required='required'"  />
                                                 <p class="help-block"><sw:ErrorDisplay object="#forgotPasswordObj#" errorName="emailAddress" /></p>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Reset Password</button>
@@ -380,28 +380,28 @@ Notes:
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label for="firstName" class="control-label">First Name</label>
-                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="firstName" class="form-control" fieldAttributes=" id='firstName' required='required'"/>
+                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="firstName" class="form-control s-required" fieldAttributes=" id='firstName' required='required'"/>
                                                     <p class="help-block"><sw:ErrorDisplay object="#createAccountObj#" errorName="firstName" /></p>
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label for="lastName" class="control-label">Last Name</label>
-                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="lastName" class="form-control" fieldAttributes=" id='lastName' required='required'" />
+                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="lastName" class="form-control s-required" fieldAttributes=" id='lastName' required='required'" />
                                                     <p class="help-block"><sw:ErrorDisplay object="#createAccountObj#" errorName="lastName" /></p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="phone" class="control-label">Phone Number</label>
-                                                <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="phoneNumber" class="form-control" fieldAttributes=" id='phoneNumber' required='required'"/>
+                                                <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="phoneNumber" class="form-control s-required" fieldAttributes=" id='phoneNumber' required='required'"/>
                                                 <p class="help-block"><sw:ErrorDisplay object="#createAccountObj#" errorName="phoneNumber" /></p>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label for="phone" class="control-label">Email</label>
-                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="emailAddress" class="form-control" fieldAttributes=" id='email' required='required'" />
+                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="emailAddress" class="form-control s-required" fieldAttributes=" id='email' required='required'" />
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label for="email" class="control-label">Comfirm Email</label>
-                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="emailAddressConfirm" class="form-control" fieldAttributes=" id='emailConfirm' required='required'" />
+                                                    <sw:FormField type="text" valueObject="#createAccountObj#" valueObjectProperty="emailAddressConfirm" class="form-control s-required" fieldAttributes=" id='emailConfirm' required='required'" />
                                                 </div>
                                                 <div class="col-md-12">
                                                     <p class="help-block"><sw:ErrorDisplay object="#createAccountObj#" errorName="emailAddress" /></p>
@@ -411,12 +411,12 @@ Notes:
                                             <div class="row">
                                                 <div class="col-md-6 form-group j-createAccount-hide">
                                                     <label for="password" class="control-label">Password</label>
-                                                    <sw:FormField type="password" valueObject="#createAccountObj#" valueObjectProperty="password" class="form-control" fieldAttributes=" id='password' required='required'"/>
+                                                    <sw:FormField type="password" valueObject="#createAccountObj#" valueObjectProperty="password" class="form-control s-required" fieldAttributes=" id='password' required='required'"/>
                                                     <p class="help-block"><sw:ErrorDisplay object="#createAccountObj#" errorName="password" /></p>
                                                 </div>
                                                 <div class="col-md-6 form-group j-createAccount-hide">
                                                     <label for="password" class="control-label">Re-Enter Password</label>
-                                                    <sw:FormField type="password" valueObject="#createAccountObj#" valueObjectProperty="passwordConfirm" class="form-control" fieldAttributes=" id='passwordConfirm' required='required'" />
+                                                    <sw:FormField type="password" valueObject="#createAccountObj#" valueObjectProperty="passwordConfirm" class="form-control s-required" fieldAttributes=" id='passwordConfirm' required='required'" />
                                                     <p class="help-block"><sw:ErrorDisplay object="#createAccountObj#" errorName="password" /></p>
                                                 </div>
                                             </div>
@@ -431,7 +431,7 @@ Notes:
                             </div>
 
                             <!--- Place order form --->
-                            <form action="?s=1" method="post" id="full-page-form">
+                            <form action="?s=1" method="post" id="full-page-form" novalidate>
 
                                 <!--- Hidden slatAction to trigger a cart update with the new fulfillment information --->
                                 <input type="hidden" name="slatAction" value="public:cart.update" />
@@ -568,7 +568,7 @@ Notes:
                                                                 <cfif arrayLen(orderFulfillment.getShippingMethodOptions()) gt 1>
 
                                                                     <!--- Start: Shipping Method Example 1 --->
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" id="j-shipping-method">
                                                                     <label for="shippingMethod">Shipping Method Example</label>
                                                                         <!--- OPTIONAL: You can use this formField display to show options as a select box
                                                                         <sw:FormField type="select" name="orderFulfillments[#orderFulfillmentIndex#].shippingMethod.shippingMethodID" valueObject="#orderFulfillment#" valueObjectProperty="shippingMethod" valueOptions="#orderFulfillment.getShippingMethodOptions()#" class="col-md-4" />
@@ -642,8 +642,8 @@ Notes:
                                                 </div>
                                             </div>
 
-                                            <div id="shippingShow" style="display:none;">
-                                                <sw:AddressForm id="newBillingAddress" address="#addOrderPaymentObj.getNewOrderPayment().getBillingAddress()#" fieldNamePrefix="newOrderPayment.billingAddress."/>
+                                            <div id="j-shippingShow" style="display:none;">
+                                                <sw:AddressForm id="j-newBillingAddress" address="#addOrderPaymentObj.getNewOrderPayment().getBillingAddress()#" fieldNamePrefix="newOrderPayment.billingAddress."/>
                                             </div>
 
                                         </div>
@@ -697,7 +697,7 @@ Notes:
 
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-success" style="width:100%;">Place Order</button>
+                                                    <button type="submit" class="btn btn-success" id="j-place-order" style="width:100%;">Place Order</button>
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -803,11 +803,9 @@ Notes:
     </cfif>
 
 <script charset="utf-8">
+    $('##shippingToggle input[type="checkbox"]').attr('checked','checked');
+
     var addressObj = #SerializeJSON(resourceSections)#;
-
-    var convertArr = $.parseJSON(addressObj);
-
-
 
     var selected = $('##j-shipping-select').val();
 
@@ -839,14 +837,14 @@ Notes:
                     var postalcode = address.POSTALCODE;
                 }
 
-                $('##newBillingAddress input[name="newOrderPayment.billingAddress.name"]').val(name);
-                $('##newBillingAddress input[name="newOrderPayment.billingAddress.company"]').val(company);
-                $('##newBillingAddress input[name="newOrderPayment.billingAddress.streetAddress"]').val(address1);
-                $('##newBillingAddress input[name="newOrderPayment.billingAddress.street2Address"]').val(address2);
-                $('##newBillingAddress input[name="newOrderPayment.billingAddress.city"]').val(city);
-                $('##newBillingAddress input[name="newOrderPayment.billingAddress.postalCode"]').val(postalcode);
-                $('##newBillingAddress select[name="newOrderPayment.billingAddress.stateCode"]').val(state);
-                $('##newBillingAddress select[name="newOrderPayment.billingAddress.countryCode"]').val(country);
+                $('##j-newBillingAddress input[name="newOrderPayment.billingAddress.name"]').val(name);
+                $('##j-newBillingAddress input[name="newOrderPayment.billingAddress.company"]').val(company);
+                $('##j-newBillingAddress input[name="newOrderPayment.billingAddress.streetAddress"]').val(address1);
+                $('##j-newBillingAddress input[name="newOrderPayment.billingAddress.street2Address"]').val(address2);
+                $('##j-newBillingAddress input[name="newOrderPayment.billingAddress.city"]').val(city);
+                $('##j-newBillingAddress input[name="newOrderPayment.billingAddress.postalCode"]').val(postalcode);
+                $('##j-newBillingAddress select[name="newOrderPayment.billingAddress.stateCode"]').val(state);
+                $('##j-newBillingAddress select[name="newOrderPayment.billingAddress.countryCode"]').val(country);
 
 
             };

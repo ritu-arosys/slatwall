@@ -36,6 +36,142 @@ $(document).ready(function(e){
 		// console.log($.slatwall.doAction('public:ajax.account'));
 	});
 
+
+
+
+    //Place Order
+    $('body').on('submit', '#full-page-form', function(e){
+
+        e.preventDefault();
+
+
+        //Shipping address
+        var shippingName = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.name"]').val();
+		var shippingCompany = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.company"').val();
+		var shippingAddress = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.streetAddress"').val();
+		var shippingAddressTwo = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.street2Address"').val();
+		var shippingCountry = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.countryCode"').val();
+        var shippingCity = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.city"').val();
+        var shippingState = $('.s-shipping-address-content select[name="orderFulfillments[1].shippingAddress.stateCode"').val();
+        var shippingPostalCode = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.postalCode"').val();
+
+	  	//Shipping method
+	  	var shippingMethod = $('#j-shipping-method input[name="orderFulfillments[1].shippingMethod.shippingMethodID"]:checked').val();
+
+        //Billing address
+        var billingName = $('#j-shippingShow input[name="newOrderPayment.billingAddress.name"]').val();
+		var billingCompany = $('#j-shippingShow input[name="newOrderPayment.billingAddress.company"').val();
+		var billingAddress = $('#j-shippingShow input[name="newOrderPayment.billingAddress.streetAddress"').val();
+		var billingAddressTwo = $('#j-shippingShow input[name="newOrderPayment.billingAddress.street2Address"').val();
+		var billingCountry = $('#j-shippingShow input[name="newOrderPayment.billingAddress.countryCode"').val();
+        var billingCity = $('#j-shippingShow input[name="newOrderPayment.billingAddress.city"').val();
+        var billingState = $('#j-shippingShow select[name="newOrderPayment.billingAddress.stateCode"').val();
+        var billingPostalCode = $('#j-shippingShow input[name="newOrderPayment.billingAddress.postalCode"').val();
+
+//        $.slatwall.doAction(
+//			'public:public:cart.update',
+//			{
+//				'shippingAddress.name': shippingName,
+//				'shippingAddress.addressID': '',
+//                'shippingAddress.company': shippingCompany,
+//                'shippingAddress.streetAddress': shippingAddress,
+//                'shippingAddress.street2Address': shippingAddressTwo,
+//                'shippingAddress.countryCode': shippingCountry,
+//                'shippingAddress.city': shippingCity,
+//                'shippingAddress.stateCode': shippingState,
+//                'shippingAddress.postalCode': shippingPostalCode
+//			}
+//		);
+
+	   $.slatwall.doAction(
+			'public:public:cart.update',
+			{
+			    'shippingAddress.name': shippingName,
+				'shippingAddress.addressID': '',
+                'shippingAddress.company': shippingCompany,
+                'shippingAddress.streetAddress': shippingAddress,
+                'shippingAddress.street2Address': shippingAddressTwo,
+                'shippingAddress.countryCode': shippingCountry,
+                'shippingAddress.city': shippingCity,
+                'shippingAddress.stateCode': shippingState,
+                'shippingAddress.postalCode': shippingPostalCode,
+				'shippingMethod.shippingMethodID': shippingMethod
+
+			}
+	   );
+
+//	  $.slatwall.doAction(
+//			'public:cart.placeOrder',
+//			{
+//				'billingAddress.name': billingName,
+//				'billingAddress.addressID': '',
+//                'billingAddress.company': billingCompany,
+//                'billingAddress.streetAddress': billingAddress,
+//                'billingAddress.street2Address': billingAddressTwo,
+//                'billingAddress.countryCode': billingCountry,
+//                'billingAddress.city': billingCity,
+//                'billingAddress.stateCode': billingState,
+//                'billingAddress.postalCode': billingPostalCode,
+//				'newOrderPayment.nameOnCreditCard': 'reyjay',
+//                'newOrderPayment.creditCardNumber': '4111111111111111',
+//                'newOrderPayment.securityCode': '111',
+//                'newOrderPayment.expirationMonth': '07',
+//                'newOrderPayment.expirationYear': '15'
+//			}
+//		);
+
+
+
+
+        console.log(
+        $.slatwall.doAction(
+			'public:ajax.cart'
+        ));
+
+
+
+//        console.log(
+//            shippingName,
+//            shippingCompany,
+//            shippingAddress,
+//            shippingAddressTwo,
+//            shippingCountry,
+//            shippingCity,
+//            shippingState,
+//            shippingPostalCode
+//        );
+//
+        console.log(
+            billingName,
+            billingCompany,
+            billingAddress,
+            billingAddressTwo,
+            billingCountry,
+            billingCity,
+            billingState,
+            billingPostalCode
+        );
+
+
+
+
+//        $.ajax({
+//            type: "POST",
+//            url: "onepagecheckout.cfm",
+//            beforeSend: function(){
+//                $('#j-checkout-content').addClass('s-disabled');
+//            },
+//            success: function(result) {
+//                var success =  $(result).find('#j-checkout-content').html();
+//                $('#j-checkout-content').html(success);
+//                $('#j-checkout-content').removeClass('s-disabled');
+//            },
+//            error: function(xhr, textStatus, errorThrown) {
+//                $('#j-checkout-content').removeClass('s-disabled');
+//            }
+//        });
+    });
+
 	//Account logout
 	$('body').on('click', '#j-logout-btn', function(e){
 		e.preventDefault();
@@ -75,6 +211,7 @@ $(document).ready(function(e){
 		var userPassword = $('#j-create-account-form #password').val();
 		var userPasswordConfirm = $('#j-create-account-form #passwordConfirm').val();
 
+
 		if( $('#j-create-account-form #accountToggle input').prop('checked') ){
 			alert('gues');
 			$.slatwall.doAction(
@@ -90,7 +227,7 @@ $(document).ready(function(e){
 		}else{
 			alert('create');
 			$.slatwall.doAction(
-				'public:account.create , public:account.login',
+				'public:account.create',
 				{
 					'firstName': userFirstName,
 					'lastName': userLastName,
@@ -108,7 +245,6 @@ $(document).ready(function(e){
 					'password': userPassword
 				}
 			);
-			console.log('end');
 		};
 
 		$.ajax({
@@ -144,13 +280,15 @@ $(document).ready(function(e){
     });
 
     //Toggle billing address
-    $('body').on('change', '#shippingToggle', function(e){
-      if(this.checked) {
-        $('#shippingShow').toggle('fast');
-        $('#shippingHide').toggle('fast');
+    $('body').on('change', '#shippingToggle input[type="checkbox"]', function(e){
+      if($(this).is(':checked')) {
+        $('#j-shippingShow').toggle('fast');
+        $('#j-shippingHide').toggle('fast');
+//        $('#j-newBillingAddress .s-required').removeAttr('required');
       }else{
-        $('#shippingHide').toggle('fast');
-        $('#shippingShow').toggle('fast');
+        $('#j-shippingHide').toggle('fast');
+        $('#j-shippingShow').toggle('fast');
+//        $('#j-newBillingAddress .s-required').attr('required','required');
       };
     });
 
@@ -233,6 +371,20 @@ $(document).ready(function(e){
 	//     live: 'enabled',
 	// });
 
+    //Change the required shipping field if not used
+    function changeRequired(valueObj){
+        if( $(valueObj).val() ){
+            $('#new-shipping-address1 .s-required').removeAttr('required');
+        }else{
+            $('#new-shipping-address1 .s-required').attr('required','required');
+        };
+    };
+
+    $('#j-shipping-select').change(function(){
+        changeRequired(this);
+    });
+
+    changeRequired('#j-shipping-select');
 
 
 });
