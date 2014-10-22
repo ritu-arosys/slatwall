@@ -37,6 +37,60 @@ $(document).ready(function(e){
 	});
 
 
+	//BILLING SAME AS SHIPPING - find and change billing inputs
+	function sameAsShippingInput(key){
+		var inputType = $(key).attr('data-field-type');
+		var inputSibling = $('#j-newBillingAddress').find("[data-field-type='" + inputType + "']");
+		var inputVal = $(key).val();
+		$(inputSibling).val(inputVal);
+	};
+
+	//BILLING SAME AS SHIPPING - find and change billing selects
+	function sameAsShippingSelect(key){
+		var selectType = $(key).attr('data-field-type');
+		var selectSibling = $('#j-newBillingAddress').find("[data-field-type='" + selectType + "']");
+		var selectVal = $(key).val();
+		$(selectSibling).val(selectVal).change();
+	};
+
+	//BILLING SAME AS SHIPPING - live change the inputs and selects
+	function sameAsShipping(){
+		$('#newShippingAddress input').keyup(function(){
+		  sameAsShippingInput(this);
+		});
+
+		$('#newShippingAddress select').change(function(){
+			sameAsShippingSelect(this);
+		});
+	};
+
+  	//BILLING SAME AS SHIPPING - run sameAsShipping() if same as shipping else unbind fields
+	$('body').on('change', '#shippingToggle input', function(e){
+		if(this.checked) {
+			sameAsShippingAll();
+			sameAsShipping();
+		}else{
+			$('#j-newBillingAddress input').val('');
+			$('#newShippingAddress select').unbind('change');
+			$('#newShippingAddress input').unbind('keyup');
+		};
+	});
+
+	//BILLING SAME AS SHIPPING - set all same as shipping
+	function sameAsShippingAll(){
+		//BILLING SAME AS SHIPPING - set same as shipping on page load for inputs
+		$('#newShippingAddress input').each(function(){
+			sameAsShippingInput(this);
+		});
+
+		//BILLING SAME AS SHIPPING - set same as shipping on page load for selects
+		$('#newShippingAddress select').each(function(){
+			sameAsShippingSelect(this);
+		});
+	};
+
+	//BILLING SAME AS SHIPPING - set same as shipping for all inputs/selects on page load
+	sameAsShippingAll();
 
 
     //Place Order
@@ -44,19 +98,18 @@ $(document).ready(function(e){
 
         e.preventDefault();
 
-
         //Shipping address
         var shippingName = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.name"]').val();
 		var shippingCompany = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.company"').val();
 		var shippingAddress = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.streetAddress"').val();
 		var shippingAddressTwo = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.street2Address"').val();
-		var shippingCountry = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.countryCode"').val();
+		var shippingCountry = $('.s-shipping-address-content select[name="orderFulfillments[1].shippingAddress.countryCode"').val();
         var shippingCity = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.city"').val();
         var shippingState = $('.s-shipping-address-content select[name="orderFulfillments[1].shippingAddress.stateCode"').val();
         var shippingPostalCode = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.postalCode"').val();
 
 	  	//Shipping method
-	  	var shippingMethod = $('#j-shipping-method input[name="orderFulfillments[1].shippingMethod.shippingMethodID"]:checked').val();
+	  	var shippingMethod = $('#j-shipping-method input[type="radio"]:checked').val();
 
         //Billing address
         var billingName = $('#j-shippingShow input[name="newOrderPayment.billingAddress.name"]').val();
@@ -67,6 +120,7 @@ $(document).ready(function(e){
         var billingCity = $('#j-shippingShow input[name="newOrderPayment.billingAddress.city"').val();
         var billingState = $('#j-shippingShow select[name="newOrderPayment.billingAddress.stateCode"').val();
         var billingPostalCode = $('#j-shippingShow input[name="newOrderPayment.billingAddress.postalCode"').val();
+
 
 //        $.slatwall.doAction(
 //			'public:public:cart.update',
@@ -95,10 +149,12 @@ $(document).ready(function(e){
                 'shippingAddress.city': shippingCity,
                 'shippingAddress.stateCode': shippingState,
                 'shippingAddress.postalCode': shippingPostalCode,
-				'shippingMethod.shippingMethodID': shippingMethod
-
+				'orderFulfillments[1].orderFulfillmentID': '8a80808448f051db014935da213b05c0',
+				'orderFulfillments[1].shippingMethod.shippingMethodID': shippingMethod
 			}
 	   );
+
+
 
 //	  $.slatwall.doAction(
 //			'public:cart.placeOrder',
@@ -123,14 +179,12 @@ $(document).ready(function(e){
 
 
 
-        console.log(
-        $.slatwall.doAction(
-			'public:ajax.cart'
-        ));
 
 
 
-//        console.log(
+//
+//
+//        console.log('shipping'+
 //            shippingName,
 //            shippingCompany,
 //            shippingAddress,
@@ -141,16 +195,16 @@ $(document).ready(function(e){
 //            shippingPostalCode
 //        );
 //
-        console.log(
-            billingName,
-            billingCompany,
-            billingAddress,
-            billingAddressTwo,
-            billingCountry,
-            billingCity,
-            billingState,
-            billingPostalCode
-        );
+//        console.log('billing' +
+//            billingName,
+//            billingCompany,
+//            billingAddress,
+//            billingAddressTwo,
+//            billingCountry,
+//            billingCity,
+//            billingState,
+//            billingPostalCode
+//        );
 
 
 
@@ -192,7 +246,7 @@ $(document).ready(function(e){
 				$('#j-checkout-content').removeClass('s-disabled');
 			},
 			error: function(xhr, textStatus, errorThrown) {
-				$('#j-login-content-box').removeClass('s-disabled');
+				$('#j-checkout-content').removeClass('s-disabled');
 			}
 		});
 
@@ -385,6 +439,5 @@ $(document).ready(function(e){
     });
 
     changeRequired('#j-shipping-select');
-
 
 });

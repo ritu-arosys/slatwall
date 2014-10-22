@@ -83,7 +83,7 @@
 					<div class="form-group" data-sw-address="countryCode">
 
 						<label for="rating">#request.slatwallScope.rbKey('entity.address.countryCode')#</label>
-						<sw:formField type="select" name="#attributes.fieldNamePrefix#countryCode" valueObject="#attributes.address#" valueObjectProperty="countryCode" valueOptions="#attributes.address.getCountryCodeOptions()#" class=" #attributes.fieldClass# form-control s-required" />
+						<sw:formField type="select" name="#attributes.fieldNamePrefix#countryCode" valueObject="#attributes.address#" valueObjectProperty="countryCode" valueOptions="#attributes.address.getCountryCodeOptions()#" class=" #attributes.fieldClass# form-control s-required" fieldAttributes="data-field-type='country'"/>
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="countryCode" /></p>
 
 					</div>
@@ -94,7 +94,7 @@
 					<div class="form-group" data-sw-property="name">
 
 						<label for="rating" data-sw-label="true">#request.slatwallScope.rbKey('entity.address.name')#</label>
-						<sw:formField type="text" name="#attributes.fieldNamePrefix#name" valueObject="#attributes.address#" valueObjectProperty="name" class="#attributes.fieldClass# form-control s-required" fieldAttributes="required='required'" />
+						<sw:formField type="text" name="#attributes.fieldNamePrefix#name" valueObject="#attributes.address#" valueObjectProperty="name" class="#attributes.fieldClass# form-control s-required" fieldAttributes="data-field-type='name' required='required'" />
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="name" /></p>
 
 					</div>
@@ -105,7 +105,7 @@
 					<div class="form-group" data-sw-property="company">
 
 						<label for="rating" data-sw-label="true">#request.slatwallScope.rbKey('entity.address.company')#</label>
-						<sw:formField type="text" name="#attributes.fieldNamePrefix#company" valueObject="#attributes.address#" valueObjectProperty="company" class="#attributes.fieldClass# form-control" />
+						<sw:formField type="text" name="#attributes.fieldNamePrefix#company" valueObject="#attributes.address#" valueObjectProperty="company" class="#attributes.fieldClass# form-control" fieldAttributes="data-field-type='company'" />
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="company" /></p>
 
 					</div>
@@ -116,7 +116,7 @@
 					<div class="form-group#iif(attributes.address.getCountry().getStreetAddressShowFlag(), de(''), de(' hide'))#" data-sw-property="streetAddress">
 
 						<label for="rating" data-sw-label="true">#request.slatwallScope.rbKey('entity.address.streetAddress')#</label>
-						<sw:formField type="text" name="#attributes.fieldNamePrefix#streetAddress" valueObject="#attributes.address#" valueObjectProperty="streetAddress" class="#attributes.fieldClass# form-control s-required" fieldAttributes="required='required'"/>
+						<sw:formField type="text" name="#attributes.fieldNamePrefix#streetAddress" valueObject="#attributes.address#" valueObjectProperty="streetAddress" class="#attributes.fieldClass# form-control s-required" fieldAttributes="data-field-type='address' required='required'"/>
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="streetAddress" /></p>
 
 					</div>
@@ -127,7 +127,7 @@
 					<div class="form-group#iif(attributes.address.getCountry().getStreet2AddressShowFlag(), de(''), de(' hide'))#" data-sw-property="street2Address">
 
 						<label for="rating" data-sw-label="true">#request.slatwallScope.rbKey('entity.address.street2Address')#</label>
-						<sw:formField type="text" name="#attributes.fieldNamePrefix#street2Address" valueObject="#attributes.address#" valueObjectProperty="street2Address" class="#attributes.fieldClass# form-control" />
+						<sw:formField type="text" name="#attributes.fieldNamePrefix#street2Address" valueObject="#attributes.address#" valueObjectProperty="street2Address" class="#attributes.fieldClass# form-control" fieldAttributes="data-field-type='addressTwo'" />
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="street2Address" /></p>
 
 					</div>
@@ -149,7 +149,7 @@
 					<div class="form-group #iif(attributes.address.getCountry().getCityShowFlag(), de(''), de(' hide'))#" data-sw-property="city">
 
 						<label for="rating" data-sw-label="true">#request.slatwallScope.rbKey('entity.address.city')#</label>
-						<sw:formField type="text" name="#attributes.fieldNamePrefix#city" valueObject="#attributes.address#" valueObjectProperty="city" class="#attributes.fieldClass# form-control s-required" fieldAttributes="required='required'" />
+						<sw:formField type="text" name="#attributes.fieldNamePrefix#city" valueObject="#attributes.address#" valueObjectProperty="city" class="#attributes.fieldClass# form-control s-required" fieldAttributes="data-field-type='city' required='required'" />
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="city" /></p>
 
 					</div>
@@ -161,9 +161,9 @@
 
 						<label for="rating" data-sw-label="true">#request.slatwallScope.rbKey('entity.address.stateCode')#</label>
 						<cfif arrayLen(attributes.address.getCountry().getStateCodeOptions())>
-							<sw:formField type="select" name="#attributes.fieldNamePrefix#stateCode" valueObject="#attributes.address#" valueObjectProperty="stateCode" valueOptions="#attributes.address.getCountry().getStateCodeOptions()#" class="#attributes.fieldClass# form-control s-required" />
+							<sw:formField type="select" name="#attributes.fieldNamePrefix#stateCode" valueObject="#attributes.address#" valueObjectProperty="stateCode" valueOptions="#attributes.address.getCountry().getStateCodeOptions()#" class="#attributes.fieldClass# form-control s-required" fieldAttributes="data-field-type='state'" />
 						<cfelse>
-							<sw:formField type="text" name="#attributes.fieldNamePrefix#stateCode" valueObject="#attributes.address#" valueObjectProperty="stateCode" class="#attributes.fieldClass# form-control s-required" />
+							<sw:formField type="text" name="#attributes.fieldNamePrefix#stateCode" valueObject="#attributes.address#" valueObjectProperty="stateCode" class="#attributes.fieldClass# form-control s-required" fieldAttributes="data-field-type='state'" />
 						</cfif>
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="stateCode" /></p>
 
@@ -175,7 +175,7 @@
 					<div class="form-group #iif(attributes.address.getCountry().getPostalCodeShowFlag(), de(''), de(' hide'))#" data-sw-property="postalCode">
 
 						<label for="rating" data-sw-label="true">#request.slatwallScope.rbKey('entity.address.postalCode')#</label>
-						<sw:formField type="text" name="#attributes.fieldNamePrefix#postalCode" valueObject="#attributes.address#" valueObjectProperty="postalCode" class="#attributes.fieldClass# form-control s-required" fieldAttributes="required='required'" />
+						<sw:formField type="text" name="#attributes.fieldNamePrefix#postalCode" valueObject="#attributes.address#" valueObjectProperty="postalCode" class="#attributes.fieldClass# form-control s-required" fieldAttributes="data-field-type='postalCode' required='required'" />
 						<p class="help-block"><sw:errorDisplay object="#attributes.address#" errorName="postalCode" /></p>
 
 					</div>
@@ -226,7 +226,7 @@
 										if($(that).closest('.sw-address').find('[data-sw-property="stateCode"] input').length && !$(that).closest('.sw-address').find('[data-sw-property="stateCode"] select').length) {
 											var dname = $(that).closest('.sw-address').find('[data-sw-property="stateCode"] input').attr('name');
 											var dclass = $(that).closest('.sw-address').find('[data-sw-property="stateCode"] input').attr('class');
-											var newSelect = '<select name="' + dname + '" class="' + dclass + '"></select>';
+											var newSelect = '<select name="' + dname + '" class="' + dclass + '"' + ' data-field-type="state"' + '></select>';
 											$(that).closest('.sw-address').find('[data-sw-property="stateCode"] input').replaceWith( newSelect );
 										}
 
@@ -243,7 +243,7 @@
 
 										var dname = $(that).closest('.sw-address').find('[data-sw-property="stateCode"] select').attr('name');
 										var dclass = $(that).closest('.sw-address').find('[data-sw-property="stateCode"] select').attr('class');
-										var newInput = '<input type="text" name="' + dname + '" class="' + dclass + '" />';
+										var newInput = '<input type="text" name="' + dname + '" class="' + dclass + '"' + ' data-field-type="state" ' + '></select>';
 										$(that).closest('.sw-address').find('[data-sw-property="stateCode"] select').replaceWith(newInput);
 
 									}
