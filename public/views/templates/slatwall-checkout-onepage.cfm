@@ -248,11 +248,6 @@ Notes:
 
     </cfloop>
 
-    <!--- <cfdump var = "#resourceSections[1]#"> --->
-
-
-
-
     <!--- START CEHECKOUT EXAMPLE 1 --->
     <div class="row">
         <div class="col-md-12">
@@ -441,173 +436,171 @@ Notes:
                                 <cfset orderFulfillmentIndex = 1 />
                                 <cfset orderFulfillment = $.slatwall.cart().getOrderFulfillments()[1] />
 
-								<input type="hidden" name="orderFulfillments[#orderFulfillmentIndex#].orderFulfillmentID" value="#orderFulfillment.getOrderFulfillmentID()#" />
+                								<input type="hidden" class="s-orderFulfillmentID" name="orderFulfillments[#orderFulfillmentIndex#].orderFulfillmentID" value="#orderFulfillment.getOrderFulfillmentID()#" />
 
-								<!--- SHIPPING --->
-								<cfif orderFulfillment.getFulfillmentMethod().getFulfillmentMethodType() eq "shipping">
+                								<!--- SHIPPING --->
+                								<cfif orderFulfillment.getFulfillmentMethod().getFulfillmentMethodType() eq "shipping">
 
-									<!--- Get the options that the person can choose from --->
-									<cfset accountAddressOptions = orderFulfillment.getAccountAddressOptions() />
+                									<!--- Get the options that the person can choose from --->
+                									<cfset accountAddressOptions = orderFulfillment.getAccountAddressOptions() />
 
-									<!--- Add a 'New' Attribute so that we can drive the new form below --->
-									<cfset arrayAppend(accountAddressOptions, {name='New', value=''}) />
+                									<!--- Add a 'New' Attribute so that we can drive the new form below --->
+                									<cfset arrayAppend(accountAddressOptions, {name='New', value=''}) />
 
-									<!--- As long as there are no errors for the orderFulfillment, we can setup the default accountAddress value to be selected --->
-									<cfset accountAddressID = "" />
+                									<!--- As long as there are no errors for the orderFulfillment, we can setup the default accountAddress value to be selected --->
+                									<cfset accountAddressID = "" />
 
-									<cfif !isNull(orderFulfillment.getAccountAddress())>
-										<cfset accountAddressID = orderFulfillment.getAccountAddress().getAccountAddressID() />
-									<cfelseif orderFulfillment.getShippingAddress().getNewFlag() && not orderFulfillment.getShippingAddress().hasErrors()>
-										<cfset accountAddressID = $.slatwall.cart().getAccount().getPrimaryAddress().getAccountAddressID() />
-									</cfif>
+                									<cfif !isNull(orderFulfillment.getAccountAddress())>
+                										<cfset accountAddressID = orderFulfillment.getAccountAddress().getAccountAddressID() />
+                									<cfelseif orderFulfillment.getShippingAddress().getNewFlag() && not orderFulfillment.getShippingAddress().hasErrors()>
+                										<cfset accountAddressID = $.slatwall.cart().getAccount().getPrimaryAddress().getAccountAddressID() />
+                									</cfif>
 
-									<!-- Shipping Address -->
-									<div class="row s-shipping-address-content">
-										<div class="col-md-6">
-											<div class="well margin-bottom" style="margin-bottom:0px;">
-												<legend>Shipping Address</legend>
+                									<!-- Shipping Address -->
+                									<div class="row s-shipping-address-content">
+                										<div class="col-md-6">
+                											<div class="well margin-bottom" style="margin-bottom:0px;">
+                												<legend>Shipping Address</legend>
 
-												<!--- If there are existing account addresses, then we can allow the user to select one of those --->
-												<!--- <cfif arrayLen(accountAddressOptions) gt 1>
+                												<!--- If there are existing account addresses, then we can allow the user to select one of those --->
+                												<!--- <cfif arrayLen(accountAddressOptions) gt 1>
 
-													<!--- Account Address --->
-													<div class="form-group">
-														<label for="accountAddress">Select Address</label>
-														<sw:FormField type="select" name="shippingAccountAddress.accountAddressID" valueObject="#orderFulfillment#" valueObjectProperty="accountAddress" valueOptions="#accountAddressOptions#" value="#accountAddressID#" class="form-control" />
-														<p class="help-block"><sw:ErrorDisplay object="#orderFulfillment#" errorName="accountAddress" /></p>
-													</div>
+                													<!--- Account Address --->
+                													<div class="form-group">
+                														<label for="accountAddress">Select Address</label>
+                														<sw:FormField type="select" name="shippingAccountAddress.accountAddressID" valueObject="#orderFulfillment#" valueObjectProperty="accountAddress" valueOptions="#accountAddressOptions#" value="#accountAddressID#" class="form-control" />
+                														<p class="help-block"><sw:ErrorDisplay object="#orderFulfillment#" errorName="accountAddress" /></p>
+                													</div>
 
-												</cfif> --->
+                												</cfif> --->
 
-												<!--- If there are existing account addresses, then we can allow the user to select one of those --->
-												<cfif arrayLen(accountAddressOptions) gt 1>
+                												<!--- If there are existing account addresses, then we can allow the user to select one of those --->
+                												<cfif arrayLen(accountAddressOptions) gt 1>
 
-													<!--- Account Address --->
-													<div class="form-group">
-														<label for="accountAddress">Select Address</label>
-														<sw:FormField type="select" name="orderFulfillments[#orderFulfillmentIndex#].accountAddress.accountAddressID" valueObject="#orderFulfillment#" valueObjectProperty="accountAddress" valueOptions="#accountAddressOptions#" value="#accountAddressID#" class="form-control" fieldAttributes=" id='j-shipping-select' " />
-														<p class="help-block"><sw:ErrorDisplay object="#orderFulfillment#" errorName="accountAddress" /></p>
-													</div>
-													<hr />
+                													<!--- Account Address --->
+                													<div class="form-group">
+                														<label for="accountAddress">Select Address</label>
+                														<sw:FormField type="select" name="orderFulfillments[#orderFulfillmentIndex#].accountAddress.accountAddressID" valueObject="#orderFulfillment#" valueObjectProperty="accountAddress" valueOptions="#accountAddressOptions#" value="#accountAddressID#" class="form-control" fieldAttributes=" id='j-shipping-select' " />
+                														<p class="help-block"><sw:ErrorDisplay object="#orderFulfillment#" errorName="accountAddress" /></p>
+                													</div>
+                													<hr />
 
-												</cfif>
+                												</cfif>
 
-												<!--- New Shipping Address --->
-												<div id="new-shipping-address#orderFulfillmentIndex#"<cfif len(accountAddressID)> class="s-hide"</cfif>>
-													<cfif isNull(orderFulfillment.getAccountAddress())>
-														<sw:AddressForm id="newShippingAddress" address="#orderFulfillment.getAddress()#" fieldNamePrefix="orderFulfillments[#orderFulfillmentIndex#].shippingAddress." fieldClass="shipping-input" class="form-control" />
-													<cfelse>
-														<sw:AddressForm id="newShippingAddress" address="#orderFulfillment.getNewPropertyEntity( 'shippingAddress' )#" fieldNamePrefix="orderFulfillments[#orderFulfillmentIndex#].shippingAddress." fieldClass="shipping" class="form-control" />
-													</cfif>
+                												<!--- New Shipping Address --->
+                												<div id="new-shipping-address#orderFulfillmentIndex#"<cfif len(accountAddressID)> class="s-hide"</cfif>>
+                													<cfif isNull(orderFulfillment.getAccountAddress())>
+                														<sw:AddressForm id="newShippingAddress" address="#orderFulfillment.getAddress()#" fieldNamePrefix="orderFulfillments[#orderFulfillmentIndex#].shippingAddress." fieldClass="shipping-input" class="form-control" />
+                													<cfelse>
+                														<sw:AddressForm id="newShippingAddress" address="#orderFulfillment.getNewPropertyEntity( 'shippingAddress' )#" fieldNamePrefix="orderFulfillments[#orderFulfillmentIndex#].shippingAddress." fieldClass="shipping" class="form-control" />
+                													</cfif>
 
-													<!--- As long as the account is not a guest account, and this is truely new address we are adding, then we can offer to save as an account address for use on later purchases --->
-													<cfif not $.slatwall.getCart().getAccount().getGuestAccountFlag()>
+                													<!--- As long as the account is not a guest account, and this is truely new address we are adding, then we can offer to save as an account address for use on later purchases --->
+                													<cfif not $.slatwall.getCart().getAccount().getGuestAccountFlag()>
 
-														<!--- Save As Account Address --->
-														<div class="form-group">
-															<label for="saveAccountAddressFlag">Save In Address Book</label>
-															<sw:FormField type="yesno" name="orderFulfillments[#orderFulfillmentIndex#].saveAccountAddressFlag" valueObject="#orderFulfillment#" valueObjectProperty="saveAccountAddressFlag" />
-														</div>
+                														<!--- Save As Account Address --->
+                														<div class="form-group">
+                															<label for="saveAccountAddressFlag">Save In Address Book</label>
+                															<sw:FormField type="yesno" name="orderFulfillments[#orderFulfillmentIndex#].saveAccountAddressFlag" valueObject="#orderFulfillment#" valueObjectProperty="saveAccountAddressFlag" />
+                														</div>
 
-														<!--- Save Account Address Name --->
-														<div id="save-account-address-name#orderFulfillmentIndex#"<cfif not orderFulfillment.getSaveAccountAddressFlag()> class="s-hide"</cfif>>
-															<div class="form-group">
-																<label for="saveAccountAddressName">Address Nickname (optional)</label>
-																<sw:FormField type="text" name="orderFulfillments[#orderFulfillmentIndex#].saveAccountAddressName" valueObject="#orderFulfillment#" valueObjectProperty="saveAccountAddressName" class="form-control" />
-															</div>
-														</div>
+                														<!--- Save Account Address Name --->
+                														<div id="save-account-address-name#orderFulfillmentIndex#"<cfif not orderFulfillment.getSaveAccountAddressFlag()> class="s-hide"</cfif>>
+                															<div class="form-group">
+                																<label for="saveAccountAddressName">Address Nickname (optional)</label>
+                																<sw:FormField type="text" name="orderFulfillments[#orderFulfillmentIndex#].saveAccountAddressName" valueObject="#orderFulfillment#" valueObjectProperty="saveAccountAddressName" class="form-control" />
+                															</div>
+                														</div>
 
-													</cfif>
+                													</cfif>
 
-												</div>
+                												</div>
 
-												<!--- SCRIPT IMPORTANT: This jQuery is just here for example purposes to show/hide the new address field if there are account addresses --->
-												<script type="text/javascript">
-													(function($){
-														$(document).ready(function(){
-															$('body').on('change', 'select[name="orderFulfillments[#orderFulfillmentIndex#].accountAddress.accountAddressID"]', function(e){
-																if( $(this).val() === '' ) {
-																	$('##new-shipping-address#orderFulfillmentIndex#').show('slide');
-																} else {
-																	$('##new-shipping-address#orderFulfillmentIndex#').hide('slide');
-																}
-															});
-															$('body').on('change', 'input[name="orderFulfillments[#orderFulfillmentIndex#].saveAccountAddressFlag"]', function(e){
-																if( $(this).val() === '1' ) {
-																	$('##save-account-address-name#orderFulfillmentIndex#').show('slide');
-																} else {
-																	$('##save-account-address-name#orderFulfillmentIndex#').hide('slide');
-																}
-															});
-															$('select[name="orderFulfillments[#orderFulfillmentIndex#].accountAddress.accountAddressID"]').change();
-														});
-													})( jQuery )
-												</script>
+                												<!--- SCRIPT IMPORTANT: This jQuery is just here for example purposes to show/hide the new address field if there are account addresses --->
+                												<script type="text/javascript">
+                													(function($){
+                														$(document).ready(function(){
+                															$('body').on('change', 'select[name="orderFulfillments[#orderFulfillmentIndex#].accountAddress.accountAddressID"]', function(e){
+                																if( $(this).val() === '' ) {
+                																	$('##new-shipping-address#orderFulfillmentIndex#').show('slide');
+                																} else {
+                																	$('##new-shipping-address#orderFulfillmentIndex#').hide('slide');
+                																}
+                															});
+                															$('body').on('change', 'input[name="orderFulfillments[#orderFulfillmentIndex#].saveAccountAddressFlag"]', function(e){
+                																if( $(this).val() === '1' ) {
+                																	$('##save-account-address-name#orderFulfillmentIndex#').show('slide');
+                																} else {
+                																	$('##save-account-address-name#orderFulfillmentIndex#').hide('slide');
+                																}
+                															});
+                															$('select[name="orderFulfillments[#orderFulfillmentIndex#].accountAddress.accountAddressID"]').change();
+                														});
+                													})( jQuery )
+                												</script>
 
-											</div>
-										</div>
+                											</div>
+                										</div>
 
-										<!-- Shipping Options -->
-										<div class="col-md-6">
+                										<!-- Shipping Options -->
+                										<div class="col-md-6">
 
-											<!-- Shipping Options -->
-											<div class="row">
-												<div class="col-md-12">
-													<div class="well">
-														<legend>Shipping Method</legend>
+                											<!-- Shipping Options -->
+                											<div class="row">
+                												<div class="col-md-12">
+                													<div class="well">
+                														<legend>Shipping Method</legend>
 
-														<!--- If there are multiple shipping methods to select from, then display that --->
-														<cfif arrayLen(orderFulfillment.getShippingMethodOptions()) gt 1>
+                														<!--- If there are multiple shipping methods to select from, then display that --->
+                														<cfif arrayLen(orderFulfillment.getShippingMethodOptions()) gt 1>
 
-															<!--- Start: Shipping Method Example 1 --->
-															<div class="form-group" id="j-shipping-method">
-															<label for="shippingMethod">Shipping Method Example</label>
-																<!--- OPTIONAL: You can use this formField display to show options as a select box
-																<sw:FormField type="select" name="orderFulfillments[#orderFulfillmentIndex#].shippingMethod.shippingMethodID" valueObject="#orderFulfillment#" valueObjectProperty="shippingMethod" valueOptions="#orderFulfillment.getShippingMethodOptions()#" class="col-md-4" />
-																--->
-																<cfset shippingMethodID = "" />
-																<cfif not isNull(orderFulfillment.getShippingMethod())>
-																	<cfset shippingMethodID = orderFulfillment.getShippingMethod().getShippingMethodID() />
-																</cfif>
+                															<!--- Start: Shipping Method Example 1 --->
+                															<div class="form-group" id="j-shipping-method">
+                															<label for="shippingMethod">Shipping Method Example</label>
+                																<!--- OPTIONAL: You can use this formField display to show options as a select box
+                																<sw:FormField type="select" name="orderFulfillments[#orderFulfillmentIndex#].shippingMethod.shippingMethodID" valueObject="#orderFulfillment#" valueObjectProperty="shippingMethod" valueOptions="#orderFulfillment.getShippingMethodOptions()#" class="col-md-4" />
+                																--->
+                																<cfset shippingMethodID = "" />
+                																<cfif not isNull(orderFulfillment.getShippingMethod())>
+                																	<cfset shippingMethodID = orderFulfillment.getShippingMethod().getShippingMethodID() />
+                																</cfif>
 
-																<sw:FormField type="radiogroup" name="orderFulfillments[#orderFulfillmentIndex#].shippingMethod.shippingMethodID" value="#shippingMethodID#" valueOptions="#orderFulfillment.getShippingMethodOptions()#" />
-																<p class="help-block"><sw:ErrorDisplay object="#orderFulfillment#" errorName="shippingMethod" /></p>
-															  </div>
-															<!--- End: Shipping Method Example 1 --->
+                																<sw:FormField type="radiogroup" name="orderFulfillments[#orderFulfillmentIndex#].shippingMethod.shippingMethodID" value="#shippingMethodID#" valueOptions="#orderFulfillment.getShippingMethodOptions()#" />
+                																<p class="help-block"><sw:ErrorDisplay object="#orderFulfillment#" errorName="shippingMethod" /></p>
+                															  </div>
+                															<!--- End: Shipping Method Example 1 --->
 
-														<!--- If there is only 1 shipping method option that comes back, then we can just tell the customer how there order will be shipped --->
-														<cfelseif arrayLen(orderFulfillment.getShippingMethodOptions()) and len(orderFulfillment.getShippingMethodOptions()[1]['value'])>
+                														<!--- If there is only 1 shipping method option that comes back, then we can just tell the customer how there order will be shipped --->
+                														<cfelseif arrayLen(orderFulfillment.getShippingMethodOptions()) and len(orderFulfillment.getShippingMethodOptions()[1]['value'])>
 
-															<!--- We should still pass the shipping method as a hidden value --->
-															<input type="text" name="orderFulfillments[#orderFulfillmentIndex#].shippingMethod.shippingMethodID" value="#orderFulfillment.getShippingMethodOptions()[1]['value']#" id="j-hidden-shipping-method" />
+                															<!--- We should still pass the shipping method as a hidden value --->
+                															<input type="text" name="orderFulfillments[#orderFulfillmentIndex#].shippingMethod.shippingMethodID" value="#orderFulfillment.getShippingMethodOptions()[1]['value']#" id="j-hidden-shipping-method" />
 
-															<p>This order will be shipped via: #orderFulfillment.getFulfillmentShippingMethodOptions()[1].getShippingMethodRate().getShippingMethod().getShippingMethodName()# ( #orderFulfillment.getFulfillmentShippingMethodOptions()[1].getFormattedValue('totalCharge')# )</p>
+                															<p>This order will be shipped via: #orderFulfillment.getFulfillmentShippingMethodOptions()[1].getShippingMethodRate().getShippingMethod().getShippingMethodName()# ( #orderFulfillment.getFulfillmentShippingMethodOptions()[1].getFormattedValue('totalCharge')# )</p>
 
-														<!--- Show message to customer telling them that they need to fill in an address before we can provide a shipping method quote --->
-														<cfelse>
+                														<!--- Show message to customer telling them that they need to fill in an address before we can provide a shipping method quote --->
+                														<cfelse>
 
-															<!--- If the user has not yet defined their shipping address, then we can display a note for them --->
-															<cfif orderFulfillment.getAddress().getNewFlag()>
-																<p>Please update your shipping address first so that we can provide you with the correct shipping rates.</p>
+                															<!--- If the user has not yet defined their shipping address, then we can display a note for them --->
+                															<cfif orderFulfillment.getAddress().getNewFlag()>
+                																<p>Please update your shipping address first so that we can provide you with the correct shipping rates.</p>
 
-															<!--- If they have already provided an address, and there are still no shipping method options, then the address they entered is not one that can be shipped to --->
-															<cfelse>
+                															<!--- If they have already provided an address, and there are still no shipping method options, then the address they entered is not one that can be shipped to --->
+                															<cfelse>
 
-																<p>Unfortunately the shipping address that you have provided is not one that we ship to.  Please update your shipping address and try again, or contact customer service for more information.</p>
+                																<p>Unfortunately the shipping address that you have provided is not one that we ship to.  Please update your shipping address and try again, or contact customer service for more information.</p>
 
-															</cfif>
+                															</cfif>
 
-														</cfif>
+                														</cfif>
 
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<hr/>
-								</cfif>
-
-
+                													</div>
+                												</div>
+                											</div>
+                										</div>
+                									</div>
+                									<hr/>
+                								</cfif>
 
                                 <!-- Credit Card Info -->
                                 <div class="row payment">
@@ -803,20 +796,20 @@ Notes:
 
     $('##j-shipping-select').change(function(){
         var selected = $(this).val();
-
+        
         $.each(addressObj, function(i, address) {
 
-            if(selected === address.ID & $('##shippingToggle input').is(':checked') ){
-
-                if(selected === ''){
+            if( $('##shippingToggle input').is(':checked') ){
+                  
+                if(selected == ''){
                     var name = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.name"]').val();
-                    var company = address.COMPANY;
-                    var address1 = address.STREETADDRESS;
-                    var address2 = address.STREET2ADDRESS;
-                    var city = address.CITY;
-                    var country = address.COUNTRYCODE;
-                    var state = address.STATECODE;
-                    var postalcode = address.POSTALCODE;
+                    var company = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.company"]').val();
+                    var address1 = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.streetAddress"]').val();
+                    var address2 = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.street2Address"]').val();
+                    var city = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.city"]').val();
+                    var country = $('.s-shipping-address-content select[name="orderFulfillments[1].shippingAddress.countryCode"]').val();
+                    var state = $('.s-shipping-address-content select[name="orderFulfillments[1].shippingAddress.stateCode"]').val();
+                    var postalcode = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.postalCode"]').val();
                 }else{
                     var id = address.ID;
                     var name = address.NAME;

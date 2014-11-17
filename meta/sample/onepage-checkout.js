@@ -35,8 +35,7 @@ $(document).ready(function(e){
 
 		// console.log($.slatwall.doAction('public:ajax.account'));
 	});
-
-
+	
 	//BILLING SAME AS SHIPPING - find and change billing inputs
 	function sameAsShippingInput(key){
 		var inputType = $(key).attr('data-field-type');
@@ -64,7 +63,8 @@ $(document).ready(function(e){
 		});
 	};
 
-  	//BILLING SAME AS SHIPPING - run sameAsShipping() if same as shipping else unbind fields
+  //BILLING SAME AS SHIPPING - run sameAsShipping() if same as shipping else unbind fields
+	var checkIf = $('#shippingToggle input');
 	$('body').on('change', '#shippingToggle input', function(e){
 		if(this.checked) {
 			sameAsShippingAll();
@@ -75,6 +75,12 @@ $(document).ready(function(e){
 			$('#newShippingAddress input').unbind('keyup');
 		};
 	});
+	
+	//BILLING SAME AS SHIPPING - if same as shipping on page load
+	if( $('#shippingToggle input').attr('checked') == 'checked' ) {
+		sameAsShippingAll();
+		sameAsShipping();
+	}
 
 	//BILLING SAME AS SHIPPING - set all same as shipping
 	function sameAsShippingAll(){
@@ -94,9 +100,9 @@ $(document).ready(function(e){
 
 
     //Place Order
-    $('body').on('submit', '#full-page-form', function(e){
+    $('body').on('click', '#j-place-order', function(e){
 
-        e.preventDefault();
+        // e.preventDefault();
 
         //Shipping address
         var shippingName = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.name"]').val();
@@ -107,6 +113,7 @@ $(document).ready(function(e){
         var shippingCity = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.city"').val();
         var shippingState = $('.s-shipping-address-content select[name="orderFulfillments[1].shippingAddress.stateCode"').val();
         var shippingPostalCode = $('.s-shipping-address-content input[name="orderFulfillments[1].shippingAddress.postalCode"').val();
+		var orderFulfillmentID = $('.s-orderFulfillmentID').val();
 
 	  	//Shipping method
 	  	var shippingMethod = $('#j-shipping-method input[type="radio"]:checked').val();
@@ -116,95 +123,81 @@ $(document).ready(function(e){
 		var billingCompany = $('#j-shippingShow input[name="newOrderPayment.billingAddress.company"').val();
 		var billingAddress = $('#j-shippingShow input[name="newOrderPayment.billingAddress.streetAddress"').val();
 		var billingAddressTwo = $('#j-shippingShow input[name="newOrderPayment.billingAddress.street2Address"').val();
-		var billingCountry = $('#j-shippingShow input[name="newOrderPayment.billingAddress.countryCode"').val();
+		var billingCountry = $('#j-shippingShow select[name="newOrderPayment.billingAddress.countryCode"').val();
         var billingCity = $('#j-shippingShow input[name="newOrderPayment.billingAddress.city"').val();
         var billingState = $('#j-shippingShow select[name="newOrderPayment.billingAddress.stateCode"').val();
         var billingPostalCode = $('#j-shippingShow input[name="newOrderPayment.billingAddress.postalCode"').val();
 
 
-//        $.slatwall.doAction(
-//			'public:public:cart.update',
-//			{
-//				'shippingAddress.name': shippingName,
-//				'shippingAddress.addressID': '',
-//                'shippingAddress.company': shippingCompany,
-//                'shippingAddress.streetAddress': shippingAddress,
-//                'shippingAddress.street2Address': shippingAddressTwo,
-//                'shippingAddress.countryCode': shippingCountry,
-//                'shippingAddress.city': shippingCity,
-//                'shippingAddress.stateCode': shippingState,
-//                'shippingAddress.postalCode': shippingPostalCode
-//			}
-//		);
-
-	   $.slatwall.doAction(
+//THIS WAS WORKING
+		$.slatwall.doAction(
 			'public:public:cart.update',
 			{
 			    'shippingAddress.name': shippingName,
 				'shippingAddress.addressID': '',
-                'shippingAddress.company': shippingCompany,
-                'shippingAddress.streetAddress': shippingAddress,
-                'shippingAddress.street2Address': shippingAddressTwo,
-                'shippingAddress.countryCode': shippingCountry,
-                'shippingAddress.city': shippingCity,
-                'shippingAddress.stateCode': shippingState,
-                'shippingAddress.postalCode': shippingPostalCode,
-				'orderFulfillments[1].orderFulfillmentID': '8a80808448f051db014935da213b05c0',
+		        'shippingAddress.company': shippingCompany,
+		        'shippingAddress.streetAddress': shippingAddress,
+		        'shippingAddress.street2Address': shippingAddressTwo,
+		        'shippingAddress.countryCode': shippingCountry,
+		        'shippingAddress.city': shippingCity,
+		        'shippingAddress.stateCode': shippingState,
+		        'shippingAddress.postalCode': shippingPostalCode,
+				'orderFulfillments[1].orderFulfillmentID': orderFulfillmentID,
 				'orderFulfillments[1].shippingMethod.shippingMethodID': shippingMethod
 			}
-	   );
+			
+		);
+
+//THIS WAS NOT GOING THROUGH
+		$.slatwall.doAction(
+			'public:cart.placeOrder',
+			{
+				'billingAddress.name': billingName,
+				'billingAddress.addressID': '',
+		        'billingAddress.company': billingCompany,
+		        'billingAddress.streetAddress': billingAddress,
+		        'billingAddress.street2Address': billingAddressTwo,
+		        'billingAddress.countryCode': billingCountry,
+		        'billingAddress.city': billingCity,
+		        'billingAddress.stateCode': billingState,
+		        'billingAddress.postalCode': billingPostalCode,
+				'newOrderPayment.nameOnCreditCard': 'reyjay',
+		        'newOrderPayment.creditCardNumber': '4111111111111111',
+		        'newOrderPayment.securityCode': '111',
+		        'newOrderPayment.expirationMonth': '07',
+		        'newOrderPayment.expirationYear': '15'
+			}
+			
+		);
 
 
 
-//	  $.slatwall.doAction(
-//			'public:cart.placeOrder',
-//			{
-//				'billingAddress.name': billingName,
-//				'billingAddress.addressID': '',
-//                'billingAddress.company': billingCompany,
-//                'billingAddress.streetAddress': billingAddress,
-//                'billingAddress.street2Address': billingAddressTwo,
-//                'billingAddress.countryCode': billingCountry,
-//                'billingAddress.city': billingCity,
-//                'billingAddress.stateCode': billingState,
-//                'billingAddress.postalCode': billingPostalCode,
-//				'newOrderPayment.nameOnCreditCard': 'reyjay',
-//                'newOrderPayment.creditCardNumber': '4111111111111111',
-//                'newOrderPayment.securityCode': '111',
-//                'newOrderPayment.expirationMonth': '07',
-//                'newOrderPayment.expirationYear': '15'
-//			}
-//		);
 
 
 
 
 
+       console.log('shipping'+
+           shippingName,
+           shippingCompany,
+           shippingAddress,
+           shippingAddressTwo,
+           shippingCountry,
+           shippingCity,
+           shippingState,
+           shippingPostalCode
+       );
 
-
-//
-//
-//        console.log('shipping'+
-//            shippingName,
-//            shippingCompany,
-//            shippingAddress,
-//            shippingAddressTwo,
-//            shippingCountry,
-//            shippingCity,
-//            shippingState,
-//            shippingPostalCode
-//        );
-//
-//        console.log('billing' +
-//            billingName,
-//            billingCompany,
-//            billingAddress,
-//            billingAddressTwo,
-//            billingCountry,
-//            billingCity,
-//            billingState,
-//            billingPostalCode
-//        );
+       console.log('billing' +
+           billingName,
+           billingCompany,
+           billingAddress,
+           billingAddressTwo,
+           billingCountry,
+           billingCity,
+           billingState,
+           billingPostalCode
+       );
 
 
 
@@ -267,7 +260,6 @@ $(document).ready(function(e){
 
 
 		if( $('#j-create-account-form #accountToggle input').prop('checked') ){
-			alert('gues');
 			$.slatwall.doAction(
 				'public:cart.guestaccount',
 				{
@@ -279,7 +271,6 @@ $(document).ready(function(e){
 				}
 			);
 		}else{
-			alert('create');
 			$.slatwall.doAction(
 				'public:account.create',
 				{
