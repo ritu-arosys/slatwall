@@ -1378,6 +1378,15 @@ component extends="HibachiService" accessors="true" output="false" {
 	}
 
 	private boolean function checkPasswordResetRequired(required any accountAuthentication, required any processObject){
+		var adminResetAfterDays = arguments.accountAuthentication.getAccount().setting('accountAdminForcePasswordResetAfterDays');
+		if(!isNumeric(adminResetAfterDays)) {
+			adminResetAfterDays = 90;
+		}
+		var adminAccountAuthCreated = accountAuthentication.getCreatedDateTime();
+		if(isNull(adminAccountAuthCreated) || !isDate(adminAccountAuthCreated)) {
+			adminAccountAuthCreated = now();
+		}
+		
 		if (accountAuthentication.getUpdatePasswordOnNextLoginFlag() == true 
 			|| ( accountAuthentication.getAccount().getAdminAccountFlag() && 
 					( dateCompare(Now(), dateAdd('d', arguments.accountAuthentication.getAccount().setting('accountAdminForcePasswordResetAfterDays'), accountAuthentication.getCreatedDateTime()))  == 1 
