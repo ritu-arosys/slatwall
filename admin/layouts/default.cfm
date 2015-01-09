@@ -426,7 +426,7 @@ Notes:
 					templateUrl: $.slatwall.getConfig().baseURL + '/admin/client/js/partials/otherwise.html',
 				});
 				
-			}]).run(['$rootScope','$filter','$slatwall','dialogService', function($rootScope,$filter, $slatwall ,dialogService) {
+			}]).run(['$rootScope','$filter','$document','$slatwall','dialogService', function($rootScope,$filter,$document,$slatwall,dialogService) {
 			    $rootScope.openPageDialog = function( partial ) {
 			    	dialogService.addPageDialog( partial );
 			    };
@@ -436,6 +436,10 @@ Notes:
 			    };
 
 				$rootScope.getRBKey = $slatwall.getRBKey;
+				
+				$document.on('click', function(event){
+					dialogService.runClickOutsideCallbacks( event );
+				});
 
 			}]).filter('entityRBKey',['$slatwall', function($slatwall) {
 				
@@ -463,6 +467,38 @@ Notes:
 		<!--- Load up the Slatwall Admin --->
 		<script type="text/javascript" src="#request.slatwallScope.getBaseUrl()#/?slatAction=api:js.ngcompressor&jspath=admin/client/js&instantiationKey=#$.slatwall.getApplicationValue('instantiationKey')#"></script>
 		
+		
+		<!---
+		<div ng-controller="testController">
+			<div id="myIDHere">
+				<div class="one-two-container" sw-click-outside data-callback="coolCallback()">
+					<div class="one">
+						ONE
+					</div>
+					<div class="two">
+						TWO
+					</div>
+				</div>
+				<div class="three">
+					THREE
+				</div>
+			</div>
+			<a ng-click="coolCallback()">CLICK ME</a>
+		</div>
+		
+		<script type="text/javascript">
+			angular.module('slatwalladmin').controller('testController', [
+				'$scope',
+				function(
+					$scope
+				){
+					$scope.coolCallback=function(){
+						console.log('callback called!!! Woot Woot!!!');
+					};
+				}
+			]);
+		</script>
+		--->
 	</body>
 </html>
 </cfoutput>
