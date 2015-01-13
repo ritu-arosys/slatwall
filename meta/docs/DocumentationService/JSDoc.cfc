@@ -19,14 +19,47 @@ component  hint="JSDoc is a port of jsDoc from javascript to coldfusion" output=
 	var DirList = [];
 	var outputdir = null;
 	var debug = 0;
-	var RE_COMMENT_BLOCK = "";
+	
+	//All jsDoc regular expressions.
+	var RE_COMMENT_ANNOTS = "\/\*\*([^\*]|\*(?!\/))*?@.*?\*\/";
+	var RE_COMMENT_START  = "\/\*\*(.*)";
+	var RE_COMMENT_END	  = "(.*)\*\/";
+	var RE_COMMENT_REPLACE= "@(\w+)\s+([^@]*";
+	var RE_FUNCTION = "^\s*function\s+((\w+)|(\w+)(\s+))\(([^)]*)\)";
+	var RE_METHOD_BOUND_PROTOTYPE = "^\s*(\w*)\.prototype\.(\w*)\s*=\s*function\s*\(([^)]*)\)";
+	var RE_TAGS = "/@(\w+)\s+([^@]*";
+	var RE_ANNOTS_REPLACE = "(\w+)\s+(.*)";
+	
 	/**
 	*Processes a file for jsdoc comments.
 	*/
-	function processFile(f, fname, inputdir, out){
+	public any function processFile(f, fname, inputdir, out){
 		
 	}
-	
+	/**
+	*When function is found in a file, this proceses it.
+	*/
+	public any function processFunction(name, args, comment) {
+		
+	}
+	/**
+	*When a function prototype is found, this processes it.
+	*/
+	public any function processPrototypeMethod(proto, name, args, comment) {
+		
+	}
+	/**
+	*When a comment is found this parses the tags from the comment.
+	*/
+	public any function processComment(comment,firstLine,fname) {
+		
+	}
+	/**
+	*This is the main parser that calls the other methods.
+	*/
+	public any function processJSFile(filename,inputdir){
+		
+	}
 	
 	
 	
