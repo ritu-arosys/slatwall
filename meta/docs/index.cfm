@@ -34,6 +34,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                    	<li><a href="views/reference.cfm">Reference<span class="sr-only"></span></a></li>
                         <li class="active"><a href="#">Docs <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Tutorials</a></li>
                     </ul>

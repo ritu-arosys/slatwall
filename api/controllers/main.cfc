@@ -43,12 +43,17 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		arguments.rc.apiResponse.content = {data=data};
 	}
 	
+	public any function getNavData(required struct rc){
+		//First return a list of all items.
+    		var navFile = FileRead("#ExpandPath('/')#/meta/docs/slatdocs_navigation.md");
+    		arguments.rc.apiResponse.content = {navList="#navFile#"};
+	}
+	
 	public any function getDocData(required struct rc){
 		var myWSObject = CreateObject("component", "meta.docs.DocumentationService.ColdFusionDocumentationService");
         	myWSObject.init("Slatwall", ".cfc", "/");
         	var docItem = "";
     	
-    	//First return a list of all items.
     	if(arguments.rc.slatdocs == "list")
     	{
     		var docList = myWSObject.getAllDocumentationItems();
@@ -59,7 +64,8 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
     		{
     			arguments.rc.apiResponse.content = docList;
     		}
-    	} else{
+    	}else{
+    		
     		//Next, return a list of just a specific item.
     		var docData = myWSObject.getDocumentationItemMeta( arguments.rc.slatdocs );
     		if(StructIsEmpty( docData )){
