@@ -227,7 +227,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiS
 
 	public any function getCartData(string propertyList) {
 		
-		var availablePropertyList = "orderID,orderOpenDateTime,calculatedTotal,subtotal,taxTotal,fulfillmentTotal,fulfillmentChargeAfterDiscountTotal,promotionCodeList,discountTotal,
+    	var availablePropertyList = "orderID,orderOpenDateTime,calculatedTotal,subtotal,taxTotal,fulfillmentTotal,fulfillmentChargeAfterDiscountTotal,promotionCodeList,discountTotal,
 							orderitems.orderItemID,orderitems.price,orderitems.skuPrice,orderitems.currencyCode,orderitems.quantity,orderitems.extendedPrice,orderitems.extendedPriceAfterDiscount,orderitems.taxAmount,orderItems.taxLiabilityAmount,
 							orderitems.orderFulfillment.orderFulfillmentID,
 							orderitems.sku.skuID,orderitems.sku.skuCode,orderItems.sku.imagePath,orderItems.sku.imageFile,
@@ -308,7 +308,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiS
 		
 	}
 	
-	// ========================== Deprecated ================= * DO NOT UES!!!!!
+	// ========================== Deprecated ================= * DO NOT USE!!!!!
 	
 	public any function getCurrentAccount() {
 		return getAccount();

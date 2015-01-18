@@ -1,17 +1,15 @@
 Requirements
 ------------
 
-Mura Version 6 or Newer
-
-Coldfusion 9.0.1 or Newer
-
-Railo 4.1 or Newer
+* Mura Version 6 or Newer
+* Coldfusion 9.0.1 or Newer
+* Railo 4.1 or Newer
 
 
 Documentation
 -------------
 
-Please view the project documentation, including install instructions: http://docs.getslatwall.com
+Please view the project documentation, including install instructions: [getslatwall](http://docs.getslatwall.com)
 
 
 License
@@ -26,7 +24,7 @@ A copy of GNU General Public License (GPL) is included in this distribution,
 in the file GNU_V3_Copy.txt. If you do not have the source code, or for more information
 including questions about commercial license both can be found on the website:
 
-http://www.getslatwall.com
+[http://www.getslatwall.com](http://www.getslatwall.com)
 
 
 	Slatwall - An Open Source eCommerce Platform

@@ -30,7 +30,7 @@ slatdocs
 					  load();//loads the meta body.
 					  $scope.$on('handleBroadcast', function() {
 					    $scope.message = docSharedService.message;
-					    $scope.url = $scope.message.replace("SlatwallDoc.", "");//Just for dev will be removed.
+					    $scope.url = $scope.message.replace("Slatwall.", "");//Just for dev will be removed.
 					    load(); //Reloads the http data when we get a new click.
 					  });
 					  

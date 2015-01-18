@@ -46,7 +46,7 @@
 Notes:
 
 */
-component extends="CFSelenium.CFSeleniumTestCase" {
+component extends="Slatwall.CFSelenium.CFSeleniumTestCase" {
 
 	// BEFORE ALL TESTS IN THIS SUITE
 	public void function beforeTests(){

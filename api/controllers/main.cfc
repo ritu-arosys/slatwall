@@ -44,11 +44,18 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 	}
 	
 	public any function getNavData(required struct rc){
-		//First return a list of all items.
-    		var navFile = FileRead("#ExpandPath('/')#/meta/docs/slatdocs_navigation.md");
+    		var navFile = FileRead("#ExpandPath('/')#/meta/docs/md/slatdocs_navigation.md");
     		arguments.rc.apiResponse.content = {navList="#navFile#"};
 	}
-	
+	public any function getMarkDownList(required struct rc){
+		//First get a list of all .md files.
+		var fList = DirectoryList(ExpandPath("/"), true, "path",  "*.md" );
+    		arguments.rc.apiResponse.content = {fList="#fList#"};
+	}
+	public any function getMarkDownItem(required struct rc){
+		var bodyFile = FileRead("#ExpandPath('/')##arguments.rc.item#");
+    		arguments.rc.apiResponse.content = {body="#bodyFile#"};
+	}
 	public any function getDocData(required struct rc){
 		var myWSObject = CreateObject("component", "meta.docs.DocumentationService.ColdFusionDocumentationService");
         	myWSObject.init("Slatwall", ".cfc", "/");

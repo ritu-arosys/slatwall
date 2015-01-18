@@ -27,27 +27,20 @@
  * 			Tags	
  */
 
-var slatdocs = angular.module('slatdocs', []); 
 slatdocs
 		.controller(
-				'SlatwallDocsControllerMarkDown',
-				function($scope, $http) { 
-					
-					$scope.url = "http://cf10.slatwall/index.cfm?slatAction=api:main.getNavData";
-					$http.get($scope.url).success(function(response) {
+				'SlatwallDocsControllerMarkDownList',
+				function($scope, $http) {
+
+					$scope.url = "/index.cfm?slatAction=api:main.getNavData";
+					$http.get($scope.url).success(
+							function(response) {
 								$scope.nav = response.NAVLIST;
-								console.log($scope.nav);
-					
-								function Editor(input, preview) {
-			        				this.update = function () {
-			          				preview.innerHTML = markdown.toHTML(input.value);
-			        					};
-			       				 	input.editor = this;
-			       				 	this.update();
-			     				 	}
-			      					var $ = function (id) { return document.getElementById(id); };
-			      						new Editor($("text-input"), $("preview"));
-								
+								//console.log($scope.nav);
+								//Render the markdown
+								preview.innerHTML = markdown
+								.toHTML($scope.nav);
 								
 					});
-				});
+					
+});
