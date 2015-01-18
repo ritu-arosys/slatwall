@@ -3,7 +3,7 @@
 [File Structure]: #/meta/docs/md/file_structure
 [Updating]: #/meta/docs/md/updating
 [Connecting a Custom App]: #/meta/docs/md/connecting_a_custom_app
-[REST API]: /api/readme.md
+[REST API]: #/api/controllers/readme
 [Coldfusion API]: http://cf10.slatwall
 [AngularJS API]: http://cf10.slatwall
 [Model]: http://cf10.slatwall
@@ -23,7 +23,7 @@
 [Integration Services]: http://cf10.slatwall
 [Documentation]: http://cf10.slatwall/meta/docs/readme.md
 
-####Starting Out
+####Getting Started
 
 * [Intro]
 * [Download / Install]
@@ -31,7 +31,7 @@
 * [Updating]
 * [Connecting a Custom App]
 ___
-####API Access
+####API Access Points
 
 * [REST API] 
 * [ColdFusion API]

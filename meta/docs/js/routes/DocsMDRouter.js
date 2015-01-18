@@ -7,6 +7,11 @@ slatdocs.config(
 
             $routeProvider
                 .when(
+                    "/:base/:leaf/:markDownItem",
+                    {
+                        action: "renderMarkDownLeaf"
+                    })
+                .when(
                     "/:meta/:docs/:md/:markDownItem",
                     {
                         action: "renderMarkDown"

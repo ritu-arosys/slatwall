@@ -17,10 +17,13 @@ slatdocs
 							 		"/" + $route.current.params.docs +
 							 		"/" + $route.current.params.md    +
 							 		"/" + $route.current.params.markDownItem + ".md");
+						}else if ($route.current.action === "renderMarkDownLeaf"){
+							render("/index.cfm?slatAction=api:main.getMarkDownItem&item=" +
+							 		"/" + $route.current.params.base +
+							 		"/" + $route.current.params.leaf +
+							 		"/" + $route.current.params.markDownItem + ".md");
 						}
-						else{
-							render("/index.cfm?slatAction=api:main.getMarkDownItem&item=/meta/docs/md/intro.md");
-						}
+						
 			        });
 					//Setup the url to display.
 					function render(item){
@@ -30,11 +33,20 @@ slatdocs
 					$http.get($scope.url).success(
 							function(response) {
 								$scope.body = response.BODY;
-								//console.log($scope.body);
-								//Render the markdown
-								body.innerHTML = markdown
-								.toHTML(response.BODY);
 								
+								marked.setOptions({
+									  renderer: new marked.Renderer(),
+									  gfm: true,
+									  tables: true,
+									  breaks: false,
+									  pedantic: false,
+									  sanitize: true,
+									  smartLists: true,
+									  smartypants: false
+									});
+								body.innerHTML = marked(response.BODY); //Render the markdown
+								$( 'table' ).addClass( "table table-bordered table-striped" ); //Add some basic styling if a table is in the markdown.
+
 					});
 					
 					}

@@ -8,14 +8,15 @@
         <div class="container-fluid">
             <div class="row-fluid">
                 <!-- Begin left sidebar -->
-                <div class="col-md-3" ng-controller="SlatwallDocsControllerMarkDownList" style="overflow:scroll;height:675px;">
+                <div class="col-md-3" ng-controller="SlatwallDocsControllerMarkDownList">
                         <input type="hidden" id="md-nav" value="{{nav}}"/>
     					<div id="preview"></div>
     				</div>
                 	<!-- End left sidebar   -->
                 	 	<!-- Begin content area -->
-                <div class="col-md-9" style="overflow:scroll;height:675px;" ng-controller="SlatwallDocsControllerMarkDownBody">
+                <div class="col-md-9" ng-controller="SlatwallDocsControllerMarkDownBody">
                 		<div id="body" value="{{body}}"></div>		
+                		
                  </div>
                 <!-- End content area   -->
             </div>

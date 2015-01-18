@@ -38,8 +38,18 @@ slatdocs
 								$scope.nav = response.NAVLIST;
 								//console.log($scope.nav);
 								//Render the markdown
-								preview.innerHTML = markdown
-								.toHTML($scope.nav);
+								marked.setOptions({
+									  renderer: new marked.Renderer(),
+									  gfm: true,
+									  tables: true,
+									  breaks: false,
+									  pedantic: false,
+									  sanitize: true,
+									  smartLists: true,
+									  smartypants: false
+									});
+								preview.innerHTML = marked(response.NAVLIST); //Render the markdown
+								$( 'table' ).addClass( "table table-bordered table-striped" ); //Add some basic styling if a table is in the markdown.
 								
 					});
 					

@@ -22,7 +22,7 @@
         <script src="/meta/docs/js/controllers/ListController.js"></script>	
         <script src="/meta/docs/js/controllers/NavController.js"></script>
         <script src="/meta/docs/js/controllers/MetaController.js"></script>
-		<script src="/meta/docs/js/lib/markdown.min.js"></script>
+		<script src="/meta/docs/js/lib/marked.js"></script>
 		
 		<link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png" />
 </head>
