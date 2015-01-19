@@ -6,7 +6,12 @@ slatdocs.config(
         function( $routeProvider ){
 
             $routeProvider
-                .when(
+                   .when(
+                    "/:base/:markDownItem",
+                    {
+                        action: "renderMarkDownBase"
+                    })
+                 .when(
                     "/:base/:leaf/:markDownItem",
                     {
                         action: "renderMarkDownLeaf"
@@ -15,6 +20,16 @@ slatdocs.config(
                     "/:meta/:docs/:md/:markDownItem",
                     {
                         action: "renderMarkDown"
+                    })
+                 .when(
+                    "/:base/:leaf/:node/:subnode/:markDownItem",
+                    {
+                        action: "renderMarkDownSubNode"
+                    })
+                 .when(
+                    "/:base/:leaf/:node/:subnode/:subsubnode/:markDownItem",
+                    {
+                        action: "renderMarkDownSubSubNode"
                     })
                 .otherwise({
                 		redirectTo: '/meta/docs/md/intro'

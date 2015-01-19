@@ -1,4 +1,6 @@
-
+body {
+	margin-bottom: 80px;
+}
 body > .navbar {
 	font-size: 13px;
 }

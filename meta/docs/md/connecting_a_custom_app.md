@@ -1,4 +1,4 @@
-##Connecting Slatwall to a Custom App
+##Connecting Slatwall to your Custom App
 If you would like to get Slatwall connected to your larger CFML based application, follow these short, simple steps:
 
 **First: Tell Slatwall about your app**

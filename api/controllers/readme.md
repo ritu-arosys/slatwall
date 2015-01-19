@@ -1,4 +1,4 @@
-##Public API: slatAction
+##Public REST API: slatAction
 
 ####Overview
 

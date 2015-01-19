@@ -4,8 +4,8 @@
 [Updating]: #/meta/docs/md/updating
 [Connecting a Custom App]: #/meta/docs/md/connecting_a_custom_app
 [REST API]: #/api/controllers/readme
-[Coldfusion API]: http://cf10.slatwall
-[AngularJS API]: http://cf10.slatwall
+[AngularJS API]: #/frontend/api/readme
+[Coldfusion API]: #/org/Hibachi/readme
 [Model]: http://cf10.slatwall
 [Entities]: http://cf10.slatwall
 [Services]: http://cf10.slatwall
@@ -22,7 +22,7 @@
 [Tests]: http://cf10.slatwall
 [Integration Services]: http://cf10.slatwall
 [Documentation]: http://cf10.slatwall/meta/docs/readme.md
-
+[Creating Documentation]: #/meta/docs/md/tutorials/creating_documentation
 ####Getting Started
 
 * [Intro]
@@ -48,6 +48,7 @@ ___
 * [Services]
 * [Transient] 
 * [Validation]
+
 ___
 ####Other
 * [Integration Services]
@@ -56,3 +57,8 @@ ___
 * [Resource Bundles]
 * [Assets]
 * [Tests]
+
+___
+####Tutorials
+* [Creating Documentation]
+* Coming Soon!

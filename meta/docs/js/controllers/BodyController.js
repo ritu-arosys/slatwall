@@ -11,6 +11,12 @@ slatdocs
 					
 					$rootScope.$on('$routeChangeSuccess', function (currentRoute, previousRoute) {
 			            console.log($route.current.params);
+			            
+			            //By default, slatwall documentation will only discover 
+			            //.md files that are within the first five levels of the installation directory tree.
+			            //To allow further markdown, the following would need to be modified as well as
+			            //The 'docsMDRouter.js routes file.
+			            
 						if ($route.current.action === "renderMarkDown") {
 							 render("/index.cfm?slatAction=api:main.getMarkDownItem&item=" +
 							 		"/" + $route.current.params.meta +
@@ -21,6 +27,26 @@ slatdocs
 							render("/index.cfm?slatAction=api:main.getMarkDownItem&item=" +
 							 		"/" + $route.current.params.base +
 							 		"/" + $route.current.params.leaf +
+							 		"/" + $route.current.params.markDownItem + ".md");
+						}else if ($route.current.action === "renderMarkDownSubNode"){
+							render("/index.cfm?slatAction=api:main.getMarkDownItem&item=" +
+							 		"/" + $route.current.params.base +
+							 		"/" + $route.current.params.leaf +
+							 		"/" + $route.current.params.node +
+							 		"/" + $route.current.params.subnode +
+							 		"/" + $route.current.params.markDownItem + ".md");
+						}else if ($route.current.action === "renderMarkDownSubSubNode"){
+							render("/index.cfm?slatAction=api:main.getMarkDownItem&item=" +
+							 		"/" + $route.current.params.base +
+							 		"/" + $route.current.params.leaf +
+							 		"/" + $route.current.params.node +
+							 		"/" + $route.current.params.subnode +
+							 		"/" + $route.current.params.subsubnode +
+							 		"/" + $route.current.params.markDownItem + ".md");
+						}
+						else if ($route.current.action === "renderMarkDownBase"){
+							render("/index.cfm?slatAction=api:main.getMarkDownItem&item=" +
+							 		"/" + $route.current.params.base +
 							 		"/" + $route.current.params.markDownItem + ".md");
 						}
 						

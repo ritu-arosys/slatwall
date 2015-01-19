@@ -8,14 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/meta/docs/index.cfm"><img src="/assets/images/admin.logo.png" style="width:100px;heigh:16px;" title="Slatwall">documentation</a>
+                    <a class="navbar-brand" href="/meta/docs/templates/docs.cfm#/meta/docs/md/intro"><img src="/assets/images/admin.logo.png" style="width:100px;heigh:16px;" title="Slatwall">documentation</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                     	 	<li><a href="/meta/docs/templates/docs.cfm">Docs<span class="sr-only"></span></a></li>
                         <li><a href="/meta/docs/templates/reference.cfm">Reference<span class="sr-only"></span></a></li>
-                        <li><a href="#">Tutorials</a></li>
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
