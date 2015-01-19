@@ -1,0 +1,11 @@
+{
+    "name": "Slatwall",
+    "description": "Slatwall is an extremely powerful and robust digital commerce management system.",
+    "version": "3.5.022.022",
+    "url": "http://www.getslatwall.com/",
+    "options": {
+        "ignorePaths": [ ".git", ".settings", "assets", "client", "org", "integrationServices", "/meta/docs/lib", "/meta/docs/js/lib", "*/lib", "/meta/docs/eclipse", "org"  ],
+        "paths": ".",
+        "outdir": "./meta/docs/build"
+    }
+}
