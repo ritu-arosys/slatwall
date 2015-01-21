@@ -1,0 +1,13 @@
+web:
+  image: gregmoser/apache-railo
+  ports:
+    - "80:80"
+    - "8888:8888"
+  links:
+    - db
+  volumes:
+    - .:/var/www/html
+db:
+  image: orchardup/mysql
+  environment:
+    MYSQL_DATABASE: slatwall
