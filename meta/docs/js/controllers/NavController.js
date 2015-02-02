@@ -25,6 +25,7 @@
  * 			Assets
  * 			Tests
  * 			Tags	
+ * @class SlatwallDocsControllerMarkDownList
  */
 
 slatdocs

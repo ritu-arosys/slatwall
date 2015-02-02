@@ -1,4 +1,7 @@
-//This controller handles just the meta content.
+/**
+ * This controller handles just the meta content.
+ * @class SlatwallDocsControllerMeta
+ */
 slatdocs
 		.controller(
 				'SlatwallDocsControllerMeta',

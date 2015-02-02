@@ -1,4 +1,7 @@
-// Setup our controller for grabbing the list of documentation items
+/**
+ * Setup our controller for grabbing the list of documentation items
+ * @class SlatwallDocsControllerList
+ */
 slatdocs
 		.controller(
 				'SlatwallDocsControllerList',

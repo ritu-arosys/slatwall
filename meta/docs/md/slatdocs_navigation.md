@@ -6,15 +6,15 @@
 [REST API]: #/api/controllers/readme
 [AngularJS API]: #/frontend/api/readme
 [Coldfusion API]: #/org/Hibachi/readme
-[Model]: http://cf10.slatwall
-[Entities]: http://cf10.slatwall
-[Services]: http://cf10.slatwall
-[DAO]: http://cf10.slatwall
-[Process]: http://cf10.slatwall
+[Model]: #/model/readme
+[Entities]: #/model/entity/readme
+[Services]: #/model/service/readme
+[DAO]:  #/model/dao/readme
+[Process]: #/model/process/readme
 [Handler]: http://cf10.slatwall
 [Report]: http://cf10.slatwall
-[Transient]: http://cf10.slatwall
-[Validation]: http://cf10.slatwall
+[Transient]:  #/model/transient/readme
+[Validation]:  #/model/validation/readme
 [Tags]: http://cf10.slatwall
 [Templates]: http://cf10.slatwall
 [Resource Bundles]: http://cf10.slatwall
@@ -23,6 +23,8 @@
 [Integration Services]: http://cf10.slatwall
 [Documentation]: http://cf10.slatwall/meta/docs/readme.md
 [Creating Documentation]: #/meta/docs/md/tutorials/creating_documentation
+[Slatwall Encryption]: #/meta/docs/md/tutorials/slatwall_encryption
+
 ####Getting Started
 
 * [Intro]
@@ -37,7 +39,7 @@ ___
 * [ColdFusion API]
 * [AngularJS API]
 ___
-####Model
+####[Model]
 
 * [Entities]
 * [Services]
@@ -61,4 +63,4 @@ ___
 ___
 ####Tutorials
 * [Creating Documentation]
-* Coming Soon!
+* [Slatwall Encryption]
