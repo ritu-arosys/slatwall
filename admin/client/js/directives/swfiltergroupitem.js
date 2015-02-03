@@ -19,6 +19,7 @@ angular.module('slatwalladmin')
 			restrict: 'A',
 			require:"^swFilterGroups",
 			scope:{
+				collectionConfig:"=",
 				filterGroupItem: "=",
 				siblingItems:"=",
 				filterPropertiesList:"=",
@@ -33,8 +34,6 @@ angular.module('slatwalladmin')
 				}).then(function(response){
 					element.replaceWith($compile(element.html())(scope));
 				});
-				
-				collectionService.incrementFilterCount(1);
 				
 				//for(item in filterGroupItem){}
 				scope.filterGroupItem.setItemInUse = filterGroupsController.setItemInUse;
@@ -62,14 +61,6 @@ angular.module('slatwalladmin')
 					scope.filterGroupItem.logicalOperator = logicalOperatorValue;
 					filterGroupsController.saveCollection();
 				};
-				
-				scope.$on(
-	                "$destroy",
-	                function() {
-	                	$log.debug('destroy filterGroupItem');
-	                	collectionService.incrementFilterCount(-1);
-	                }
-	            );
 			}
 		};
 	}

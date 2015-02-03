@@ -54,6 +54,7 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 	property name="skuPrice" ormtype="big_decimal";
 	property name="currencyCode" ormtype="string" length="3";
 	property name="quantity" hb_populateEnabled="public" ormtype="integer";
+	property name="estimatedDeliveryDateTime" ormtype="timestamp";
 	property name="estimatedFulfillmentDateTime" ormtype="timestamp";
 	
 	// Related Object Properties (many-to-one)
@@ -198,6 +199,22 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
     public struct function getQuantityPriceAlreadyReturned() {
     	return getService("OrderService").getQuantityPriceSkuAlreadyReturned(getOrder().getOrderID(), getSku().getSkuID());
     }
+    
+    public any function getEstimatedFulfillmentDateTime(){
+    	if(structKeyExists(variables, "estimatedFulfillmentDateTime")) {
+			return variables.estimatedFulfillmentDateTime;
+		}else if (!isNull(getOrderFulfillment())){
+			return getOrderFulfillment().getEstimatedFulfillmentDateTime();
+		}
+    }
+    
+    public any function getEstimatedDeliveryDateTime(){
+    	if(structKeyExists(variables, "estimatedDeliveryDateTime")) {
+			return variables.estimatedDeliveryDateTime;
+		}else if (!isNull(getOrderFulfillment())){
+			return getOrderFulfillment().getEstimatedDeliveryDateTime();
+		}
+    } 
     
    
 	// ============ START: Non-Persistent Property Methods =================
@@ -409,17 +426,17 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 	// Referenced Order Item (many-to-one)
 	public void function setReferencedOrderItem(required any referencedOrderItem) {
 		variables.referencedOrderItem = arguments.referencedOrderItem;
-		if(isNew() or !arguments.referencedOrderItem.hasReferencingOrderItems( this )) {
-			arrayAppend(arguments.referencedOrderItem.getReferencingOrderItem(), this);
+		if(isNew() or !arguments.referencedOrderItem.hasReferencingOrderItem( this )) {
+			arrayAppend(arguments.referencedOrderItem.getReferencingOrderItems(), this);
 		}
 	}
 	public void function removeReferencedOrderItem(any referencedOrderItem) {
 		if(!structKeyExists(arguments, "referencedOrderItem")) {
 			arguments.referencedOrderItem = variables.referencedOrderItem;
 		}
-		var index = arrayFind(arguments.referencedOrderItem.getReferencingOrderItem(), this);
+		var index = arrayFind(arguments.referencedOrderItem.getReferencingOrderItems(), this);
 		if(index > 0) {
-			arrayDeleteAt(arguments.referencedOrderItem.getReferencingOrderItem(), index);
+			arrayDeleteAt(arguments.referencedOrderItem.getReferencingOrderItems(), index);
 		}
 		structDelete(variables, "referencedOrderItem");
 	}

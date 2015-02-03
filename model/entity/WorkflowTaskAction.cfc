@@ -40,8 +40,8 @@ component entityname="SlatwallWorkflowTaskAction" table="SwWorkflowTaskAction" p
 	
 	// Persistent Properties
 	property name="workflowTaskActionID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";
-	property name="actionType" ormtype="string";
-	property name="updateData" ormtype="string" length="8000" hb_auditable="false";
+	property name="actionType" ormtype="string" hb_formFieldType="select" hb_formatType="rbKey";
+	property name="updateData" ormtype="string" length="8000" hb_auditable="false" hb_formFieldType="json";
 	
 	// Calculated Properties
 
@@ -66,13 +66,82 @@ component entityname="SlatwallWorkflowTaskAction" table="SwWorkflowTaskAction" p
 	property name="modifiedByAccountID" hb_populateEnabled="false" ormtype="string";
 	
 	// Non-Persistent Properties
-	
+	property name="actionTypeOptions" persistent="false"; 
+	property name="updateDataStruct" type="struct" persistent="false";
 	// Deprecated Properties
-
-
-
 	
 	// ============ START: Non-Persistent Property Methods =================
+	public array function getActionTypeOptions() {
+		/*
+			Print || Email || Update || Process || Import || Export || Delete
+		*/
+		var actionTypeOptions = [];
+		var valuesList = 'print,email,update,process,import,export,delete';
+		var namesList = 'entity.workflowtaskaction.print,entity.workflowtaskaction.email,entity.workflowtaskaction.update,
+						entity.workflowtaskaction.process,entity.workflowtaskaction.import,entity.workflowtaskaction.export,entity.workflowtaskaction.delete';
+		var valuesArray = ListToArray(valuesList);
+		var namesArray = ListToArray(namesList);
+		var valuesArrayLength = arrayLen(valuesArray);
+		
+		for(var i = 1; i <= valuesArrayLength; i++){
+			var optionStruct = {};
+			optionStruct['value'] = valuesArray[i];
+			optionStruct['name'] = rbKey(namesArray[i]);
+			arrayAppend(actionTypeOptions,optionStruct);
+		}
+    	return actionTypeOptions;
+    }
+    
+    public any function getUpdateDataStruct(){
+		if(isNull(variables.updateDataStruct)){
+			variables.updateDataStruct = deserializeUpdateDataConfig();
+		}
+		return variables.updateDataStruct;
+	}
+	
+//	variables.taskConditionsConfig = '';
+//			var defaultTaskConditionsConfig = {};
+//			defaultTaskConditionsConfig["filterGroups"] = ArrayNew(1);
+//			var workflowConditionGroupStuct = {};
+//			workflowConditionGroupStuct["filterGroup"] = ArrayNew(1);
+//			ArrayAppend(defaultTaskConditionsConfig["filterGroups"],workflowConditionGroupStuct);
+//			variables.taskConditionsConfig = serializeJson(defaultTaskConditionsConfig);
+	
+	public any function getUpdateData(){
+		if(isNull(variables.updateData)){
+			variables.updateData = '';
+			
+			var defaultUpdateData['staticData'] = {};
+			defaultUpdateData['dynamicData'] = {};
+			variables.updateData = serializeJson(defaultUpdateData);
+		}
+		return variables.updateData;
+	}
+	
+	public any function deserializeUpdateData(){
+		return deserializeJSON(getUpdateData());
+	}
+    
+    // Workflow (many-to-one)
+	public void function setWorkflowTask(required any WorkflowTask) {
+		variables.WorkflowTask = arguments.WorkflowTask;
+		
+		if(isNew() or !arguments.WorkflowTask.hasWorkflowTaskAction(this)) {
+			arrayAppend(arguments.WorkflowTask.getWorkflowTaskActions(),this);
+		}
+	}
+
+	public void function removeWorkflowTask(any WorkflowTask) {
+		if(!structKeyExists(arguments, 'WorkflowTask')) {
+			arguments.WorkflowTask = variables.WorkflowTask;
+		}
+		var index = arrayFind(arguments.WorkflowTask.getWorkflowTaskActions(),this);
+		
+		if(index > 0) {
+			arrayDeleteAt(arguments.WorkflowTask.getWorkflowTaskActions(),index);
+		}
+		structDelete(variables, "WorkflowTask");
+    }
 	
 	// ============  END:  Non-Persistent Property Methods =================
 		

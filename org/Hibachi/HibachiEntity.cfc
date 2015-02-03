@@ -7,6 +7,7 @@ component output="false" accessors="true" persistent="false" extends="HibachiTra
 
 	property name="newFlag" type="boolean" persistent="false";
 	property name="rollbackProcessedFlag" type="boolean" persistent="false";
+	property name="encryptedPropertiesExistFlag" type="boolean" persistent="false";
 	property name="printTemplates" type="struct" persistent="false";
 	property name="emailTemplates" type="struct" persistent="false";
 	property name="simpleRepresentation" type="string" persistent="false";
@@ -702,6 +703,21 @@ component output="false" accessors="true" persistent="false" extends="HibachiTra
 		return false;
 	}
 	
+	public boolean function getEncryptedPropertiesExistFlag() {
+		return structCount(getEncryptedPropertiesStruct()) > 0;
+	}
+	
+	public struct function getEncryptedPropertiesStruct() {
+		var encryptedProperties = {};
+		for(var propertyName in getPropertiesStruct()) {
+			if ((right(propertyName, 9) == "encrypted") && structKeyExists(getPropertiesStruct(), '#propertyName#DateTime') && structKeyExists(getPropertiesStruct(), '#propertyName#Generator')) {
+				encryptedProperties['#propertyName#'] = getPropertiesStruct()[propertyName];
+			}
+		}
+		
+		return encryptedProperties;
+	}
+	
 	public boolean function getRollbackProcessedFlag() {
 		if(isNull(variables.rollbackProcessedFlag) || !isBoolean(variables.rollbackProcessedFlag)) {
 			variables.rollbackProcessedFlag = false;
@@ -840,9 +856,6 @@ component output="false" accessors="true" persistent="false" extends="HibachiTra
 			
 			// Log audit only if admin user
 			if(!getHibachiScope().getAccount().isNew() && getHibachiScope().getAccount().getAdminAccountFlag() ) {
-			
-				// Manually populate primary ID in old data because it doesn't exist by default
-				arguments.oldData[getPrimaryIDPropertyName()] = getPrimaryIDValue();
 			
 				getService("hibachiAuditService").logEntityModify(entity=this, oldData=arguments.oldData);
 			}

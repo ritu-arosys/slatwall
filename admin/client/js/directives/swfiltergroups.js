@@ -2,22 +2,21 @@
 angular.module('slatwalladmin')
 .directive('swFilterGroups', [
 	'$http',
-	'$compile',
-	'$templateCache',
-	'$log',
-	'collectionService',
-	'collectionPartialsPath',
+'$compile',
+'$templateCache',
+'$log',
+'collectionPartialsPath',
 	function(
-		$http,
-		$compile,
-		$templateCache,
-		$log,
-		collectionService,
-		collectionPartialsPath
-	){
+	$http,
+	$compile,
+	$templateCache,
+	$log,
+	collectionPartialsPath
+		){
 		return {
-			restrict: 'A',
+			restrict: 'EA',
 			scope:{
+				collectionConfig:"=",
 				filterGroupItem: "=",
 				filterPropertiesList:"=",
 				saveCollection:"&",
@@ -26,7 +25,8 @@ angular.module('slatwalladmin')
 			templateUrl:collectionPartialsPath+"filtergroups.html",
 			controller: function($scope, $element,$attrs){
 				$scope.itemInUse = false;
-				
+				console.log('collectionConfig');
+				console.log($scope.collectionConfig);
 				this.getFilterGroup = function(){
 					return $scope.filterGroup;
 				};

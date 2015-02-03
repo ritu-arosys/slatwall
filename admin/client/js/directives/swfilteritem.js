@@ -1,16 +1,10 @@
 'use strict';
 angular.module('slatwalladmin')
 .directive('swFilterItem', [
-	'$http',
-	'$compile',
-	'$templateCache',
 	'$log',
 	'collectionService',
 	'collectionPartialsPath',
 	function(
-		$http,
-		$compile,
-		$templateCache,
 		$log,
 		collectionService,
 		collectionPartialsPath
@@ -19,6 +13,7 @@ angular.module('slatwalladmin')
 			restrict: 'A',
 			require:'^swFilterGroups',
 			scope:{
+				collectionConfig:"=",
 				filterItem: "=",
 				siblingItems: "=",
 				filterPropertiesList:"=",
@@ -27,8 +22,7 @@ angular.module('slatwalladmin')
 			},
 			templateUrl:collectionPartialsPath+"filteritem.html",
 			link: function(scope, element,attrs,filterGroupsController){
-				scope.baseEntityAlias = collectionService.getBaseEntityAlias();
-				collectionService.incrementFilterCount(1);
+				scope.baseEntityAlias = scope.collectionConfig.baseEntityAlias;
 				
 				if(angular.isUndefined(scope.filterItem.$$isClosed)){
 					scope.filterItem.$$isClosed = true;
@@ -57,14 +51,6 @@ angular.module('slatwalladmin')
 					scope.filterItem.logicalOperator = logicalOperatorValue;
 					filterGroupsController.saveCollection();
 				};
-				
-				scope.$on(
-	                "$destroy",
-	                function() {
-	                	$log.debug('destroy filterItem');
-	                	collectionService.incrementFilterCount(-1);
-	                }
-	            );
 				
 			}
 		};

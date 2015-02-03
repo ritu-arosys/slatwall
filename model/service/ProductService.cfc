@@ -903,8 +903,28 @@ component extends="HibachiService" accessors="true" {
 	// =====================  END: Process Methods ============================
 	
 	// ====================== START: Save Overrides ===========================
+
+	public any function saveProduct(required any product, struct data={}){
+
+		if( (isNull(arguments.product.getURLTitle()) || !len(arguments.product.getURLTitle())) && (!structKeyExists(arguments.data, "urlTitle") || !len(arguments.data.urlTitle)) ) {
+			if(structKeyExists(arguments.data, "productName") && len(arguments.data.productName)) {
+				data.urlTitle = getDataService().createUniqueURLTitle(titleString=arguments.data.productName, tableName="SwProduct");	
+			} else if (!isNull(arguments.product.getProductName()) && len(arguments.product.getProductName())) {
+				data.urlTitle = getDataService().createUniqueURLTitle(titleString=arguments.product.getProductName(), tableName="SwProduct");
+			}
+		}
+
+		arguments.product = super.save(arguments.product, arguments.data);
+		
+		// Set default sku if no default sku was set
+		if(isNull(arguments.product.getDefaultSku()) && arrayLen(arguments.product.getSkus())){
+			arguments.product.setDefaultSku(arguments.product.getSkus()[1]);
+		}
+		
+		return arguments.product;
+	}
 	
-	public any function saveProductType(required any productType, required struct data) {
+	public any function saveProductType(required any productType, struct data={}) {
 		if( (isNull(arguments.productType.getURLTitle()) || !len(arguments.productType.getURLTitle())) && (!structKeyExists(arguments.data, "urlTitle") || !len(arguments.data.urlTitle)) ) {
 			if(structKeyExists(arguments.data, "productTypeName") && len(arguments.data.productTypeName)) {
 				data.urlTitle = getDataService().createUniqueURLTitle(titleString=arguments.data.productTypeName, tableName="SwProductType");	

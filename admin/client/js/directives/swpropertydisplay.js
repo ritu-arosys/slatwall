@@ -1,58 +1,67 @@
 angular.module('slatwalladmin')
 .directive('swPropertyDisplay', [
-	'$log',
-	'partialsPath',
-	'propertyDisplayService',
+'$log',
+'partialsPath',
 	function(
-		$log,
-		partialsPath,
-		propertyDisplayService
+	$log,
+	partialsPath
 	){
 		return {
-			restrict: 'A',
+			require:'^form',
+			restrict: 'AE',
 			scope:{
 				object:"=",
-				objectName:"@",
 				property:"@",
-				meta:"=",
-				isEditable:"=",
+				editable:"=",
 				editing:"=",
 				isHidden:"=",
+				title:"=",
+				hint:"=",
 				optionsArguments:"=",
-				eagerLoadOptions:"="
-				/*value:"=",
-				valueOptions:"@",
-				fieldType:"@",
+				eagerLoadOptions:"=",
+				isDirty:"=",
+				onChange:"=",
+				fieldType:"@"
 				
-				title:"@",
-				hint:"@",
-				fieldName:"@"*/
 			},
 			templateUrl:partialsPath+"propertydisplay.html",
-			link: function(scope, element,attrs){
+			link: function(scope, element,attrs,formController){
+				//if the item is new, then all fields at the object level are dirty
+				$log.debug('editingproper');
+				$log.debug(scope.property);
+				$log.debug(scope.title);
 				
-				var propertyDisplay = {
+				scope.propertyDisplay = {
 					object:scope.object,
-					objectName:scope.objectName,
 					property:scope.property,
-					meta:scope.meta,
 					errors:{},
 					editing:scope.editing,
-					isEditable:scope.isEditable,
+					editable:scope.editable,
 					isHidden:scope.isHidden,
-					optionsArguments:scope.optionsArguments,
-					eagerLoadOptions:scope.eagerLoadOptions
-					/*hint:scope.hint,
-					fieldType:scope.fieldType,
-					value:scope.value,
-					valueOptions:scope.valueOptions,
-					fieldName:scope.fieldName,
-					title:scope.title,
-					fieldType:scope.fieldType*/
+					fieldType:scope.fieldType || scope.object.metaData.$$getPropertyFieldType(scope.property),
+					title: scope.title,
+					hint:scope.hint || scope.object.metaData.$$getPropertyHint(scope.property),
+					optionsArguments:scope.optionsArguments || {},
+					eagerLoadOptions:scope.eagerLoadOptions || true,
+					isDirty:scope.isDirty,
+					onChange:scope.onChange
+				};
+				if(angular.isUndefined(scope.propertyDisplay.editable)){
+					scope.propertyDisplay.editable = true;
+				};
+				if(angular.isUndefined(scope.editing)){
+					scope.propertyDisplay.editing = false;
 				};
 				
+				if(angular.isUndefined(scope.propertyDisplay.isHidden)){
+					scope.propertyDisplay.isHidden = false;
+				}
+				
 				scope.$id = 'propertyDisplay:'+scope.property;
-				scope.propertyDisplay = propertyDisplayService.newPropertyDisplay(propertyDisplay);
+				
+				/* register form that the propertyDisplay belongs to*/
+				scope.propertyDisplay.form = formController;
+				
 				$log.debug(scope.propertyDisplay);
 							
 				

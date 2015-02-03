@@ -3,29 +3,54 @@ angular.module('slatwalladmin')
 //using $location to get url params, this will probably change to using routes eventually
 .controller('collections', [ 
 	'$scope',
-	'$location',
-	'$log',
-	'$timeout',
-	'$slatwall',
-	'collectionService', 
-	'metadataService',
-	'paginationService',
+'$location',
+'$log',
+'$timeout',
+'$slatwall',
+'collectionService', 
+'metadataService',
+'paginationService',
 	function(
 		$scope,
-		$location,
-		$log,
-		$timeout,
-		$slatwall,
-		collectionService,
-		metadataService,
+$location,
+$log,
+$timeout,
+$slatwall,
+collectionService,
+metadataService,
 		paginationService
 	){
-		
+	
 		//init values
 		//$scope.collectionTabs =[{tabTitle:'PROPERTIES',isActive:true},{tabTitle:'FILTERS ('+filterCount+')',isActive:false},{tabTitle:'DISPLAY OPTIONS',isActive:false}];
 		$scope.$id="collectionsController";
+		
+		/*used til we convert to use route params*/
+		var QueryString = function () {
+		  // This function is anonymous, is executed immediately and 
+		  // the return value is assigned to QueryString!
+		  var query_string = {};
+		  var query = window.location.search.substring(1);
+		  var vars = query.split("&");
+		  for (var i=0;i<vars.length;i++) {
+		    var pair = vars[i].split("=");
+		    	// If first entry with this name
+		    if (typeof query_string[pair[0]] === "undefined") {
+		      query_string[pair[0]] = pair[1];
+		    	// If second entry with this name
+		    } else if (typeof query_string[pair[0]] === "string") {
+		      var arr = [ query_string[pair[0]], pair[1] ];
+		      query_string[pair[0]] = arr;
+		    	// If third or later entry with this name
+		    } else {
+		      query_string[pair[0]].push(pair[1]);
+		    }
+		  } 
+		    return query_string;
+		} ();
 		//get url param to retrieve collection listing
-		$scope.collectionID = $location.search().collectionID;
+		$scope.collectionID = QueryString.collectionID;
+		
 		$scope.currentPage= paginationService.getCurrentPage();
 		$scope.pageShow = paginationService.getPageShow();
 		$scope.pageStart = paginationService.getPageStart;
@@ -64,8 +89,7 @@ angular.module('slatwalladmin')
 					
 					var collectionListingPromise = $slatwall.getEntity('collection', {id:$scope.collectionID, currentPage:$scope.autoScrollPage, pageShow:50});
 					collectionListingPromise.then(function(value){
-						$scope.collection.pageRecords = collectionService.getCollection().pageRecords.concat(value.pageRecords);
-						collectionService.setCollection($scope.collection);
+						$scope.collection.pageRecords = $scope.collection.pageRecords.concat(value.pageRecords);
 						$scope.autoScrollDisabled = false;
 					},function(reason){
 					});
@@ -83,8 +107,10 @@ angular.module('slatwalladmin')
 			searchPromise = $timeout(function(){
 				$log.debug('search with keywords');
 				$log.debug($scope.keywords);
+				//Set current page here so that the pagination does not break when getting collection
+				paginationService.setCurrentPage(1);
 				$scope.getCollection();
-			}, 500)
+			}, 500);
 		};
 			
 		
@@ -97,8 +123,7 @@ angular.module('slatwalladmin')
 			
 			var collectionListingPromise = $slatwall.getEntity('collection', {id:$scope.collectionID, currentPage:$scope.currentPage, pageShow:pageShow, keywords:$scope.keywords});
 			collectionListingPromise.then(function(value){
-				collectionService.setCollection(value);
-				$scope.collection = collectionService.getCollection();
+				$scope.collection = value;
 	
 				var _collectionObject = $scope.collection['collectionObject'].toLowerCase().replace('slatwall', '');
 				var _recordKeyForObjectID = _collectionObject + 'ID';
@@ -125,12 +150,21 @@ angular.module('slatwalladmin')
 					_pageRecord["editLink"] = _editLink;
 				}
 	
-				$scope.collectionInitial = angular.copy(collectionService.getCollection());
+				$scope.collectionInitial = angular.copy($scope.collection);
 				if(angular.isUndefined($scope.collectionConfig)){
-					$scope.collectionConfig = collectionService.getCollectionConfig();
+					$scope.collectionConfig = angular.fromJson($scope.collection.collectionConfig);
 				}
 				//check if we have any filter Groups
-				$scope.collectionConfig.filterGroups = collectionService.getRootFilterGroup();
+				if(angular.isUndefined($scope.collectionConfig.filterGroups)){
+					$scope.collectionConfig.filterGroups = [
+						{
+							filterGroup:[
+								
+							]
+						}
+					];
+				}
+				collectionService.setFilterCount(filterItemCounter());
 			},function(reason){
 			});
 		};
@@ -139,7 +173,7 @@ angular.module('slatwalladmin')
 		
 		var unbindCollectionObserver = $scope.$watch('collection',function(newValue,oldValue){
 			if(newValue !== oldValue){
-				if(angular.isUndefined($scope.filterPropertiesList)){
+				if(angular.isUndefined($scope.filterPropertiesList) ){
 					$scope.filterPropertiesList = {};
 					var filterPropertiesPromise = $slatwall.getFilterPropertiesByBaseEntityName($scope.collectionConfig.baseEntityAlias);
 					filterPropertiesPromise.then(function(value){
@@ -169,37 +203,70 @@ angular.module('slatwalladmin')
 				
 		};
 		
-		$scope.saveCollection = function(){
-			$log.debug('saving Collection');
+		var filterItemCounter = function(filterGroupArray){
+			var filterItemCount = 0;
 			
-			var entityName = 'collection';
-			var collection = $scope.collection;
-			$log.debug($scope.collectionConfig);
-			var collectionConfigString = collectionService.stringifyJSON($scope.collectionConfig);
-			$log.debug(collectionConfigString);
-			collection.collectionConfig = collectionConfigString;
-			if(isFormValid($scope.collectionForm)){
-				var data = angular.copy(collection);
-				//has to be removed in order to save transient correctly
-				delete data.pageRecords;
-				
-				var saveCollectionPromise = $slatwall.saveEntity(entityName,collection.collectionID,data);
-				saveCollectionPromise.then(function(value){
-					
-					$scope.errorMessage = {};
-					//$scope.collectionForm.$setPristine();
-					$scope.getCollection();
-					$scope.collectionDetails.isOpen = false;
-					//$scope.collectionConfig = $scope.collectionConfigCopy;
-				}, function(reason){
-					//revert to original
-					angular.forEach(reason.errors,function(value,key){
-						$scope.collectionForm[key].$invalid = true;
-						$scope.errorMessage[key] = value[0];
-					});
-					//$scope.collection = angular.copy($scope.collectionInitial);
-				});
+			if(!angular.isDefined(filterGroupArray)){
+				filterGroupArray = $scope.collectionConfig.filterGroups[0].filterGroup;
 			}
+			
+			//Start out loop
+			for(var index in filterGroupArray){
+
+				//If filter isn't new then increment the count
+				if(!filterGroupArray[index].$$isNew 
+						&& !angular.isDefined(filterGroupArray[index].filterGroup)){
+					filterItemCount++;	
+				// If there are nested filter groups run introspectively
+				} else if(angular.isDefined(filterGroupArray[index].filterGroup)){
+					//Call function recursively
+					filterItemCount += filterItemCounter(filterGroupArray[index].filterGroup);
+					
+				//Otherwise make like the foo fighters and "Break Out!"
+				} else {
+					break;
+				}
+				
+			}
+			return filterItemCount;
+		}
+		
+		
+		$scope.saveCollection = function(){
+			$timeout(function(){
+				$log.debug('saving Collection');
+				var entityName = 'collection';
+				var collection = $scope.collection;
+				$log.debug($scope.collectionConfig);
+				
+				if(isFormValid($scope.collectionForm)){
+					var collectionConfigString = collectionService.stringifyJSON($scope.collectionConfig);
+					$log.debug(collectionConfigString);
+					var data = angular.copy(collection);
+					
+					data.collectionConfig = collectionConfigString;
+					//has to be removed in order to save transient correctly
+					delete data.pageRecords;
+					var saveCollectionPromise = $slatwall.saveEntity(entityName,collection.collectionID,data);
+					saveCollectionPromise.then(function(value){
+						
+						$scope.errorMessage = {};
+						//Set current page here so that the pagination does not break when getting collection
+						paginationService.setCurrentPage(1);
+						$scope.getCollection();
+						$scope.collectionDetails.isOpen = false;
+					}, function(reason){
+						//revert to original
+						angular.forEach(reason.errors,function(value,key){
+							$scope.collectionForm[key].$invalid = true;
+							$scope.errorMessage[key] = value[0];
+						});
+						//$scope.collection = angular.copy($scope.collectionInitial);
+					});
+				}
+
+				collectionService.setFilterCount(filterItemCounter());
+			});
 		};
 		
 		var isFormValid = function (angularForm){

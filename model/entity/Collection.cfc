@@ -42,14 +42,14 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 	property name="collectionID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";
 	property name="collectionName" ormtype="string";
 	property name="collectionCode" ormtype="string" unique="true" index="PI_COLLECTIONCODE";
-	property name="description" ormtype="string";
+	property name="collectionDescription" ormtype="string";
 	property name="collectionObject" ormtype="string" hb_formFieldType="select";
-	property name="parentCollection" cfc="Collection" fieldtype="many-to-one" fkcolumn="parentCollectionID";
-	property name="collectionConfig" ormtype="string" length="8000" hb_auditable="false" hint="json object used to construct the base collection HQL query";
+	property name="collectionConfig" ormtype="string" length="8000" hb_auditable="false" hb_formFieldType="json" hint="json object used to construct the base collection HQL query";
 	
 	// Calculated Properties
 
 	// Related Object Properties (many-to-one)
+	property name="parentCollection" cfc="Collection" fieldtype="many-to-one" fkcolumn="parentCollectionID";
 	
 	// Related Object Properties (one-to-many)
 	
@@ -148,7 +148,14 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 					var columnStruct = {};
 					columnStruct['propertyIdentifier'] = '_' & lcase(getService('hibachiService').getProperlyCasedShortEntityName(arguments.collectionObject)) & '.' & defaultProperty.name;
 					columnStruct['title'] = newEntity.getPropertyTitle(defaultProperty.name);
-					columnStruct['isVisible'] = true;
+					
+					if(structKeyExists(defaultProperty,"fieldtype") && defaultProperty.fieldtype == 'id'){
+						columnStruct['isDeletable'] = false;
+						columnStruct['isVisible'] = false;
+					}else{
+						columnStruct['isDeletable'] = true;
+						columnStruct['isVisible'] = true;
+					}
 					columnStruct['isSearchable'] = true;
 					columnStruct['isExportable'] = true;
 					if(structKeyExists(defaultProperty,"ormtype")){
@@ -456,7 +463,6 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 		variables.postFilterGroups = [];
 		variables.postOrderBys = [];
 		HQL = createHQLFromCollectionObject(this,arguments.excludeSelect);
-		
 		return HQL;
 	}
 	
@@ -587,7 +593,9 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 	public array function getRecords(boolean refresh=false) {
 		if( !structKeyExists(variables, "records") || arguments.refresh == true) {
 			variables.records = ormExecuteQuery(getHQL(), getHQLParams(), false, {ignoreCase="true", cacheable=getCacheable(), cachename="records-#getCacheName()#"});
+			
 		}
+		
 		return variables.records;
 	}
 	
@@ -643,22 +651,36 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 	
 	private string function getPredicate(required any filter){
 		var predicate = '';
+		//verify we are handling a range value
 		if(arguments.filter.comparisonOperator eq 'between' || arguments.filter.comparisonOperator eq 'not between'){
-			if(listLen(arguments.filter.value,'-') > 1){
+			if(arguments.filter.ormtype eq 'timestamp'){
+				if(listLen(arguments.filter.value,'-') > 1){
+					//convert unix timestamp
+					var fromDate = DateAdd("s", listFirst(arguments.filter.value,'-')/1000, "January 1 1970 00:00:00");
+					var fromValue = dateFormat(fromDate,"yyyy-mm-dd") & " " & timeFormat(fromDate, "HH:MM:SS");
+					var toDate = DateAdd("s", listLast(arguments.filter.value,'-')/1000, "January 1 1970 00:00:00");
+					var toValue = dateFormat(toDate,"yyyy-mm-dd") & " " & timeFormat(toDate, "HH:MM:SS");
+					var fromParamID = getParamID();
+					addHQLParam(fromParamID,fromValue);
+					var toParamID = getParamID();
+					addHQLParam(toParamID,toValue);
+					
+					predicate = ":#fromParamID# AND :#toParamID#";	
+				}else{
+					//if list length is 1 then we treat it as a date range From Now() - Days to Now()
+					var fromValue = DateAdd("d",-arguments.filter.value,Now());
+					var toValue = Now();
+					
+					var fromParamID = getParamID();
+					addHQLParam(fromParamID,fromValue);
+					var toParamID = getParamID();
+					addHQLParam(toParamID,toValue);
+					
+					predicate = ":#fromParamID# AND :#toParamID#";	
+				}
+			}else if(listFind('integer,float,big_decimal',arguments.filter.ormtype)){
 				var fromValue = listFirst(arguments.filter.value,'-');
 				var toValue = listLast(arguments.filter.value,'-');
-				
-				var fromParamID = getParamID();
-				addHQLParam(fromParamID,fromValue);
-				var toParamID = getParamID();
-				addHQLParam(toParamID,toValue);
-				
-				predicate = ":#fromParamID# AND :#toParamID#";	
-			}else{
-				//if list length is 1 then we treat it as a date range From Now() - Days to Now()
-				var fromValue = DateAdd("d",-arguments.filter.value,Now());
-				var toValue = Now();
-				
 				var fromParamID = getParamID();
 				addHQLParam(fromParamID,fromValue);
 				var toParamID = getParamID();
@@ -666,11 +688,32 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 				
 				predicate = ":#fromParamID# AND :#toParamID#";	
 			}
+			
 						
 		}else if(arguments.filter.comparisonOperator eq 'is' || arguments.filter.comparisonOperator eq 'is not'){
 			predicate = filter.value;
 		}else if(arguments.filter.comparisonOperator eq 'in' || arguments.filter.comparisonOperator eq 'not in'){
-			predicate = '(' & filter.value & ')';
+			predicate = "(" & ListQualify(filter.value,"'") & ")";
+		}else if(arguments.filter.comparisonOperator eq 'like' || arguments.filter.comparisonOperator eq 'not like'){
+			var paramID = getParamID();
+			if(!structKeyExists(filter,"value")){
+				filter.value = "";
+			}
+			if(structKeyExists(filter,'pattern')){
+				switch(filter.pattern){
+					case '%w%':
+						filter.value = '%#filter.value#%';
+						break;
+					case 'w%':
+						filter.value = '#filter.value#%';
+						break;
+					case '%w':	
+						filter.value = '%#filter.value#';
+						break;
+				}	
+			}
+			addHQLParam(paramID,arguments.filter.value);
+			predicate = ":#paramID#";
 		}else{
 			var paramID = getParamID();
 			if(!structKeyExists(filter,"value")){
@@ -805,8 +848,11 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 			if(arraylen(getPostFilterGroups())){
 				if(len(filterHQL) eq 0){
 					postFilterHQL &= ' where ';
-				}
-				postFilterHQL &= getFilterGroupsHQL(postFilterGroups);
+					postFilterHQL &= '(' & getFilterGroupsHQL(postFilterGroups) & ')';
+				}else{
+					postFilterHQL &= ' AND ' & '(' & getFilterGroupsHQL(postFilterGroups) & ')';
+				}	
+				
 			}
 			
 			//override defaultconfig if we have postOrderBys
@@ -827,14 +873,17 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 			
 			fromHQL &= getFromHQL(collectionConfig.baseEntityName, collectionConfig.baseEntityAlias, joins);
 			
-			HQL = SelectHQL & FromHQL & filterHQL & postFilterHQL & orderByHQL;
+			HQL = SelectHQL & FromHQL & filterHQL  & postFilterHQL  & orderByHQL;
 		}
 		return HQL;
 	}
 	
 	public void function addPostFiltersFromKeywords(required any collectionConfig, numeric hasFilterHQL){
+		var keywordCount = 0;
 		if(structKeyExists(arguments.collectionConfig,'columns') && arrayLen(arguments.collectionConfig.columns)){
+			
 			for(column in arguments.collectionConfig.columns){
+				
 				if(structKeyExists(column,'isSearchable') && column.isSearchable){
 					//use keywords to create some post filters
 					if(structKeyExists(column,'ormtype') 
@@ -843,6 +892,7 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 						&& column.ormtype neq 'big_decimal'
 						&& column.ormtype neq 'integer'
 						){
+						
 						for(keyword in getKeywordArray()){
 							
 							var postFilterGroup = {
@@ -854,13 +904,14 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 									}
 								]
 							};
-							if(arguments.hasFilterHQL){
+							if(keywordCount != 0){
 								postFilterGroup.logicalOperator = "OR";
 							}else{
 								arguments.hasFilterHQL = 1;
 							}
 							//add post filter per column that is searchable
 							addPostFilterGroup(postFilterGroup);
+							keywordCount++;
 						}
 					}
 					if(structKeyExists(column,'attributeID')){
@@ -877,16 +928,20 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 									}
 								] 
 							};
-							if(arguments.hasFilterHQL){
+							
+							if(keywordCount != 0){
 								postFilterGroup.logicalOperator = "OR";
 							}else{
 								arguments.hasFilterHQL = 1;
 							}
+							
 							//add post filter per column that is searchable
 							addPostFilterGroup(postFilterGroup);
+							keywordCount++;
 						}
 					}
 				}
+				keywordCount++;
 			}
 		}else{
 			//if we don't have columns then we need default properties searching
@@ -908,13 +963,14 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 								}
 							]
 						};
-						if(arguments.hasFilterHQL){
+						if(keywordCount != 0){
 							postFilterGroup.logicalOperator = "OR";
 						}else{
 							arguments.hasFilterHQL = 1;
 						}
 						//add post filter per column that is searchable
 						addPostFilterGroup(postFilterGroup);
+						keywordCount++;
 					}
 				}
 				if(structKeyExists(propertyItem,'attributeID')){
@@ -930,15 +986,17 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 								}
 							] 
 						};
-						if(arguments.hasFilterHQL){
+						if(keywordCount != 0){
 							postFilterGroup.logicalOperator = "OR";
 						}else{
 							arguments.hasFilterHQL = 1;
 						}
 						//add post filter per propertyItem that is searchable
 						addPostFilterGroup(postFilterGroup);
+						keywordCount++;
 					}
 				}
+				keywordCount++;
 			}
 		}
 	}

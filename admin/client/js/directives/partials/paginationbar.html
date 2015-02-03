@@ -28,14 +28,14 @@
 			    	ng-click="previousPage()"
 			    	ng-class="{disabled:hasPrevious()}"
 			    >
-			    	<a 	href="#" 
+			    	<a 	
 			    		
 			    	>
 			    		&laquo;
 			    	</a>
 			    </li>
 			    <li ng-show="showPreviousJump()">
-			    	<a 	href="#" 
+			    	<a 	
 			    		ng-click="setCurrentPage(1)"
 			    	>
 			    		1
@@ -44,7 +44,7 @@
 			    <li ng-show="showPreviousJump()"
 			    	ng-click="previousJump()"
 			    >
-			    	<a 	href="#" 
+			    	<a 	 
 			    		
 			    	>
 			    		...
@@ -55,18 +55,18 @@
 			    	ng-click="setCurrentPage(i)"
 			    	ng-show="showPageNumber(i)"
 			    >
-			    	<a href="#" ng-bind="i"></a>
+			    	<a  ng-bind="i"></a>
 			    </li>
 			    <li ng-show="showNextJump()"
 			    	ng-click="nextJump()"
 			    >
-			    	<a 	href="#" 
+			    	<a 	 
 			    		>
 			    		...
 			    	</a>
 			    </li>
 			    <li ng-show="showNextJump()">
-			    	<a 	href="#" 
+			    	<a 	 
 			    		ng-click="setCurrentPage(totalPages())"
 			    		ng-bind="totalPages()"
 			    	>
@@ -77,7 +77,7 @@
 			    	ng-class="{disabled:hasNext()}"
 			    	ng-click="nextPage()"
 			    	>
-			    	<a href="#">
+			    	<a >
 			    		&raquo;
 			    	</a>
 			    </li>
@@ -88,7 +88,7 @@
 		  <!-- TODO: decide whether to implement this button or not at a later date
 		  <li>
 			<div class="btn-group" class="navbar-left">
-			  <button type="button" class="btn btn-sm s-btn-grey"><i class="fa fa-plus"></i></button>
+			  <button type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i></button>
 			</div>
 		  </li> 
 		  -->

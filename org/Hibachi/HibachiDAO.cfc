@@ -196,6 +196,10 @@
 	    	exportQry = result.getResult(); 
 			return exportQry;
 		}
+		
+		public void function reencryptData(numeric batchSizeLimit=0) {
+		}
+
 		/**
 		Returns an Account by the auth token
 		@method getAccountByAuthToken

@@ -41,7 +41,7 @@ component displayname="Workflow" entityname="SlatwallWorkflow" table="SwWorkflow
 	
 	// Persistent Properties
 	property name="workflowID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";
-	property name="activeFlag" ormtype="boolean";
+	property name="activeFlag" ormtype="boolean" hb_formatType="yesno";
 	property name="workflowName" ormtype="string";
 	property name="workflowObject" ormtype="string" hb_formfieldType="select";
 
@@ -87,6 +87,21 @@ component displayname="Workflow" entityname="SlatwallWorkflow" table="SwWorkflow
 		}
 		
 		return variables.workflowObjectOptions;
+	}
+	
+	// WorkflowTask (one-to-many)
+	public void function addWorkflowTask(required any WorkflowTask) {
+		arguments.WorkflowTask.setWorkflow( this );
+	}
+	public void function removeWorkflowTask(required any WorkflowTask) {
+		arguments.WorkflowTask.removeWorkflow( this );
+	}
+	// WorkflowTrigger (one-to-many)
+	public void function addWorkflowTrigger(required any WorkflowTrigger) {
+		arguments.WorkflowTrigger.setWorkflow( this );
+	}
+	public void function removeWorkflowTrigger(required any WorkflowTrigger) {
+		arguments.WorkflowTrigger.removeWorkflow( this );
 	}
 	
 	// ============  END:  Non-Persistent Property Methods =================

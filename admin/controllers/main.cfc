@@ -104,7 +104,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		rc.productReviewSmartList.addFilter("activeFlag", 0);
 		rc.productReviewSmartList.setPageRecordsShow(10);
 		
-		if(getUpdateService().checkForMetaFolderWithoutDismissal()) {
+		if(getUpdateService().getMetaFolderExistsWithoutDismissalFlag()) {
 			rc.$.slatwall.showMessageKey( 'admin.metaexists_error' );
 		}
 	}
@@ -148,6 +148,19 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		if (rc.process) {
 			getHibachiUtilityService().addEncryptionPasswordData(data=rc);
 			rc.$.slatwall.showMessageKey("admin.main.encryption.updatePassword_success");
+			getFW().redirect(action="admin:main.default", preserve="messages");
+		}
+		
+		rc.edit = true;
+	}
+	
+	public void function encryptionReencryptData(required struct rc) {
+		param name="rc.process" default="0";
+		param name="rc.batchSizeLimit" default="0"; 
+		
+		if (rc.process) {
+			getHibachiUtilityService().reencryptData(val(rc.batchSizeLimit));
+			rc.$.slatwall.showMessageKey("admin.main.encryption.reencryptdata_success");
 			getFW().redirect(action="admin:main.default", preserve="messages");
 		}
 		
@@ -307,7 +320,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		
 		rc.$.slatwall.showMessageKey( 'admin.main.unlockAccount_info' );
 		
-		getFW().redirect(action="?slatAction=entity.detailaccount&accountID=" & url.accountid, preserve="messages");
+		getFW().redirect(action="entity.detailaccount", queryString="accountID=#arguments.rc.accountid#", preserve="messages");
 
 	}
 

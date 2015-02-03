@@ -160,10 +160,10 @@ component extends="HibachiService" accessors="true" output="false" {
 		return UCase(left(arguments.phrase,1)) & Right(arguments.phrase,Len(arguments.phrase)-1);
 	}
 	
-	public any function getTransientCollectionByEntityName(required string entityName){
+	public any function getTransientCollectionByEntityName(required string entityName,struct collectionOptions){
 		var collectionEntity = this.newCollection();
 		var properlyCasedFullEntityName = getProperlyCasedFullEntityName(arguments.entityName);
-		collectionEntity.setCollectionObject(properlyCasedFullEntityName,false);
+		collectionEntity.setCollectionObject(properlyCasedFullEntityName,arguments.collectionOptions.defaultColumns);
 		return collectionEntity;
 	}
 	
@@ -190,7 +190,7 @@ component extends="HibachiService" accessors="true" output="false" {
 		
 	}
 	
-	private any function getFormattedPageRecord(required any pageRecord, required any propertyIdentifier){
+	public any function getFormattedPageRecord(required any pageRecord, required any propertyIdentifier){
 		//populate pageRecordStruct with pageRecord info based on the passed in property identifier
 		
 		var pageRecordStruct = {};
@@ -404,12 +404,23 @@ component extends="HibachiService" accessors="true" output="false" {
 	}
 	
 	public any function getAPIResponseForEntityName(required string entityName, required struct collectionOptions){
-		var collectionEntity = getTransientCollectionByEntityName(arguments.entityName);
+		var collectionEntity = getTransientCollectionByEntityName(arguments.entityName,arguments.collectionOptions);
+		var collectionConfigStruct = collectionEntity.getCollectionConfigStruct();
+		if(!structKeyExists(collectionConfigStruct,'filterGroups')){
+			collectionConfigStruct.filterGroups = [];
+		}
+		if(!structKeyExists(collectionConfigStruct,'joins')){
+			collectionConfigStruct.joins = [];
+		}
+		if(!structKeyExists(collectionConfigStruct,'isDistinct')){
+			collectionConfigStruct.isDistinct = false;
+		}
+		
 		return getAPIResponseForCollection(collectionEntity,arguments.collectionOptions);
 	}
 	
 	public any function getAPIResponseForBasicEntityWithID(required string entityName, required string entityID, required struct collectionOptions){
-		var collectionEntity = getTransientCollectionByEntityName(arguments.entityName);
+		var collectionEntity = getTransientCollectionByEntityName(arguments.entityName,arguments.collectionOptions);
 		//set up search by id				
 		var collectionConfigStruct = collectionEntity.getCollectionConfigStruct();
 		if(!structKeyExists(collectionConfigStruct,'filterGroups')){
@@ -421,6 +432,7 @@ component extends="HibachiService" accessors="true" output="false" {
 		if(!structKeyExists(collectionConfigStruct,'isDistinct')){
 			collectionConfigStruct.isDistinct = false;
 		}
+		
 		
 		var propertyIdentifier = '_' & lcase(arguments.entityName) & '.#arguments.entityName#ID';
 		var filterStruct = createFilterStruct(propertyIdentifier,'=',arguments.entityID);
@@ -438,7 +450,6 @@ component extends="HibachiService" accessors="true" output="false" {
 		collectionEntity.setCurrentPageDeclaration(arguments.collectionOptions.currentPage);
 		collectionEntity.setPageRecordsShow(arguments.collectionOptions.pageShow);
 		collectionEntity.setKeywords(arguments.collectionOptions.keywords);
-		
 		if(len(arguments.collectionOptions.propertyIdentifiersList)){
 			addColumnsToCollectionConfigStructByPropertyIdentifierList(arguments.collectionEntity,arguments.collectionOptions.propertyIdentifiersList);
 			var collectionPropertyIdentifiers = [];

@@ -1,65 +1,47 @@
 angular.module('slatwalladmin')
 .directive('swWorkflowTriggers', [
-	'$log',
-	'$location',
-	'$slatwall',
-	'workflowService',
-	'workflowTriggerService',
-	'workflowPartialsPath',
+'$log',
+'$location',
+'$slatwall',
+'workflowPartialsPath',
+'formService',
 	function(
-		$log,
-		$location,
-		$slatwall,
-		workflowService,
-		workflowTriggerService,
-		workflowPartialsPath
+	$log,
+	$location,
+	$slatwall,
+	workflowPartialsPath,
+	formService
 	){
 		return {
-			require:"^form",
-			restrict: 'A',
+			restrict: 'E',
 			scope:{
-				
+				workflow:"="
 			},
 			templateUrl:workflowPartialsPath+"workflowtriggers.html",
 			link: function(scope, element,attrs,formController){
 				$log.debug('workflow triggers init');	
 				
-				scope.workflowID = $location.search().workflowID;
 				scope.$id = 'swWorkflowTriggers';
 					
-				/*scope.getPropertyDisplayData = function(){
-					var propertyDisplayDataPromise = $slatwall.getPropertyDisplayData('workflowTrigger',{propertyIdentifiersList:'triggerType'});
-					propertyDisplayDataPromise.then(function(value){
-						scope.propertyDisplayData = value.data;
-						$log.debug('getting property Display meta data');
-						$log.debug(scope.propertyDisplayData);
-					},function(reason){
-						var messages = reason.MESSAGES;
-						var alerts = alertService.formatMessagesToAlerts(messages);
-						alertService.addAlers(alerts);
-					});
-				};
-				scope.getPropertyDisplayData();*/
-					
 				scope.getWorkflowTriggers = function(){
-					var filterGroupsConfig ='['+  
-						'{'+
-	                     	'"filterGroup":['+  
-					            '{'+
-					               '"propertyIdentifier":"_workflow.workflowID",'+
-					               '"comparisonOperator":"=",'+
-					               '"value":"'+scope.workflowID+'"'+
-					           '}'+ 
-					         ']'+
-						'}'+
-					']';
-					var workflowTriggerPromise = $slatwall.getEntity('workflowTrigger',{filterGroupsConfig:filterGroupsConfig});
-					
-					workflowTriggerPromise.then(function(value){
-						$log.debug('getWorkflowTriggers');
-						scope.workflowTriggers = workflowTriggerService.formatWorkflowTriggers(value.pageRecords);
-						$log.debug(scope.workflowTriggers);
+					var workflowTriggersPromise = scope.workflow.$$getWorkflowTriggers();
+					workflowTriggersPromise.then(function(){
+						scope.workflowTriggers = scope.workflow.data.workflowTriggers;
+						console.log('workflowtriggers');
+						console.log(scope.workflowTriggers);
+						if(angular.isUndefined(scope.workflow.data.workflowTriggers)){
+							scope.workflow.data.workflowTriggers = [];
+							scope.workflowTriggers = scope.workflow.data.workflowTriggers;
+						}
 						
+						angular.forEach(scope.workflowTriggers,function(workflowTrigger,key){
+							console.log('trigger');
+							console.log(workflowTrigger);
+							if(workflowTrigger.data.triggerType === 'Schedule'){
+								workflowTrigger.$$getSchedule();
+								workflowTrigger.$$getScheduleCollection();
+							}
+						});
 					});
 				};
 				
@@ -75,7 +57,7 @@ angular.module('slatwalladmin')
 					            '{'+
 					               '"propertyIdentifier":"_collection.collectionObject",'+
 					               '"comparisonOperator":"=",'+
-					               '"value":"Slatwall'+ scope.workflowTriggers.selectedTrigger.workflow.workflowObject +'"'+
+					               '"value":"'+ scope.workflow.data.workflowObject +'"'+
 					           '}'+ 
 					         ']'+
 						'}'+
@@ -96,7 +78,7 @@ angular.module('slatwalladmin')
 				scope.eventOptions = [];
 				var unBindSearchEventWatch = scope.$watch('searchEvent.name',function(newValue,oldValue){
 					if(newValue !== oldValue){
-						scope.getEventOptions(scope.workflowTriggers.selectedTrigger.workflow.workflowObject);
+						scope.getEventOptions(scope.workflow.data.workflowObject);
 						unBindSearchEventWatch();
 					}
 				});
@@ -115,9 +97,17 @@ angular.module('slatwalladmin')
 					scope.showEventOptions = !scope.showEventOptions;
 				};
 				
+				scope.saveWorkflowTrigger = function(){
+					var saveWorkflowTriggerPromise = scope.workflowTriggers.selectedTrigger.$$save();
+					saveWorkflowTriggerPromise.then(function(){
+						
+					});
+				};
+				
 				scope.selectEvent = function(eventOption){
 					$log.debug('selectEvent');
-					scope.workflowTriggers.selectedTrigger.triggerEvent = eventOption.value;
+					scope.workflowTriggers.selectedTrigger.data.triggerEvent = eventOption.value;
+					scope.workflowTriggers.selectedTrigger.data.objectPropertyIdentifier = eventOption.entityName;
 					scope.searchEvent.name = eventOption.name;
 					$log.debug(eventOption);
 					$log.debug(scope.workflowTriggers);
@@ -125,17 +115,8 @@ angular.module('slatwalladmin')
 				
 				scope.selectCollection = function(collection){
 					$log.debug('selectCollection');
-					scope.workflowTriggers.selectedTrigger.scheduleCollection = collection;
+					scope.workflowTriggers.selectedTrigger.data.scheduleCollection = collection;
 					scope.showCollections = false;
-				};
-				
-				scope.addWorkflowTrigger = function(){
-					$log.debug('addWorkflowTrigger');
-					var newWorkflowTrigger = workflowTriggerService.newWorkflowTrigger();
-					newWorkflowTrigger.workflow = workflowService.getWorkflow(scope.workflowID);
-					scope.workflowTriggers.selectedTrigger = newWorkflowTrigger;
-					scope.workflowTriggers.push(newWorkflowTrigger);
-					$log.debug(scope.workflowTriggers);
 				};
 				
 				scope.removeWorkflowTrigger = function(workflowTrigger){
@@ -145,12 +126,12 @@ angular.module('slatwalladmin')
 					scope.workflowTriggers.splice(workflowTrigger.$$index,1);
 				};
 				
-				scope.saveTrigger = function(){
+				/*scope.saveTrigger = function(){
 					var params = {
-						'objectPropertyIdentifier':scope.workflowTriggers.selectedTrigger.objectPropertyIdentifier,
-						'triggerEvent':scope.workflowTriggers.selectedTrigger.triggerEvent,
-						'triggerType':scope.workflowTriggers.selectedTrigger.triggerType,
-						'workflow.workflowID':scope.workflowTriggers.selectedTrigger.workflow.workflowID,
+						'objectPropertyIdentifier':scope.workflowTriggers.selectedTrigger.data.objectPropertyIdentifier,
+						'triggerEvent':scope.workflowTriggers.selectedTrigger.data.triggerEvent,
+						'triggerType':scope.workflowTriggers.selectedTrigger.data.triggerType,
+						'workflow.workflowID':scope.workflowTriggers.selectedTrigger.data.workflow.workflowID,
 						'workflowTriggerID':'',
 						'propertyIdentifiersList':'workflowTriggerID'
 					};
@@ -158,14 +139,32 @@ angular.module('slatwalladmin')
 					
 					saveTriggerPromise.then(function(value){
 						$log.debug('saveTrigger');
-						scope.workflowTriggers.selectedTrigger.workflowTriggerID = value.data.workflowTriggerID;
+						scope.workflowTriggers.selectedTrigger.data.workflowTriggerID = value.data.workflowTriggerID;
 						delete scope.workflowTriggers.selectedTrigger;
 					},function(reason){
 						
 					});
+				};*/
+				
+				scope.setAsEvent = function(workflowTrigger){
+					//add event,  clear schedule
 				};
 				
+				scope.setAsSchedule = function(workflowTrigger){
+					//add schedule object, may need to clear event data if changed
+//					if(angular.isUndefined(workflowTrigger.data.schedule)){
+//						workflowTrigger.addSchedule();
+//					}
+					
+					
+				};
 				
+				scope.addWorkflowTrigger = function(){
+					$log.debug('addWorkflowTrigger');
+					var newWorkflowTrigger = scope.workflow.$$addWorkflowTrigger();
+					scope.workflowTriggers.selectedTrigger = newWorkflowTrigger;
+					$log.debug(scope.workflowTriggers);
+				};
 			}
 		};
 	}

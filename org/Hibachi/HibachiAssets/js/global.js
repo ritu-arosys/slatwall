@@ -23,7 +23,7 @@ delay = function(func, wait) {
 jQuery(document).ready(function() {
 
 	setupEventHandlers();
-
+	
 	initUIElements( 'body' );
 
 	// Focus on the first tab index
@@ -33,6 +33,10 @@ jQuery(document).ready(function() {
 
 	if(jQuery('#global-search').val() !== '') {
 		jQuery('#global-search').keyup();
+	}
+	
+	if(jQuery('.paging-show-toggle').length) {
+		jQuery('.paging-show-toggle').closest('ul').find('.show-option').hide();
 	}
 
 });
@@ -133,10 +137,12 @@ function initUIElements( scopeSelector ) {
 
 
 	});
-
+	
+	
 	// Form Empty value clear (IMPORTANT!!! KEEP THIS ABOVE THE VALIDATION ASIGNMENT)
 	jQuery.each(jQuery( scopeSelector ).find(jQuery('form')), function(index, value) {
 		jQuery(value).on('submit', function(e){
+			
 			jQuery.each(jQuery( this ).find(jQuery('input[data-emptyvalue]')), function(i, v){
 				if(jQuery(v).val() == jQuery(v).data('emptyvalue')) {
 					jQuery(v).val('');
@@ -282,7 +288,7 @@ function setupEventHandlers() {
 		jQuery('#adminConfirm .btn-primary').attr( 'href', jQuery(this).attr('href') );
 		jQuery('#adminConfirm').modal();
 	});
-	jQuery('body').on('click', '.alert-disabled', function(e){
+	jQuery('body').on('click', '.s-btn-disabled', function(e){	
 		e.preventDefault();
 		jQuery('#adminDisabled .modal-body').html( jQuery(this).data('disabled') );
 		jQuery('#adminDisabled').modal();
@@ -374,11 +380,16 @@ function setupEventHandlers() {
 				});
 
 	});
-
-	// Listing Page - Searching
+	
 	jQuery('body').on('submit', '.action-bar-search', function(e){
 		e.preventDefault();
 	});
+
+	// Listing Page - Searching
+	jQuery('body').on('submit',function(e){
+		jQuery('ng-form').remove();
+	});
+	
 	jQuery('body').on('keyup', '.action-bar-search input', function(e){
 		var data = {};
 		data[ 'keywords' ] = jQuery(this).val();
@@ -401,7 +412,6 @@ function setupEventHandlers() {
 	jQuery('body').on('click', '.paging-show-toggle', function(e) {
 		e.preventDefault();
 		jQuery(this).closest('ul').find('.show-option').toggle();
-		jQuery(this).closest('ul').find('.page-option').toggle();
 	});
 	// Listing Display - Paging Show Select
 	jQuery('body').on('click', '.show-option', function(e) {
@@ -509,8 +519,7 @@ function setupEventHandlers() {
 	});
 
 		//General Listing Search
-	jQuery('.general-listing-search').keyup(function(e){
-
+	jQuery('body').on('keyup', '.general-listing-search', function(e){
 		if(e.which >= 47 || e.which ==13 || e.which==8  ){  //only react to visible chrs
 			//Should stop bootstrap dropdowns from opening, *should*
 			e.stopPropagation();
@@ -1272,7 +1281,6 @@ function buildPagingNav(currentPage, totalPages, pageRecordStart, pageRecordEnd,
 			pageCount = totalPages;
 		}
 
-
 		nav += '<li><a href="##" class="paging-show-toggle">Show <span class="details">(' + pageRecordStart + ' - ' + pageRecordEnd + ' of ' + recordsCount + ')</a></li>';
 		nav += '<li><a href="##" class="show-option" data-show="10">10</a></li>';
 		nav += '<li><a href="##" class="show-option" data-show="25">25</a></li>';
@@ -1280,7 +1288,7 @@ function buildPagingNav(currentPage, totalPages, pageRecordStart, pageRecordEnd,
 		nav += '<li><a href="##" class="show-option" data-show="100">100</a></li>';
 		nav += '<li><a href="##" class="show-option" data-show="500">500</a></li>';
 		nav += '<li><a href="##" class="show-option" data-show="ALL">ALL</a></li>';
-
+	
 		if(currentPage > 1) {
 			nav += '<li><a href="#" class="listing-pager page-option prev" data-page="' + (currentPage - 1) + '">&laquo;</a></li>';
 		} else {
@@ -1423,8 +1431,15 @@ function tableSelectClick( toggleLink ) {
 
 		// Update the value
 		jQuery( 'input[name="' + jQuery( toggleLink ).closest( 'table' ).data('selectfield') + '"]' ).val( jQuery( toggleLink ).data( 'idvalue' ) );
-
+		
+	} else {
+		// Remove old checked icon
+		jQuery( toggleLink ).closest( 'table' ).find('.hibachi-ui-radio-checked').addClass('hibachi-ui-radio').removeClass('hibachi-ui-radio-checked');
+		
+		// Update the value to null
+		jQuery( 'input[name="' + jQuery( toggleLink ).closest( 'table' ).data('selectfield') + '"]' ).val( "" );
 	}
+	
 }
 
 function globalSearchHold() {
