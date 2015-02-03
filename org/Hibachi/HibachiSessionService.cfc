@@ -1,3 +1,8 @@
+/**
+Hibachi is the framework on which Slatwall is built
+@module Hibachi
+@class HibachiSession
+*/
 component output="false" accessors="true" extends="HibachiService"  {
 
 	property name="accountService" type="any";

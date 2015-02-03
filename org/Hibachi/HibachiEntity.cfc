@@ -1,3 +1,8 @@
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class HibachiEntity
+*/
 component output="false" accessors="true" persistent="false" extends="HibachiTransient" {
 
 	property name="newFlag" type="boolean" persistent="false";

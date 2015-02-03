@@ -36,6 +36,11 @@
 // after{EntityName}Process_{processContext}Failure
 
 */
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class HibachiEventService
+*/
 component output="false" update="true" extends="HibachiService" {
 
 	variables.registeredEvents = {};

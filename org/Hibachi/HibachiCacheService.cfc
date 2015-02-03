@@ -1,3 +1,8 @@
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class HibachiCacheService
+*/
 component accessors="true" output="false" extends="HibachiService" {
 
 	property name="cache" type="struct";

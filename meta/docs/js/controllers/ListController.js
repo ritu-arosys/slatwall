@@ -1,5 +1,6 @@
 /**
- * Setup our controller for grabbing the list of documentation items
+ * Setup our controller for grabbing the list of reference documentation items
+ * @module slatwallDocs
  * @class SlatwallDocsControllerList
  */
 slatdocs
@@ -9,28 +10,17 @@ slatdocs
 					$scope.url = "list";
 					$http
 							.get(
-									'/index.cfm?slatAction=api:main.getDocData&slatdocs=' + $scope.url)
+									'/index.cfm?slatAction=api:main.getReferenceList')
 							.success(function(response) {
-								//---
-								//Make sense of the array list...
-								var responseArray = new Array();
-								for ( var key in response) {
-									if (response.hasOwnProperty(key)) {
-										if (response[key] != "") {
-											var val = response[key];
-											var temp = val.toString().split(",");
-											//------
-											for (var i = 0; i <= temp.length -1; i++){
-												responseArray.push(temp[i]);
-											};
-										}
-									}
-								}
-								$scope.docs = responseArray;
-								
+								var data = response.DATA || "";
+								var dataObj = JSON.parse(data);
+								console.dir(dataObj);
+								$scope.docs = dataObj.classes;
+								$scope.classes = dataObj.classes;
+								$scope.modules = dataObj.modules;
 								$scope.displayMeta = function(name) {
 								    docSharedService.prepForBroadcast(name);
-								};
+								}
 								
 							});
 });

@@ -5,8 +5,8 @@
     "url": "http://www.getslatwall.com/",
     "logo": "/assets/images/admin.logo.png",
     "options": {
-        "ignorePaths": [ ".git", ".settings", "assets", "client", "org", "integrationServices", "/meta/docs/lib", "/meta/docs/js/lib", "*/lib", "/meta/docs/eclipse", "org"  ],
-        "exclude": ".git,.settings,assets,client,org,integrationServices,lib",
+        "ignorePaths": [ ".git", "/client/*", "*lib*","*angular*",".settings", "assets", "client", "org", "integrationServices", "/meta/docs/lib", "/meta/docs/js/lib", "*/lib", "/meta/docs/eclipse", "org", "./client/lib/angular","./client/lib/angular/angular-ui-bootstrap","./client/lib/date","./client/lib/font-awesome","./client/lib/metismenu"],
+        "exclude": " meta/docs/js/lib/*,.git,.settings,assets,./client/lib/selectBoxIt,org,integrationServices,lib,./org/ckeditor, ./org/ckfinder,./org/DI1,./org/FW1,./org/javaRB,./org/YUIcompressor",
         "paths": ["."],
         "outdir": "./meta/docs/build"
     }

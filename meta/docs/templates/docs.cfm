@@ -15,8 +15,7 @@
                 	<!-- End left sidebar   -->
                 	 	<!-- Begin content area -->
                 <div class="col-md-9" ng-controller="SlatwallDocsControllerMarkDownBody">
-                		<div id="body" value="{{body}}"></div>		
-                		
+                		<div id="body" value="{{body}}"></div>
                  </div>
                 <!-- End content area   -->
             </div>

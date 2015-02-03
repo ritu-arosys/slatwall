@@ -1,11 +1,14 @@
 /**
  * Handles displaying the rendered MD on a nav click.
+ * @module slatwallDocs
+ * @class docsMDRouter
  */
 var slatdocs = angular.module('slatdocs', ['ngRoute']);
 slatdocs.config(
         function( $routeProvider ){
 
-            $routeProvider
+        		$routeProvider
+        
                    .when(
                     "/:base/:markDownItem",
                     {

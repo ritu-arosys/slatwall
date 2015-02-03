@@ -1,3 +1,8 @@
+/**
+Hibachi is the framework on which Slatwall is built
+@module Hibachi
+@class HibachiTransient
+*/
 component output="false" accessors="true" persistent="false" extends="HibachiObject" {
 
 	property name="hibachiErrors" type="any" persistent="false";							// This porpery holds errors that are not part of ValidateThis, for example processing errors.

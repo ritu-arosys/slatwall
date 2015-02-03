@@ -20,6 +20,64 @@
 	<cfset variables.entityHasAttribute = {} />
 	
 	<cfscript>
+		/**
+		* <h2>HibachiService</h2> is a part of Hibachi, the framework that Slatwall is build on.
+		*@module Hibachi
+		*@class HibachiService
+		*/
+		/**
+		Handles all of the data access objects.
+		@property hibachiDAO
+		@type {any} 
+		*/
+		/**
+		Hibachi main authentication service
+		@property hibachiAuthenticationService 
+			@type {any} 
+		*/
+		/**
+		Hibachi Cache Service
+		@property hibachiCacheService 
+			@type {any} 
+		*/
+		/**
+		Hibachi event service
+		@property hibachiEventService 
+			@type {any} 
+		*/
+		/**
+		Hibachi RB key service
+		@property hibachiRBService 
+			@type {any} 
+		*/
+		/**
+		Hibachi session service
+		@property hibachiSessionService 
+			@type {any} 
+		*/
+		/**
+		Hibachi tag service
+		@property hibachiTagService 
+			@type {any} 
+		*/
+		/**
+		Hibachi utility service
+		@property hibachiUtilityService 
+			@type {any} 
+		*/
+		/**
+		Handles all server side validation
+		@property hibachiValidationService 
+			@type {any} 
+		*/
+		/**
+		**Get is a entity helper method for retreiving entities by entity name.**
+		@method get
+		@param entityname {string}
+		@param idOrFilter {any}
+		@param isReturnNewOnNotFound {boolean}
+		@return entity
+		*/
 		public any function get(required string entityName, required any idOrFilter, boolean isReturnNewOnNotFound = false ) {
 			return getHibachiDAO().get(argumentcollection=arguments);
 		}
@@ -42,19 +100,42 @@
 			
 			return smartList;
 		}
-		
+		/**
+		**List of entities**
+		@method list
+		@param entityname {string}
+		@param filterCriteria {struct}
+		@param sortOrder {string}
+		@param options {struct}
+		@return entity
+		*/
 		public any function list(required string entityName, struct filterCriteria = {}, string sortOrder = '', struct options = {} ) {
 			return getHibachiDAO().list(argumentcollection=arguments);
 		}
-	
+		/**
+		**Returns a new entity by entity name**
+		@method new
+		@param entityname {string}
+		@return entity
+		*/
 		public any function new(required string entityName ) {
 			return getHibachiDAO().new(argumentcollection=arguments);
 		}
-	
+		/**
+		**Count by entity name**
+		@method count
+		@param entityname {any}
+		@return any
+		*/
 		public any function count(required string entityName ) {
 			return getHibachiDAO().count(argumentcollection=arguments);
 		}
-		
+		/**
+		**Delete an entity**
+		@method delete
+		@param target {required}
+		@return void
+		*/
 		public boolean function delete(required any entity){
 			
 			// Add the entity by it's name to the arguments for calling events
@@ -146,6 +227,12 @@
 		}
 		
 		// @hint the default save method will populate, validate, and if not errors delegate to the DAO where entitySave() is called.
+		/**
+		**The default save method will populate, validate, and if not errors delegate to the DAO where entitySave() is called.**
+		@method save
+		@param target {required}
+		@return target
+		*/
 	    public any function save(required any entity, struct data, string context="save") {
 	    	
 	    	if(!isObject(arguments.entity) || !arguments.entity.isPersistent()) {
@@ -188,13 +275,12 @@
 	    }
 	    
 		/**
-		* exports the given query/array to file.
-		* 
-		* @param data      Data to export. (Required) (Currently only supports query).
-		* @param columns      list of columns to export. (optional, default: all)
-		* @param columnNames      list of column headers to export. (optional, default: none)
-		* @param fileName      file name for export. (default: uuid)
-		* @param fileType      file type for export. (default: csv)
+		 **Exports the given query/array to file.**
+		* @param data {any} Data to export. (Required) (Currently only supports query).
+		* @param columns {string} List of columns to export. (optional, default: all)
+		* @param columnNames {string} List of column headers to export. (optional, default: none)
+		* @param fileName {string} File name for export. (default: uuid)
+		* @param fileType {string} File type for export. (default: csv)
 		*/
 		public void function export(required any data, string columns, string columnNames, string fileName, string fileType = 'csv') {
 			if(!structKeyExists(arguments,"fileName")){
@@ -232,44 +318,33 @@
 			
 			    
 	 	/**
-		 * Generic ORM CRUD methods and dynamic methods by convention via onMissingMethod.
-		 *
+		 * <p><b>Generic ORM CRUD methods and dynamic methods by convention via onMissingMethod.</b>
 		 * See all onMissing* method comments and other method signatures for usage.
-		 *
-		 * CREDIT:
+		 * <b>Credit</b>:
 		 *   Heavily influenced by ColdSpring 2.0-pre-alpha's coldspring.orm.hibernate.AbstractGateway.
-	 	 *   So, thank you Mark Mandel and Bob Silverberg :)
-		 *
+	 	 *   So, thank you Mark Mandel and Bob Silverberg :)</p>
 		 * Provides dynamic methods, by convention, on missing method:
-		 *
-		 *   newXXX()
-		 *
-		 *   countXXX()
-		 *
-		 *   saveXXX( required any xxxEntity )
-		 *
-		 *   deleteXXX( required any xxxEntity )
-		 *
-		 *   getXXX( required any ID, boolean isReturnNewOnNotFound = false )
-		 *
-		 *   getXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )
-		 *
-		 *   getXXXByYYYANDZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )
-		 *		AND here is case sensetive to avoid matching in property name i.e brAND
-		 *
-		 *   listXXX( struct filterCriteria, string sortOrder, struct options )
-		 *
-		 *   listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )
-		 *
-		 *   listXXXOrderByZZZ( struct filterCriteria, struct options )
-		 *
-		 *   listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )
-		 *
+		 *   <ul>
+		 *   <li>newXXX()</li>
+		 *   <li>countXXX()</li>
+		 *   <li>saveXXX( required any xxxEntity )</li>
+		 *   <li>deleteXXX( required any xxxEntity )</li>
+		 *   <li>getXXX( required any ID, boolean isReturnNewOnNotFound = false )</li>
+		 *   <li>getXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )</li>
+		 *   <li>getXXXByYYYANDZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )</li>
+		 *  </ul>
+		 *	 <b>And</b><p> Here is case sensetive to avoid matching in property name i.e brand</p>
+		 *   <ul><li>listXXX( struct filterCriteria, string sortOrder, struct options )</li>
+		 *   <li>listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )</li>
+		 *   <li>listXXXOrderByZZZ( struct filterCriteria, struct options )</li>
+		 *   <li>listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )</li></ul>
 		 * ...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.
-		 *
 		 *	 exportXXX()
-		 *
-		 * NOTE: Ordered arguments only--named arguments not supported.
+		 * <b>Note:</b><p>Ordered arguments only--named arguments not supported.</p>
+		 * @method onMissingMethod 
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
+		 * @return any
 		*/
 		public any function onMissingMethod( required string missingMethodName, required struct missingMethodArguments ) {
 			var lCaseMissingMethodName = lCase( missingMethodName );
@@ -308,18 +383,24 @@
 	
 	
 		/**
-		 * Provides dynamic get methods, by convention, on missing method:
+		 *<p>Provides dynamic get methods, by convention, on missing method:</p>
+		 *<p>AND here is case sensetive to avoid matching in property name i.e <b>brand</b></p>
+		 *<p>...in which XXX is an ORM entity name, and YYY is an entity property name.</p>
+		 *<b>Note: Ordered arguments only--named arguments not supported.</b>
 		 *
-		 *   getXXX( required any ID, boolean isReturnNewOnNotFound = false )
+		 * @method onMissingGetMethod 
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
+		 * @return void
 		 *
-		 *   getXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )
-		 *
-		 *   getXXXByYYYAndZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )
-		 *		AND here is case sensetive to avoid matching in property name i.e brAND
-		 *
-		 * ...in which XXX is an ORM entity name, and YYY is an entity property name.
-		 *
-		 * NOTE: Ordered arguments only--named arguments not supported.
+		 * @example 
+		 *		getXXX( required any ID, boolean isReturnNewOnNotFound = false )
+		 *	
+		 * @example 
+		 *		getXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )
+		 *  		
+		 * @example 
+		 * 		getXXXByYYYAndZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )
 		 */
 		private function onMissingGetMethod( required string missingMethodName, required struct missingMethodArguments ){
 			var isReturnNewOnNotFound = structKeyExists( missingMethodArguments, '2' ) ? missingMethodArguments[ 2 ] : false;
@@ -349,11 +430,15 @@
 		/**
 		 * Provides dynamic getSmarList method, by convention, on missing method:
 		 *
-		 *   getXXXSmartList( struct data )
+		 @example 
+		 	getXXXSmartList( struct data )
 		 *
 		 * ...in which XXX is an ORM entity name
 		 *
 		 * NOTE: Ordered arguments only--named arguments not supported.
+		 * @method onMissingGetSmartListMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
 		 */
 		 
 		private function onMissingGetSmartListMethod( required string missingMethodName, required struct missingMethodArguments ){
@@ -371,19 +456,21 @@
 		 
 	
 		/**
-		 * Provides dynamic list methods, by convention, on missing method:
-		 *
-		 *   listXXX( struct filterCriteria, string sortOrder, struct options )
-		 *
-		 *   listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )
-		 *
-		 *   listXXXOrderByZZZ( struct filterCriteria, struct options )
-		 *
-		 *   listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )
-		 *
-		 * ...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.
-		 *
-		 * NOTE: Ordered arguments only--named arguments not supported.
+		 Provides dynamic list methods, by convention, on missing method:
+		 
+		 NOTE: Ordered arguments only--named arguments not supported.
+		 
+		 @method onMissingListMethod
+		 @param missingMethodName {string}
+		 @param missingMethodArguments {struct}
+		 
+		 @example
+		 	listXXX( struct filterCriteria, string sortOrder, struct options )
+		 	listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )
+		 	listXXXOrderByZZZ( struct filterCriteria, struct options )
+		 	listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )
+		 	
+		 	...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.
 		 */
 		private function onMissingListMethod( required string missingMethodName, required struct missingMethodArguments ){
 			var listMethodForm = 'listXXX';
@@ -415,11 +502,14 @@
 		/**
 		 * Provides dynamic list method, by convention, on missing method:
 		 *
-		 *   listXXX( struct filterCriteria, string sortOrder, struct options )
+		 *listXXX( struct filterCriteria, string sortOrder, struct options )
 		 *
 		 * ...in which XXX is an ORM entity name.
 		 *
 		 * NOTE: Ordered arguments only--named arguments not supported.
+		 * @method onMissingListXXXMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
 		 */
 		private function onMissingListXXXMethod( required string missingMethodName, required struct missingMethodArguments ) {
 			var listArgs = {};
@@ -445,11 +535,14 @@
 		/**
 		 * Provides dynamic list method, by convention, on missing method:
 		 *
-		 *   listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )
+		 *listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )
 		 *
 		 * ...in which XXX is an ORM entity name, and YYY is an entity property name.
 		 *
 		 * NOTE: Ordered arguments only--named arguments not supported.
+		 * @method onMissingListXXXFilterByYYYMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
 		 */
 		private function onMissingListXXXFilterByYYYMethod( required string missingMethodName, required struct missingMethodArguments )
 		{
@@ -478,13 +571,14 @@
 	
 	
 		/**
-		 * Provides dynamic list method, by convention, on missing method:
-		 *
-		 *   listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )
-		 *
-		 * ...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.
-		 *
-		 * NOTE: Ordered arguments only--named arguments not supported.
+		 Provides dynamic list method, by convention, on missing method:
+		 listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )
+		 
+		 ...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.
+		 >NOTE: Ordered arguments only--named arguments not supported.
+		 @method onMissingListXXXFilterByYYYOrderByZZZMethod
+		 @param missingMethodName {string}
+		 @param missingMethodArguments {struct}
 		 */
 		private function onMissingListXXXFilterByYYYOrderByZZZMethod( required string missingMethodName, required struct missingMethodArguments )
 		{
@@ -519,6 +613,9 @@
 		 * ...in which XXX is an ORM entity name, and ZZZ is an entity property name.
 		 *
 		 * NOTE: Ordered arguments only--named arguments not supported.
+		 * @method onMissingListXXXOrderByZZZMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
 		 */
 		private function onMissingListXXXOrderByZZZMethod( required string missingMethodName, required struct missingMethodArguments )
 		{
@@ -552,6 +649,9 @@
 		 *   countXXX()
 		 *
 		 * ...in which XXX is an ORM entity name.
+		 * @method onMissingCountMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
 		 */
 		private function onMissingCountMethod( required string missingMethodName, required struct missingMethodArguments ){
 			var entityName = missingMethodName.substring( 5 );
@@ -559,7 +659,12 @@
 			return count( entityName );
 		}
 	
-	
+		/**
+		 * Handles the missing new method case 
+		 * @method onMissingNewMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
+		 */
 		private function onMissingNewMethod( required string missingMethodName, required struct missingMethodArguments )
 		{
 			var entityName = missingMethodName.substring( 3 );
@@ -567,7 +672,12 @@
 			return new( entityName );
 		}
 	
-	
+		/**
+		 * Handles the missing save method case 
+		 * @method onMissingSaveMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
+		 */
 		private function onMissingSaveMethod( required string missingMethodName, required struct missingMethodArguments ) {
 			if ( structKeyExists( missingMethodArguments, '3' ) ) {
 				return save( entity=missingMethodArguments[1], data=missingMethodArguments[2], context=missingMethodArguments[3]);
@@ -577,7 +687,12 @@
 				return save( entity=missingMethodArguments[1] );
 			}
 		}
-		
+		/**
+		 * Handles the missing process method case 
+		 * @method onMissingProcessMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
+		 */
 		private function onMissingProcessMethod( required string missingMethodName, required struct missingMethodArguments ) {
 			if ( structKeyExists( missingMethodArguments, '3' ) ) {
 				return process( entity=missingMethodArguments[1], data=missingMethodArguments[2], processContext=missingMethodArguments[3]);
@@ -592,7 +707,11 @@
 		 *   exportXXX()
 		 *
 		 * ...in which XXX is an ORM entity name.
+		 * @method onMissingExportMethod
+		 * @param missingMethodName {string}
+		 * @param missingMethodArguments {struct}
 		 */
+		 
 		private function onMissingExportMethod( required string missingMethodName, required struct missingMethodArguments ){
 			var entityMeta = getMetaData(getEntityObject( missingMethodName.substring( 6 ) ));
 			var exportQry = getHibachiDAO().getExportQuery(tableName = entityMeta.table);

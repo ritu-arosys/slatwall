@@ -1,3 +1,8 @@
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class Hibachi
+*/
 component extends="FW1.framework" {
 	
 	// ======= START: ENVIORNMENT CONFIGURATION =======

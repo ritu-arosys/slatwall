@@ -1,3 +1,8 @@
+/**
+Hibachi is the framework on which Slatwall is built
+@module Hibachi
+@class HibachiSmartlistTag
+*/
 component accessors="true" persistent="false" output="false" extends="HibachiObject" {
 	
 	property name="baseEntityName" type="string";

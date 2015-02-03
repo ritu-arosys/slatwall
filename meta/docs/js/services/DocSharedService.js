@@ -1,4 +1,8 @@
-//This service is to bridge communicate between the two controllers below.
+/**
+ * This service is to bridge communicate between the two controllers below.
+ * @module slatwallDocs
+ * @class docSharedService
+ */
 slatdocs.factory('docSharedService', function($rootScope) {
 	  var docService = {};
 	  docService.message = "";

@@ -14,16 +14,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                     	 	<li><a href="/meta/docs/templates/docs.cfm">Docs<span class="sr-only"></span></a></li>
-                        <li><a href="/meta/docs/templates/reference.cfm">Reference<span class="sr-only"></span></a></li>
+                        <li><a href="/meta/docs/build/index.html">Reference<span class="sr-only"></span></a></li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search" ng-model="searchDocs">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="http://docs.getslatwall.com/">Help</a></li>
+                        <li><a href="http://docs.getslatwall.com/">Other</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

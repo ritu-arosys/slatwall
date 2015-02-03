@@ -46,7 +46,11 @@
 Notes:
 
 */
-
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class HibachiAuditService
+*/
 component extends="HibachiService" accessors="true" {
 	
 	// ===================== START: Logical Methods ===========================

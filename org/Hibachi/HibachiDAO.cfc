@@ -1,9 +1,22 @@
 <cfcomponent output="false" accessors="true" extends="HibachiObject">
-	
 	<cfproperty name="applicationKey" type="string" />
 	<cfproperty name="hibachiAuditService" type="any" />
 	
 	<cfscript>
+		/**
+		* HibachiDAO Handles all of the data access objects.
+		*@module Hibachi
+		*@class HibachiDAO
+		*/
+		
+		/**
+		Get is a entity helper method for retreiving entities by entity name.
+		@method get
+		@param entityname {string}
+		@param idOrFilter {any}
+		@param isReturnNewOnNotFound {boolean}
+		@return entity
+		*/
 		public any function get( required string entityName, required any idOrFilter, boolean isReturnNewOnNotFound = false ) {
 			// Adds the Applicatoin Prefix to the entityName when needed.
 			if(left(arguments.entityName, len(getApplicationKey()) ) != getApplicationKey()) {
@@ -25,6 +38,15 @@
 			}
 		}
 	
+		/**
+		List of entities
+		@method list
+		@param entityname {string}
+		@param filterCriteria {struct}
+		@param sortOrder {string}
+		@param options {struct}
+		@return entity
+		*/
 		public any function list( string entityName, struct filterCriteria = {}, string sortOrder = '', struct options = {} ) {
 			// Adds the Applicatoin Prefix to the entityName when needed.
 			if(left(arguments.entityName, len(getApplicationKey()) ) != getApplicationKey()) {
@@ -34,7 +56,12 @@
 			return entityLoad( entityName, filterCriteria, sortOrder, options );
 		}
 	
-	
+		/**
+		Returns a new entity by entity name
+		@method new
+		@param entityname {string}
+		@return entity
+		*/
 		public any function new( required string entityName ) {
 			// Adds the Applicatoin Prefix to the entityName when needed.
 			if(left(arguments.entityName, len(getApplicationKey()) ) != getApplicationKey()) {
@@ -44,7 +71,12 @@
 			return entityNew( entityName );
 		}
 	
-	
+		/**
+		Save an entity
+		@method save
+		@param target {required}
+		@return target
+		*/
 		public any function save( required target ) {
 			
 			// Save this entity
@@ -65,7 +97,12 @@
 			
 			return target;
 		}
-		
+		/**
+		Delete an entity
+		@method delete
+		@param target {required}
+		@return void
+		*/
 		public void function delete(required target) {
 			if(isArray(target)) {
 				for(var object in target) {
@@ -79,7 +116,12 @@
 				entityDelete(target);	
 			}
 		}
-		
+		/**
+		count by entity name
+		@method count
+		@param entityname {any}
+		@return any
+		*/
 		public any function count(required any entityName) {
 			// Adds the Applicatoin Prefix to the entityName when needed.
 			if(left(arguments.entityName, len(getApplicationKey()) ) != getApplicationKey()) {
@@ -88,11 +130,20 @@
 			
 			return ormExecuteQuery("SELECT count(*) FROM #arguments.entityName#",true);
 		}
-		
+		/**
+		Reloads an entity
+		@method reloadEntity
+		@param entity {any}
+		@return void
+		*/
 		public void function reloadEntity(required any entity) {
 	    	entityReload(arguments.entity);
 	    }
-	    
+	    /**
+		Flushes the ORM session
+		@method flushORMSession
+		@return void
+		*/
 	    public void function flushORMSession() {
 	    	// Initate the first flush
 	    	ormFlush();
@@ -106,10 +157,22 @@
 			ormFlush();
 	    }
 	    
+	    /**
+		Clears the ORM session
+		@method clearORMSession
+		@return void
+		*/
 	    public void function clearORMSession() {
 	    	ormClearSession();
 	    }
 	    
+	    /**
+	    Returns a smartlist by entityName and data
+		@method getSmartList
+		@param entityName {string}
+		@param data {struct}
+		@return smartlist
+		*/
 	    public any function getSmartList(required string entityName, struct data={}){
 			// Adds the Applicatoin Prefix to the entityName when needed.
 			if(left(arguments.entityName, len(getApplicationKey()) ) != getApplicationKey()) {
@@ -120,7 +183,12 @@
 	
 			return smartList;
 		}
-		
+		/**
+		Returns an export query
+		@method getExportQuery
+		@param tableName {string}
+		@return any
+		*/
 		public any function getExportQuery(required string tableName) {
 			var qry = new query();
 			qry.setName("exportQry");
@@ -128,7 +196,12 @@
 	    	exportQry = result.getResult(); 
 			return exportQry;
 		}
-		
+		/**
+		Returns an Account by the auth token
+		@method getAccountByAuthToken
+		@param authToken {string}
+		@return any
+		*/
 		public any function getAccountByAuthToken(required string authToken) {
 			var account = ormExecuteQuery("SELECT acc FROM SlatwallAccountAuthentication accauth INNER JOIN accauth.account acc WHERE (accauth.expirationDateTime is null or accauth.expirationDateTime > :now) and accauth.authToken is not null and accauth.authToken = :authToken", {now=now(), authToken=arguments.authToken}, true);
 			if(isNull(account)) {

@@ -1,3 +1,8 @@
+/**
+Hibachi scope give access to all ORM entities.
+@module Hibachi
+@class HibachiScope
+*/
 component output="false" accessors="true" extends="HibachiTransient" {
 
 	property name="account" type="any";

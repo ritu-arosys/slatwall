@@ -1,4 +1,9 @@
-	component output="false" accessors="true" extends="HibachiService" {
+/**
+HibachiValidationService is responsible for handling all server side validation
+@module Hibachi
+@class HibachiValidationService
+*/	
+component output="false" accessors="true" extends="HibachiService" {
 	
 	variables.validationStructs = {};
 	variables.validationByContextStructs = {};

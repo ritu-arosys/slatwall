@@ -1,3 +1,8 @@
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class HibachiErrors
+*/
 component output="false" accessors="true" extends="HibachiObject" {
 
 	// @hint stores any validation errors for the entity

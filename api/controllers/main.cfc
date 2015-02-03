@@ -1,10 +1,30 @@
+/**
+This is the primary API frm which the frontend communicates with the backend
+@module ngSlatwall
+@class main
+*/
 component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiController"{
 	
 	property name="fw" type="any";
 	property name="collectionService" type="any";
 	property name="hibachiService" type="any";
 	property name="hibachiUtilityService" type="any";
-	
+	/**
+	@property fw
+	@type any
+	*/
+	/**
+	@property collectionService
+	@type any
+	*/
+	/**
+	@property hibachiService
+	@type any
+	*/
+	/**
+	@property hibachiUtilityService
+	@type any
+	*/
 	this.publicMethods='';
 	
 	this.anyAdminMethods='';
@@ -23,10 +43,22 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 	this.anyAdminMethods=listAppend(this.anyAdminMethods, 'put');
 	this.anyAdminMethods=listAppend(this.anyAdminMethods, 'delete');
 	
+	/**
+	This is the constructor method for Main.cfc
+	@method init 
+	@param fw {any} @required
+	@return void
+	*/
 	public void function init( required any fw ) {
 		setFW( arguments.fw );
 	}
 	
+	/**
+	Sets up the API
+	@method before
+	@param rc {struct}
+	@return any
+	*/
 	public any function before( required struct rc ) {
 		arguments.rc.apiRequest = true;
 		getFW().setView("public:main.blank");
@@ -37,7 +69,12 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 			arguments.rc.apiResponse.content = {};
 		}
 	}
-	
+	/**
+	  Gets the object options
+	  @method getObjectOptions
+	  @param rc {struct}
+	  @return any
+	*/
 	public any function getObjectOptions(required struct rc){
 		var data = getCollectionService().getObjectOptions();
 		arguments.rc.apiResponse.content = {data=data};
@@ -51,6 +88,11 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		//First get a list of all .md files.
 		var fList = DirectoryList(ExpandPath("/"), true, "path",  "*.md" );
     		arguments.rc.apiResponse.content = {fList="#fList#"};
+	}
+	public any function getReferenceList(required struct rc){
+		//Returns a json string of modules classes and files.
+		var yuiData = FileRead("#ExpandPath('/')#/meta/docs/build/data.json");
+    		arguments.rc.apiResponse.content = {data="#yuiData#"};
 	}
 	public any function getMarkDownItem(required struct rc){
 		var bodyFile = FileRead("#ExpandPath('/')##arguments.rc.item#");
@@ -85,6 +127,12 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		
 	}
 	
+	/**
+	  Returns a collections by base entity
+	  @method getExistingCollectionsByBaseEntity
+	  @param rc {struct}
+	  @return any
+	*/
 	public any function getExistingCollectionsByBaseEntity(required struct rc){
 		var collectionEntity = getCollectionService().getTransientCollectionByEntityName('collection');
 		var collectionConfigStruct = collectionEntity.getCollectionConfigStruct();
@@ -121,13 +169,23 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		var data = {data=collectionEntity.getRecords()};
 		arguments.rc.apiResponse.content['data'] = collectionEntity.getRecords();
 	}
-	
+	/**
+	  Returns filter properties by base entity
+	  @method getFilterPropertiesByBaseEntityName
+	  @param rc {struct}
+	  @return any
+	*/
 	public any function getFilterPropertiesByBaseEntityName( required struct rc){
 		var entityName = rereplace(rc.entityName,'_','');
 		arguments.rc.apiResponse.content['data'] = getHibachiService().getPropertiesWithAttributesByEntityName(entityName);
 		arguments.rc.apiResponse.content['entityName'] = rc.entityName;
 	}
-	
+	/**
+	  Returns a process object
+	  @method getProcessObject
+	  @param rc {struct}
+	  @return any
+	*/
 	public any function getProcessObject(required struct rc){
 		//need a Context, an entityName and propertyIdentifiers
 		var entityService = getHibachiService().getServiceByEntityName( entityName=arguments.rc.entityName );
@@ -175,6 +233,12 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		arguments.rc.apiResponse.content['data'] = data;
 	}
 	/* pass in an entity name and property identifiers list and it will spit out releveant property display data*/
+	/**
+	 Pass in an entity name and property identifiers list and it will spit out releveant property display data 
+	 @method getPropertyDisplayData
+	 @param rc {struct}
+	 @return any
+	 */
 	public any function getPropertyDisplayData(required struct rc){
 		var propertyIdentifiersArray = ListToArray(arguments.rc.propertyIdentifiersList);
 		var data = {};
@@ -195,7 +259,12 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		
 		arguments.rc.apiResponse.content['data'] = data;
 	}
-	
+	/**
+	 Returns the property display options 
+	 @method getPropertyDisplayOptions
+	 @param rc {struct}
+	 @return any
+	 */
 	public any function getPropertyDisplayOptions(required struct rc){
 		/*
 			arguments-
@@ -214,17 +283,55 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		arguments.rc.apiResponse.content['data'] = data;
 	}
 	/* pass in an entity name and recieve validation*/
+	/**
+	 Returns a struct with the validation criteria when you pass in an entity name
+	 @method getValidation
+	 @param rc {struct}
+	 @return any
+	 */
 	public any function getValidation(required struct rc){
 		var data = {};
 		data['validation'] = getService('hibachiValidationService').getValidationStructByName(arguments.rc.entityName);
 		arguments.rc.apiResponse.content['data'] = data;
 	}
-	
+	/**
+	 Returns event options when you pass in an entity name
+	 @method getEventOptionsByEntityName
+	 @param rc {struct}
+	 @return any
+	 */
 	public void function getEventOptionsByEntityName(required struct rc){
 		var eventNameOptions = getService('hibachiEventService').getEventNameOptionsForObject(rc.entityName);
 		arguments.rc.apiResponse.content['data'] = eventNameOptions;
 	}
+	/**
+	 Generic get method for recieving entity
+	 @method get
+	 @param rc {struct}
+	 @return any
+	 
+	 @example
+	 	GET http://www.mysite.com/slatwall/api/product/ -> retuns collection of all products
+	 
+	 @example
+		GET http://www.mysite.com/slatwall/?slatAction=api:main.get&entityName=product
 	
+	@example	
+		GET http://www.mysite.com/slatwall/api/product/2837401982340918274091987234/ -> retuns just that one product
+	
+	@example
+		POST http://www.mysite.com/slatwall/api/product/ -> Insert a new entity
+	
+	@example
+		POST http://www.mysite.com/slatwall/api/product/12394871029834701982734/ -> Update Existing Entity
+	
+	@example
+		POST http://www.mysite.com/slatwall/api/product/12394871029834701982734/?context=delete -> Delete Existing Entity
+	
+	@example
+		POST http://www.mysite.com/slatwall/api/product/12394871029834701982734/?context=addSku -> Add A Sku To An Entity
+	 
+	 */
 	public any function get( required struct rc ) {
 		/* TODO: handle filter parametes, add Select statements as list to access one-to-many relationships.
 			create a base default properties function that can be overridden at the entity level via function
@@ -318,7 +425,12 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 			}
 		}
 	}
-	
+	/**
+	 Post to the server - depending on context, can save, delete, process...
+	 @method post
+	 @param rc {struct}
+	 @return any
+	 */
 	public any function post( required struct rc ) {
 		param name="arguments.rc.context" default="save";
 		param name="arguments.rc.entityID" default="";
@@ -380,29 +492,26 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 			getHibachiScope().showMessage( replace(getHibachiScope().rbKey( "api.main.#rc.context#_error" ), "${EntityName}", rbKey('entity.#arguments.rc.entityName#'), "all" ) , "error");
 		}
 	}
-	
+	/**
+	 post data using put
+	 @method put
+	 @param rc {struct}
+	 @return any
+	 */
 	public any function put( required struct rc ) {
 		arguments.rc.entityID = "";
 		post(arguments.rc);
 	}
-	
+	/**
+	 post a delete
+	 @method delete
+	 @param rc {struct}
+	 @return any
+	 */
 	public any function delete( required struct rc ) {
 		arguments.rc.context = "delete";
 		post(arguments.rc);
 	}
 	
-		/*
-		
-		GET http://www.mysite.com/slatwall/api/product/ -> retuns collection of all products
-		GET http://www.mysite.com/slatwall/?slatAction=api:main.get&entityName=product
-		
-		GET http://www.mysite.com/slatwall/api/product/2837401982340918274091987234/ -> retuns just that one product
-		
-		POST http://www.mysite.com/slatwall/api/product/ -> Insert a new entity
-		POST http://www.mysite.com/slatwall/api/product/12394871029834701982734/ -> Update Existing Entity
-		POST http://www.mysite.com/slatwall/api/product/12394871029834701982734/?context=delete -> Delete Existing Entity
-		POST http://www.mysite.com/slatwall/api/product/12394871029834701982734/?context=addSku -> Add A Sku To An Entity
-		
-		*/
 	
 }

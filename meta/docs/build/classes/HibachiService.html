@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HibachiService</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="icon" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+<div id="doc">
+        <nav class="navbar navbar-inverse"><!-- begin navbar -->
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/meta/docs/templates/docs.cfm#/meta/docs/md/intro"><img src="/assets/images/admin.logo.png" style="width:100px;heigh:16px;" title="Slatwall">documentation</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                    	 	<li><a href="/meta/docs/templates/docs.cfm">Docs<span class="sr-only"></span></a></li>
+                        <li><a href="/meta/docs/build/index.html">Reference<span class="sr-only"></span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://docs.getslatwall.com/">Other</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+</nav><!-- end navbar -->
+    
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/BaseDocumentationService.html">BaseDocumentationService</a></li>
+                                <li><a href="../classes/docSharedService.html">docSharedService</a></li>
+                                <li><a href="../classes/docsMDRouter.html">docsMDRouter</a></li>
+                                <li><a href="../classes/DocsReferenceRouter.html">DocsReferenceRouter</a></li>
+                                <li><a href="../classes/Hibachi.html">Hibachi</a></li>
+                                <li><a href="../classes/HibachiAuditService.html">HibachiAuditService</a></li>
+                                <li><a href="../classes/HibachiAuthenticationService.html">HibachiAuthenticationService</a></li>
+                                <li><a href="../classes/HibachiCacheService.html">HibachiCacheService</a></li>
+                                <li><a href="../classes/HibachiController.html">HibachiController</a></li>
+                                <li><a href="../classes/HibachiControllerEntity.html">HibachiControllerEntity</a></li>
+                                <li><a href="../classes/HibachiControllerREST.html">HibachiControllerREST</a></li>
+                                <li><a href="../classes/HibachiDAO.html">HibachiDAO</a></li>
+                                <li><a href="../classes/HibachiEntity.html">HibachiEntity</a></li>
+                                <li><a href="../classes/HibachiErrors.html">HibachiErrors</a></li>
+                                <li><a href="../classes/HibachiEventService.html">HibachiEventService</a></li>
+                                <li><a href="../classes/HibachiMessages.html">HibachiMessages</a></li>
+                                <li><a href="../classes/HibachiObject.html">HibachiObject</a></li>
+                                <li><a href="../classes/HibachiProcess.html">HibachiProcess</a></li>
+                                <li><a href="../classes/HibachiRBService.html">HibachiRBService</a></li>
+                                <li><a href="../classes/HibachiScope.html">HibachiScope</a></li>
+                                <li><a href="../classes/HibachiService.html">HibachiService</a></li>
+                                <li><a href="../classes/HibachiSession.html">HibachiSession</a></li>
+                                <li><a href="../classes/HibachiSmartlistTag.html">HibachiSmartlistTag</a></li>
+                                <li><a href="../classes/HibachiTransient.html">HibachiTransient</a></li>
+                                <li><a href="../classes/HibachiValidationService.html">HibachiValidationService</a></li>
+                                <li><a href="../classes/main.html">main</a></li>
+                                <li><a href="../classes/SlatwallDocsControllerList.html">SlatwallDocsControllerList</a></li>
+                                <li><a href="../classes/SlatwallDocsControllerMarkDownBody.html">SlatwallDocsControllerMarkDownBody</a></li>
+                                <li><a href="../classes/SlatwallDocsControllerMarkDownList.html">SlatwallDocsControllerMarkDownList</a></li>
+                                <li><a href="../classes/SlatwallDocsControllerMeta.html">SlatwallDocsControllerMeta</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Hibachi.html">Hibachi</a></li>
+                                <li><a href="../modules/ngSlatwall.html">ngSlatwall</a></li>
+                                <li><a href="../modules/slatwallDocs.html">slatwallDocs</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>HibachiService Class</h1>
+<div class="box meta">
+
+
+
+            Module: <a href="../modules/Hibachi.html">Hibachi</a>
+
+</div>
+
+
+<div class="box intro">
+    <p><h2>HibachiService</h2> is a part of Hibachi, the framework that Slatwall is build on.</p>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method_count">count</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_delete">delete</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_get">get</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_list">list</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_new">new</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingCountMethod">onMissingCountMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingExportMethod">onMissingExportMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingGetMethod">onMissingGetMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingGetSmartListMethod">onMissingGetSmartListMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingListMethod">onMissingListMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingListXXXFilterByYYYMethod">onMissingListXXXFilterByYYYMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingListXXXFilterByYYYOrderByZZZMethod">onMissingListXXXFilterByYYYOrderByZZZMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingListXXXMethod">onMissingListXXXMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingListXXXOrderByZZZMethod">onMissingListXXXOrderByZZZMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingMethod">onMissingMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingNewMethod">onMissingNewMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingProcessMethod">onMissingProcessMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onMissingSaveMethod">onMissingSaveMethod</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_save">save</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                            <li class="index-item property">
+                                <a href="#property_hibachiAuthenticationService">hibachiAuthenticationService</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiCacheService">hibachiCacheService</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiDAO">hibachiDAO</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiEventService">hibachiEventService</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiRBService">hibachiRBService</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiSessionService">hibachiSessionService</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiTagService">hibachiTagService</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiUtilityService">hibachiUtilityService</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_hibachiValidationService">hibachiValidationService</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_count" class="method item">
+    <h3 class="name"><code>count</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>entityname</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><em>Count by entity name*</em></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">entityname</code>
+                        <span class="type">Any</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>any</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_delete" class="method item">
+    <h3 class="name"><code>delete</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>target</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><em>Delete an entity*</em></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">target</code>
+                        <span class="type">Required</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>void</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_get" class="method item">
+    <h3 class="name"><code>get</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>entityname</code>
+                </li>
+                <li class="arg">
+                        <code>idOrFilter</code>
+                </li>
+                <li class="arg">
+                        <code>isReturnNewOnNotFound</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><em>Get is a entity helper method for retreiving entities by entity name.*</em></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">entityname</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">idOrFilter</code>
+                        <span class="type">Any</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">isReturnNewOnNotFound</code>
+                        <span class="type">Boolean</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>entity</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_list" class="method item">
+    <h3 class="name"><code>list</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>entityname</code>
+                </li>
+                <li class="arg">
+                        <code>filterCriteria</code>
+                </li>
+                <li class="arg">
+                        <code>sortOrder</code>
+                </li>
+                <li class="arg">
+                        <code>options</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><em>List of entities*</em></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">entityname</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">filterCriteria</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">sortOrder</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">options</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>entity</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_new" class="method item">
+    <h3 class="name"><code>new</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>entityname</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><em>Returns a new entity by entity name*</em></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">entityname</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>entity</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_onMissingCountMethod" class="method item">
+    <h3 class="name"><code>onMissingCountMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic count methods, by convention, on missing method:</p>
+<p>  countXXX()</p>
+<p>...in which XXX is an ORM entity name.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingExportMethod" class="method item">
+    <h3 class="name"><code>onMissingExportMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic export methods, by convention, on missing method:</p>
+<p>  exportXXX()</p>
+<p>...in which XXX is an ORM entity name.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingGetMethod" class="method item">
+    <h3 class="name"><code>onMissingGetMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><p>Provides dynamic get methods, by convention, on missing method:</p></p>
+<p><p>AND here is case sensetive to avoid matching in property name i.e <b>brand</b></p></p>
+<p><p>...in which XXX is an ORM entity name, and YYY is an entity property name.</p>
+<b>Note: Ordered arguments only--named arguments not supported.</b></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>void</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    getXXX( required any ID, boolean isReturnNewOnNotFound = false )
+</code></pre><pre class="code prettyprint"><code>    getXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )
+</code></pre><pre class="code prettyprint"><code>     getXXXByYYYAndZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )
+</code></pre>
+            </div>
+        </div>
+</div>
+<div id="method_onMissingGetSmartListMethod" class="method item">
+    <h3 class="name"><code>onMissingGetSmartListMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic getSmarList method, by convention, on missing method:</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>         getXXXSmartList( struct data )
+</code></pre><p>...in which XXX is an ORM entity name</p>
+<p>NOTE: Ordered arguments only--named arguments not supported.</p>
+
+            </div>
+        </div>
+</div>
+<div id="method_onMissingListMethod" class="method item">
+    <h3 class="name"><code>onMissingListMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic list methods, by convention, on missing method:</p>
+<p>NOTE: Ordered arguments only--named arguments not supported.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>listXXX( struct filterCriteria, string sortOrder, struct options )
+listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )
+listXXXOrderByZZZ( struct filterCriteria, struct options )
+listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )
+
+...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.
+</code></pre>
+            </div>
+        </div>
+</div>
+<div id="method_onMissingListXXXFilterByYYYMethod" class="method item">
+    <h3 class="name"><code>onMissingListXXXFilterByYYYMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic list method, by convention, on missing method:</p>
+<p>listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )</p>
+<p>...in which XXX is an ORM entity name, and YYY is an entity property name.</p>
+<p>NOTE: Ordered arguments only--named arguments not supported.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingListXXXFilterByYYYOrderByZZZMethod" class="method item">
+    <h3 class="name"><code>onMissingListXXXFilterByYYYOrderByZZZMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic list method, by convention, on missing method:
+listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )</p>
+<p>...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.</p>
+<blockquote>
+<p>NOTE: Ordered arguments only--named arguments not supported.</p>
+</blockquote>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingListXXXMethod" class="method item">
+    <h3 class="name"><code>onMissingListXXXMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic list method, by convention, on missing method:</p>
+<p>listXXX( struct filterCriteria, string sortOrder, struct options )</p>
+<p>...in which XXX is an ORM entity name.</p>
+<p>NOTE: Ordered arguments only--named arguments not supported.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingListXXXOrderByZZZMethod" class="method item">
+    <h3 class="name"><code>onMissingListXXXOrderByZZZMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides dynamic list method, by convention, on missing method:</p>
+<p>  listXXXOrderByZZZ( struct filterCriteria, struct options )</p>
+<p>...in which XXX is an ORM entity name, and ZZZ is an entity property name.</p>
+<p>NOTE: Ordered arguments only--named arguments not supported.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingMethod" class="method item">
+    <h3 class="name"><code>onMissingMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><b>Generic ORM CRUD methods and dynamic methods by convention via onMissingMethod.</b>
+See all onMissing* method comments and other method signatures for usage.
+<b>Credit</b>:
+  Heavily influenced by ColdSpring 2.0-pre-alpha&#39;s coldspring.orm.hibernate.AbstractGateway.
+  So, thank you Mark Mandel and Bob Silverberg :)</p>
+Provides dynamic methods, by convention, on missing method:
+  <ul>
+  <li>newXXX()</li>
+  <li>countXXX()</li>
+  <li>saveXXX( required any xxxEntity )</li>
+  <li>deleteXXX( required any xxxEntity )</li>
+  <li>getXXX( required any ID, boolean isReturnNewOnNotFound = false )</li>
+  <li>getXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )</li>
+  <li>getXXXByYYYANDZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )</li>
+ </ul>
+     <b>And</b><p> Here is case sensetive to avoid matching in property name i.e brand</p>
+  <ul><li>listXXX( struct filterCriteria, string sortOrder, struct options )</li>
+  <li>listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )</li>
+  <li>listXXXOrderByZZZ( struct filterCriteria, struct options )</li>
+  <li>listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )</li></ul>
+...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.
+     exportXXX()
+<b>Note:</b><p>Ordered arguments only--named arguments not supported.</p>
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>any</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_onMissingNewMethod" class="method item">
+    <h3 class="name"><code>onMissingNewMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Handles the missing new method case</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingProcessMethod" class="method item">
+    <h3 class="name"><code>onMissingProcessMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Handles the missing process method case</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMissingSaveMethod" class="method item">
+    <h3 class="name"><code>onMissingSaveMethod</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>missingMethodName</code>
+                </li>
+                <li class="arg">
+                        <code>missingMethodArguments</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Handles the missing save method case</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">missingMethodName</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">missingMethodArguments</code>
+                        <span class="type">Struct</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_save" class="method item">
+    <h3 class="name"><code>save</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>target</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p><em>The default save method will populate, validate, and if not errors delegate to the DAO where entitySave() is called.*</em></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">target</code>
+                        <span class="type">Required</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>target</p>
+
+            </div>
+        </div>
+
+
+</div>
+            </div>
+
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                    <div id="property_hibachiAuthenticationService" class="property item">
+                        <h3 class="name"><code>hibachiAuthenticationService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Hibachi main authentication service</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiCacheService" class="property item">
+                        <h3 class="name"><code>hibachiCacheService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Hibachi Cache Service</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiDAO" class="property item">
+                        <h3 class="name"><code>hibachiDAO</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Handles all of the data access objects.</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiEventService" class="property item">
+                        <h3 class="name"><code>hibachiEventService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Hibachi event service</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiRBService" class="property item">
+                        <h3 class="name"><code>hibachiRBService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Hibachi RB key service</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiSessionService" class="property item">
+                        <h3 class="name"><code>hibachiSessionService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Hibachi session service</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiTagService" class="property item">
+                        <h3 class="name"><code>hibachiTagService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Hibachi tag service</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiUtilityService" class="property item">
+                        <h3 class="name"><code>hibachiUtilityService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Hibachi utility service</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_hibachiValidationService" class="property item">
+                        <h3 class="name"><code>hibachiValidationService</code></h3>
+                        <span class="type">Any</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Handles all server side validation</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+            </div>
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--- JQuery  --->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

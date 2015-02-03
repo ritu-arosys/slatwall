@@ -1,5 +1,6 @@
 /**
  * Handles rendering the body of the markdown on click.
+ * @module slatwallDocs
  * @class SlatwallDocsControllerMarkDownBody
  */
 slatdocs
@@ -10,9 +11,10 @@ slatdocs
 					//Try to find the route paths.
 					
 					/**
+					 * Handles routing the content area of the documentation markdown
 					 * @event routeChangeSuccess
 					 * @name routeChangeSuccess
-					 * @description Handles routing the content area of the documentation markdown
+					 * $type any
 					 */
 					$rootScope.$on('$routeChangeSuccess', function (currentRoute, previousRoute) {
 			            console.log($route.current.params);
@@ -58,17 +60,17 @@ slatdocs
 			        });
 					
 					/**
+					 * renders the passed in markdown item
 					 * @name render
-					 * @description renders the passed in markdown item
-					 * @param item
+					 * @param item {any}
 					 */
 					function render(item){
 					$scope.url = item;
 					console.log($scope.url);
 					
 					/**
+					 * Executed when the GET request was sucessfull.
 					 * @name $http.get($scope.url).success
-					 * @description  Executed when the GET request was sucessfull.
 					 */
 					$http.get($scope.url).success(
 							function(response) {

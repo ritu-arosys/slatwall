@@ -1,3 +1,8 @@
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class HibachiProcess
+*/
 component output="false" accessors="true" extends="HibachiTransient" {
 
 	property name="preProcessDisplayedFlag";

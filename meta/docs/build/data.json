@@ -1,68 +1,2726 @@
 {
-    "project": {
-        "name": "Slatwall",
-        "description": "Slatwall is an extremely powerful and robust digital commerce management system.",
-        "version": "3.5.022.022",
-        "url": "http://www.getslatwall.com/",
-        "logo": "./assets/images/admin.logo.png"
-    },
+    "project": {},
     "files": {
+        "api/controllers/main.cfc": {
+            "name": "api/controllers/main.cfc",
+            "modules": {
+                "ngSlatwall": 1
+            },
+            "classes": {
+                "main": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "frontend/api/resources/GenericAbstractResource.cfc": {
+            "name": "frontend/api/resources/GenericAbstractResource.cfc",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/DocumentationService/BaseDocumentationService.cfc": {
+            "name": "meta/docs/DocumentationService/BaseDocumentationService.cfc",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc": {
+            "name": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "modules": {
+                "slatwallDocs": 1
+            },
+            "classes": {
+                "BaseDocumentationService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/DocumentationService/DocumentationWebService.cfc": {
+            "name": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/DocumentationService/JSDoc.cfc": {
+            "name": "meta/docs/DocumentationService/JSDoc.cfc",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc": {
+            "name": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "meta/docs/js/controllers/BodyController.js": {
             "name": "meta/docs/js/controllers/BodyController.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "SlatwallDocsControllerMarkDownBody": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/js/controllers/ListController.js": {
+            "name": "meta/docs/js/controllers/ListController.js",
+            "modules": {},
+            "classes": {
+                "SlatwallDocsControllerList": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/js/controllers/MetaController.js": {
+            "name": "meta/docs/js/controllers/MetaController.js",
+            "modules": {},
+            "classes": {
+                "SlatwallDocsControllerMeta": 1
+            },
             "fors": {},
             "namespaces": {}
         },
         "meta/docs/js/controllers/NavController.js": {
             "name": "meta/docs/js/controllers/NavController.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "SlatwallDocsControllerMarkDownList": 1
+            },
             "fors": {},
             "namespaces": {}
         },
         "meta/docs/js/routes/DocsMDRouter.js": {
             "name": "meta/docs/js/routes/DocsMDRouter.js",
             "modules": {},
+            "classes": {
+                "docsMDRouter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/js/routes/DocsReferenceRouter.js": {
+            "name": "meta/docs/js/routes/DocsReferenceRouter.js",
+            "modules": {},
+            "classes": {
+                "DocsReferenceRouter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "meta/docs/js/services/DocSharedService.js": {
+            "name": "meta/docs/js/services/DocSharedService.js",
+            "modules": {},
+            "classes": {
+                "docSharedService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "model/service/HibachiUtilityService.cfc": {
+            "name": "model/service/HibachiUtilityService.cfc",
+            "modules": {},
             "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/Hibachi.cfc": {
+            "name": "org/Hibachi/Hibachi.cfc",
+            "modules": {
+                "Hibachi": 1
+            },
+            "classes": {
+                "Hibachi": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiAuditService.cfc": {
+            "name": "org/Hibachi/HibachiAuditService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiAuditService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiAuthenticationService.cfc": {
+            "name": "org/Hibachi/HibachiAuthenticationService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiAuthenticationService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiCacheService.cfc": {
+            "name": "org/Hibachi/HibachiCacheService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiCacheService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiController.cfc": {
+            "name": "org/Hibachi/HibachiController.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiController": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiControllerEntity.cfc": {
+            "name": "org/Hibachi/HibachiControllerEntity.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiControllerEntity": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiControllerREST.cfc": {
+            "name": "org/Hibachi/HibachiControllerREST.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiControllerREST": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiDAO.cfc": {
+            "name": "org/Hibachi/HibachiDAO.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiDAO": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiEntity.cfc": {
+            "name": "org/Hibachi/HibachiEntity.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiEntity": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiErrors.cfc": {
+            "name": "org/Hibachi/HibachiErrors.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiErrors": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiEventService.cfc": {
+            "name": "org/Hibachi/HibachiEventService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiEventService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiMessages.cfc": {
+            "name": "org/Hibachi/HibachiMessages.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiMessages": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiObject.cfc": {
+            "name": "org/Hibachi/HibachiObject.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiObject": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiProcess.cfc": {
+            "name": "org/Hibachi/HibachiProcess.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiProcess": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiRBService.cfc": {
+            "name": "org/Hibachi/HibachiRBService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiRBService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiScope.cfc": {
+            "name": "org/Hibachi/HibachiScope.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiScope": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiService.cfc": {
+            "name": "org/Hibachi/HibachiService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiSessionService.cfc": {
+            "name": "org/Hibachi/HibachiSessionService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiSession": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiSmartList.cfc": {
+            "name": "org/Hibachi/HibachiSmartList.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiSmartlistTag": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiTransient.cfc": {
+            "name": "org/Hibachi/HibachiTransient.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiTransient": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiUtilityService.cfc": {
+            "name": "org/Hibachi/HibachiUtilityService.cfc",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "org/Hibachi/HibachiValidationService.cfc": {
+            "name": "org/Hibachi/HibachiValidationService.cfc",
+            "modules": {},
+            "classes": {
+                "HibachiValidationService": 1
+            },
             "fors": {},
             "namespaces": {}
         }
     },
-    "modules": {},
-    "classes": {},
-    "classitems": [
-        {
+    "modules": {
+        "ngSlatwall": {
+            "name": "ngSlatwall",
+            "submodules": {},
+            "classes": {
+                "main": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "api/controllers/main.cfc",
+            "line": 1,
+            "description": "This is the primary API frm which the frontend communicates with the backend"
+        },
+        "slatwallDocs": {
+            "name": "slatwallDocs",
+            "submodules": {},
+            "classes": {
+                "BaseDocumentationService": 1,
+                "SlatwallDocsControllerMarkDownBody": 1,
+                "SlatwallDocsControllerList": 1,
+                "SlatwallDocsControllerMeta": 1,
+                "SlatwallDocsControllerMarkDownList": 1,
+                "docsMDRouter": 1,
+                "DocsReferenceRouter": 1,
+                "docSharedService": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "meta/docs/js/services/DocSharedService.js",
+            "line": 1,
+            "description": "Handles finding and serving Coldfusion Documentation Files"
+        },
+        "Hibachi": {
+            "name": "Hibachi",
+            "submodules": {},
+            "classes": {
+                "Hibachi": 1,
+                "HibachiAuditService": 1,
+                "HibachiAuthenticationService": 1,
+                "HibachiCacheService": 1,
+                "HibachiController": 1,
+                "HibachiControllerEntity": 1,
+                "HibachiControllerREST": 1,
+                "HibachiDAO": 1,
+                "HibachiEntity": 1,
+                "HibachiErrors": 1,
+                "HibachiEventService": 1,
+                "HibachiMessages": 1,
+                "HibachiObject": 1,
+                "HibachiProcess": 1,
+                "HibachiRBService": 1,
+                "HibachiScope": 1,
+                "HibachiService": 1,
+                "HibachiSession": 1,
+                "HibachiSmartlistTag": 1,
+                "HibachiTransient": 1,
+                "HibachiValidationService": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "org/Hibachi/HibachiValidationService.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        }
+    },
+    "classes": {
+        "main": {
+            "name": "main",
+            "shortname": "main",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "ngSlatwall",
+            "namespace": "",
+            "file": "api/controllers/main.cfc",
+            "line": 1,
+            "description": "This is the primary API frm which the frontend communicates with the backend"
+        },
+        "BaseDocumentationService": {
+            "name": "BaseDocumentationService",
+            "shortname": "BaseDocumentationService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 1,
+            "description": "Handles finding and serving Coldfusion Documentation Files"
+        },
+        "SlatwallDocsControllerMarkDownBody": {
+            "name": "SlatwallDocsControllerMarkDownBody",
+            "shortname": "SlatwallDocsControllerMarkDownBody",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
             "file": "meta/docs/js/controllers/BodyController.js",
             "line": 1,
-            "description": "Handles rendering the body of the markdown on click.",
-            "class": ""
+            "description": "Handles rendering the body of the markdown on click."
         },
-        {
+        "SlatwallDocsControllerList": {
+            "name": "SlatwallDocsControllerList",
+            "shortname": "SlatwallDocsControllerList",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
+            "file": "meta/docs/js/controllers/ListController.js",
+            "line": 1,
+            "description": "Setup our controller for grabbing the list of reference documentation items"
+        },
+        "SlatwallDocsControllerMeta": {
+            "name": "SlatwallDocsControllerMeta",
+            "shortname": "SlatwallDocsControllerMeta",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
+            "file": "meta/docs/js/controllers/MetaController.js",
+            "line": 1,
+            "description": "This controller handles just the meta content."
+        },
+        "SlatwallDocsControllerMarkDownList": {
+            "name": "SlatwallDocsControllerMarkDownList",
+            "shortname": "SlatwallDocsControllerMarkDownList",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
             "file": "meta/docs/js/controllers/NavController.js",
             "line": 1,
-            "description": "Handles generating a navigation bar from the readme.md files that live throughout Slatwall.\nReference Section:\n\t\tAPI Access Points\n\t\t\tREST API readme.md with other references coming from the main.cfc in the API directory\n\t\t\tColdFusion API readme.md in Hibachi Scope with examples\n\t\t\tAngularJS  API readme.md in slatscope\n\n\t\tModel\n\t\t\tEntities + Custom\n\t\t\tServices + Custom\n\t\t\tDAO\t\t + Custom\n\t\t\tOther    + Custom\n\t\t\t\tProcess\n\t\t\t\tHandler + Custom\n\t\t\t\tReport + Custom\n\t\t\t\tService\n\t\t\t\tTransient \n\t\t\t\tValidation + Custom\n\t\tOther\n\t\t\tIntegrationServices\n\t\t\tTags\n\t\t\tTemplates\n\t\t\tResource Bundles\n\t\t\tAssets\n\t\t\tTests\n\t\t\tTags",
-            "class": ""
+            "description": "Handles generating a navigation bar from the readme.md files that live throughout Slatwall."
         },
-        {
+        "docsMDRouter": {
+            "name": "docsMDRouter",
+            "shortname": "docsMDRouter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
             "file": "meta/docs/js/routes/DocsMDRouter.js",
             "line": 1,
-            "description": "Handles displaying the rendered MD on a nav click.",
-            "class": ""
+            "description": "Handles displaying the rendered MD on a nav click."
+        },
+        "DocsReferenceRouter": {
+            "name": "DocsReferenceRouter",
+            "shortname": "DocsReferenceRouter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
+            "file": "meta/docs/js/routes/DocsReferenceRouter.js",
+            "line": 1,
+            "description": "Handles displaying the rendered reference file on a nav click."
+        },
+        "docSharedService": {
+            "name": "docSharedService",
+            "shortname": "docSharedService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "slatwallDocs",
+            "namespace": "",
+            "file": "meta/docs/js/services/DocSharedService.js",
+            "line": 1,
+            "description": "This service is to bridge communicate between the two controllers below."
+        },
+        "Hibachi": {
+            "name": "Hibachi",
+            "shortname": "Hibachi",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/Hibachi.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiAuditService": {
+            "name": "HibachiAuditService",
+            "shortname": "HibachiAuditService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiAuditService.cfc",
+            "line": 49,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiAuthenticationService": {
+            "name": "HibachiAuthenticationService",
+            "shortname": "HibachiAuthenticationService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiAuthenticationService.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiCacheService": {
+            "name": "HibachiCacheService",
+            "shortname": "HibachiCacheService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiCacheService.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiController": {
+            "name": "HibachiController",
+            "shortname": "HibachiController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiController.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiControllerEntity": {
+            "name": "HibachiControllerEntity",
+            "shortname": "HibachiControllerEntity",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiControllerEntity.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiControllerREST": {
+            "name": "HibachiControllerREST",
+            "shortname": "HibachiControllerREST",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiControllerREST.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiDAO": {
+            "name": "HibachiDAO",
+            "shortname": "HibachiDAO",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 6,
+            "description": "HibachiDAO Handles all of the data access objects."
+        },
+        "HibachiEntity": {
+            "name": "HibachiEntity",
+            "shortname": "HibachiEntity",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiEntity.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiErrors": {
+            "name": "HibachiErrors",
+            "shortname": "HibachiErrors",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiErrors.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiEventService": {
+            "name": "HibachiEventService",
+            "shortname": "HibachiEventService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiEventService.cfc",
+            "line": 39,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiMessages": {
+            "name": "HibachiMessages",
+            "shortname": "HibachiMessages",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiMessages.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiObject": {
+            "name": "HibachiObject",
+            "shortname": "HibachiObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiObject.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiProcess": {
+            "name": "HibachiProcess",
+            "shortname": "HibachiProcess",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiProcess.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiRBService": {
+            "name": "HibachiRBService",
+            "shortname": "HibachiRBService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiRBService.cfc",
+            "line": 1,
+            "description": "Hibachi is the custom framework that Slatwall is built on top of."
+        },
+        "HibachiScope": {
+            "name": "HibachiScope",
+            "shortname": "HibachiScope",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiScope.cfc",
+            "line": 1,
+            "description": "Hibachi scope give access to all ORM entities."
+        },
+        "HibachiService": {
+            "name": "HibachiService",
+            "shortname": "HibachiService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 23,
+            "description": "<h2>HibachiService</h2> is a part of Hibachi, the framework that Slatwall is build on."
+        },
+        "HibachiSession": {
+            "name": "HibachiSession",
+            "shortname": "HibachiSession",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiSessionService.cfc",
+            "line": 1,
+            "description": "Hibachi is the framework on which Slatwall is built"
+        },
+        "HibachiSmartlistTag": {
+            "name": "HibachiSmartlistTag",
+            "shortname": "HibachiSmartlistTag",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiSmartList.cfc",
+            "line": 1,
+            "description": "Hibachi is the framework on which Slatwall is built"
+        },
+        "HibachiTransient": {
+            "name": "HibachiTransient",
+            "shortname": "HibachiTransient",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiTransient.cfc",
+            "line": 1,
+            "description": "Hibachi is the framework on which Slatwall is built"
+        },
+        "HibachiValidationService": {
+            "name": "HibachiValidationService",
+            "shortname": "HibachiValidationService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Hibachi",
+            "namespace": "",
+            "file": "org/Hibachi/HibachiValidationService.cfc",
+            "line": 1,
+            "description": "HibachiValidationService is responsible for handling all server side validation"
+        }
+    },
+    "classitems": [
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 12,
+            "itemtype": "property",
+            "name": "fw",
+            "type": "any",
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 16,
+            "itemtype": "property",
+            "name": "collectionService",
+            "type": "any",
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 20,
+            "itemtype": "property",
+            "name": "hibachiService",
+            "type": "any",
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 24,
+            "itemtype": "property",
+            "name": "hibachiUtilityService",
+            "type": "any",
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 46,
+            "description": "This is the constructor method for Main.cfc",
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "fw",
+                    "description": "@required",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 56,
+            "description": "Sets up the API",
+            "itemtype": "method",
+            "name": "before",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 72,
+            "description": "Gets the object options",
+            "itemtype": "method",
+            "name": "getObjectOptions",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 130,
+            "description": "Returns a collections by base entity",
+            "itemtype": "method",
+            "name": "getExistingCollectionsByBaseEntity",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 172,
+            "description": "Returns filter properties by base entity",
+            "itemtype": "method",
+            "name": "getFilterPropertiesByBaseEntityName",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 183,
+            "description": "Returns a process object",
+            "itemtype": "method",
+            "name": "getProcessObject",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 236,
+            "description": "Pass in an entity name and property identifiers list and it will spit out releveant property display data",
+            "itemtype": "method",
+            "name": "getPropertyDisplayData",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 262,
+            "description": "Returns the property display options",
+            "itemtype": "method",
+            "name": "getPropertyDisplayOptions",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 286,
+            "description": "Returns a struct with the validation criteria when you pass in an entity name",
+            "itemtype": "method",
+            "name": "getValidation",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 297,
+            "description": "Returns event options when you pass in an entity name",
+            "itemtype": "method",
+            "name": "getEventOptionsByEntityName",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 307,
+            "description": "Generic get method for recieving entity",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "example": [
+                "\n\tGET http://www.mysite.com/slatwall/api/product/ -> retuns collection of all products",
+                "\n\t\tGET http://www.mysite.com/slatwall/?slatAction=api:main.get&entityName=product",
+                "\t\n\t\tGET http://www.mysite.com/slatwall/api/product/2837401982340918274091987234/ -> retuns just that one product",
+                "\n\t\tPOST http://www.mysite.com/slatwall/api/product/ -> Insert a new entity",
+                "\n\t\tPOST http://www.mysite.com/slatwall/api/product/12394871029834701982734/ -> Update Existing Entity",
+                "\n\t\tPOST http://www.mysite.com/slatwall/api/product/12394871029834701982734/?context=delete -> Delete Existing Entity",
+                "\n\t\tPOST http://www.mysite.com/slatwall/api/product/12394871029834701982734/?context=addSku -> Add A Sku To An Entity\n"
+            ],
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 428,
+            "description": "Post to the server - depending on context, can save, delete, process...",
+            "itemtype": "method",
+            "name": "post",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 495,
+            "description": "post data using put",
+            "itemtype": "method",
+            "name": "put",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "api/controllers/main.cfc",
+            "line": 505,
+            "description": "post a delete",
+            "itemtype": "method",
+            "name": "delete",
+            "params": [
+                {
+                    "name": "rc",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "main",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "frontend/api/resources/GenericAbstractResource.cfc",
+            "line": 195,
+            "class": "BaseDocumentationService",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "meta/docs/DocumentationService/BaseDocumentationService.cfc",
+            "line": 84,
+            "description": "base init method saves data all extending components will need. Private so only provides super \n\tfunctionality.",
+            "class": "BaseDocumentationService",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "meta/docs/DocumentationService/BaseDocumentationService.cfc",
+            "line": 96,
+            "description": "This will return all documentation items list for a file type such as .cfc or .js",
+            "class": "BaseDocumentationService",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "meta/docs/DocumentationService/BaseDocumentationService.cfc",
+            "line": 104,
+            "description": "Returns the meta data for an item indexed by name.",
+            "return": {
+                "description": "The meta data for the file specified by fileName argument"
+            },
+            "params": [
+                {
+                    "name": "name",
+                    "description": "is the dot.path.name of the item to get meta for."
+                }
+            ],
+            "class": "BaseDocumentationService",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "meta/docs/DocumentationService/BaseDocumentationService.cfc",
+            "line": 116,
+            "description": "This will return use private helper methods to find meta for some filetype as defined by someone \n\telse.",
+            "class": "BaseDocumentationService",
+            "module": "ngSlatwall"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 8,
+            "description": "Initializes this service.",
+            "itemtype": "method",
+            "name": "Init @type",
+            "type": "Any",
+            "params": [
+                {
+                    "name": "applicationName",
+                    "description": "@type",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 22,
+            "description": "This will return all a list of documentation for a file type such as .cfc",
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 35,
+            "description": "Returns the meta data for an item indexed by name.",
+            "return": {
+                "description": "The meta data for the file specified by fileName argument"
+            },
+            "params": [
+                {
+                    "name": "name",
+                    "description": "is the dot.path.name of the item to get meta for."
+                }
+            ],
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 46,
+            "description": "Helper method to get meta from a cold fusion source file.",
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 65,
+            "description": "Simply returns all files stored in the File[] as dot path",
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 91,
+            "hint": "Removes the leading '/' and replaces the rest with '.'",
+            "return": {
+                "description": "=Returns the filename as a dot path"
+            },
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 102,
+            "hint": "This scan the filesystem for all .cfc files.",
+            "description": "Finds all the files starting with root.",
+            "return": {
+                "description": "Array listing of all those files as array."
+            },
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 119,
+            "description": "Takes a fileName with full path (Dot notation) and grabs the meta data\nand pushes it into the AllDocumentationItems.",
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/ColdFusionDocumentationService.cfc",
+            "line": 134,
+            "description": "Helper method trimAndRemoveExt",
+            "class": "BaseDocumentationService",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 1,
+            "name": "DocumentationWebService",
+            "description": "This will be the primary web service to access the documentation API.",
+            "info": "Access to the public methods will be via http GET request only.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 59,
+            "return": {
+                "description": "any The meta data for the file specified by fileName argument"
+            },
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 83,
+            "description": "Simply returns all files stored in the File[] as dot path",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 98,
+            "description": "=Removes the leading '/' and replaces the rest with '.'",
+            "return": {
+                "description": "=Returns the filename as a dot path"
+            },
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 110,
+            "description": "Finds all the files starting with root.",
+            "return": {
+                "description": "Array listing of all those files as array.            \n------------------------------------------------------------"
+            },
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 127,
+            "description": "Takes a fileName with full path (Dot notation) and grabs the meta data\nand pushes it into the AllDocumentationItems.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 148,
+            "description": "Parse JS file and add back into the file list",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 155,
+            "description": "Helper method trimAndRemoveExt",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 165,
+            "description": "This will return true if the list has another directory and false if the end is reached",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 172,
+            "description": "This will return true if the list has another file and false if the end is reached",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 179,
+            "description": "Parse custom annotations list",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 186,
+            "description": "This will return true on an annotation match, false otherwise.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 196,
+            "description": "Processes a comment in a file and returns a struct of tags for that file",
+            "params": [
+                {
+                    "name": "The",
+                    "description": "comment to process"
+                },
+                {
+                    "name": "The",
+                    "description": "name of the file where the comment was found"
+                }
+            ],
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 207,
+            "description": "Gets the next comment in a file\nA comment here is defined as the multiline comment (docs style) found\nin both coldfusion and javascrip.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/DocumentationWebService.cfc",
+            "line": 221,
+            "description": "Search file will return a struct of matched text in a file using passed in regex or plain text.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JSDoc.cfc",
+            "line": 2,
+            "description": "jsDoc is a port of jsDoc from javascript to coldfusion. It parses jsDoc comments.",
+            "name": "jsDoc",
+            "usage": "Takes a file text as a string and returns the parsed comments as a JSON object Tree.",
+            "link": "https://code.google.com/p/jsdoc-toolkit/wiki/TagReference",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JSDoc.cfc",
+            "line": 34,
+            "description": "When function is found in a file, this proceses it.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JSDoc.cfc",
+            "line": 41,
+            "description": "When a function prototype is found, this processes it.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JSDoc.cfc",
+            "line": 48,
+            "description": "When a comment is found this parses the tags from the comment.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JSDoc.cfc",
+            "line": 55,
+            "description": "This is the main parser that calls the other methods.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JSDoc.cfc",
+            "line": 80,
+            "description": "Helper method for finding and grabbing all regex matches in this case, javadoc comments.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 50,
+            "description": "Initializes this service to search for a specific file extension in a specific directory.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 62,
+            "description": "This will return all a list of documentation for a file type such as .js",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 75,
+            "description": "Returns the meta data for an item indexed by name.",
+            "return": {
+                "description": "The meta data for the file specified by fileName argument"
+            },
+            "params": [
+                {
+                    "name": "name",
+                    "description": "is the dot.path.name of the item to get meta for."
+                }
+            ],
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 94,
+            "description": "Helper method to get meta from a cold fusion source file.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 113,
+            "description": "Simply returns all files stored in the File[] as dot path",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 138,
+            "description": "=Removes the leading '/' and replaces the rest with '.'",
+            "return": {
+                "description": "=Returns the filename as a dot path"
+            },
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 150,
+            "description": "Finds all the files starting with root.",
+            "return": {
+                "description": "Array listing of all those files as array."
+            },
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 167,
+            "description": "Takes a fileName with full path (Dot notation) and grabs the meta data\nand pushes it into the AllDocumentationItems.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 183,
+            "description": "Helper method trimAndRemoveExt",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 193,
+            "description": "Parses JS files for meta data.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 231,
+            "description": "Helper method for finding and grabbing all regex matches in this case, javadoc comments.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/DocumentationService/JavaScriptDocumentationService.cfc",
+            "line": 250,
+            "description": "Helper function for finding annotations inside of comments.",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/js/controllers/BodyController.js",
+            "line": 13,
+            "description": "Handles routing the content area of the documentation markdown",
+            "itemtype": "event",
+            "name": "routeChangeSuccess\n$type any",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/js/controllers/BodyController.js",
+            "line": 62,
+            "description": "renders the passed in markdown item",
+            "name": "render",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "meta/docs/js/controllers/BodyController.js",
+            "line": 71,
+            "description": "Executed when the GET request was sucessfull.",
+            "name": "$http.get($scope.url).success",
+            "class": "SlatwallDocsControllerMarkDownBody",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "model/service/HibachiUtilityService.cfc",
+            "line": 418,
+            "description": "Makes a row of a query into a structure.",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "The query to work with."
+                },
+                {
+                    "name": "row",
+                    "description": "Row number to check. Defaults to row 1."
+                }
+            ],
+            "return": {
+                "description": "Returns a structure."
+            },
+            "author": "Nathan Dintenfass (nathan@changemedia.com)",
+            "version": "1, December 11, 2001\nhttp://cflib.org/index.cfm?event=page.udfbyid&udfid=358",
+            "class": "Hibachi",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "model/service/HibachiUtilityService.cfc",
+            "line": 448,
+            "description": "exports the given query/array to file.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Data to export. (Required) (Currently only supports query)."
+                },
+                {
+                    "name": "columns",
+                    "description": "list of columns to export. (optional, default: all)"
+                },
+                {
+                    "name": "columnNames",
+                    "description": "list of column headers to export. (optional, default: none)"
+                },
+                {
+                    "name": "fileName",
+                    "description": "file name for export. (default: guid)"
+                },
+                {
+                    "name": "fileType",
+                    "description": "file type for export. (default: csv)"
+                },
+                {
+                    "name": "download",
+                    "description": "download the file. (default: true)"
+                }
+            ],
+            "return": {
+                "description": "struct with file info."
+            },
+            "class": "Hibachi",
+            "module": "slatwallDocs"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 12,
+            "description": "Get is a entity helper method for retreiving entities by entity name.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "idOrFilter",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "isReturnNewOnNotFound",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "entity"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 41,
+            "description": "List of entities",
+            "itemtype": "method",
+            "name": "list",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "filterCriteria",
+                    "description": "",
+                    "type": "Struct"
+                },
+                {
+                    "name": "sortOrder",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "entity"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 59,
+            "description": "Returns a new entity by entity name",
+            "itemtype": "method",
+            "name": "new",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "entity"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 74,
+            "description": "Save an entity",
+            "itemtype": "method",
+            "name": "save",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Required"
+                }
+            ],
+            "return": {
+                "description": "target"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 100,
+            "description": "Delete an entity",
+            "itemtype": "method",
+            "name": "delete",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Required"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 119,
+            "description": "count by entity name",
+            "itemtype": "method",
+            "name": "count",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 133,
+            "description": "Reloads an entity",
+            "itemtype": "method",
+            "name": "reloadEntity",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 142,
+            "description": "Flushes the ORM session",
+            "itemtype": "method",
+            "name": "flushORMSession",
+            "return": {
+                "description": "void"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 160,
+            "description": "Clears the ORM session",
+            "itemtype": "method",
+            "name": "clearORMSession",
+            "return": {
+                "description": "void"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 169,
+            "description": "Returns a smartlist by entityName and data",
+            "itemtype": "method",
+            "name": "getSmartList",
+            "params": [
+                {
+                    "name": "entityName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "smartlist"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 186,
+            "description": "Returns an export query",
+            "itemtype": "method",
+            "name": "getExportQuery",
+            "params": [
+                {
+                    "name": "tableName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiDAO.cfc",
+            "line": 199,
+            "description": "Returns an Account by the auth token",
+            "itemtype": "method",
+            "name": "getAccountByAuthToken",
+            "params": [
+                {
+                    "name": "authToken",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "HibachiDAO",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 28,
+            "description": "Handles all of the data access objects.",
+            "itemtype": "property",
+            "name": "hibachiDAO",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 33,
+            "description": "Hibachi main authentication service",
+            "itemtype": "property",
+            "name": "hibachiAuthenticationService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 38,
+            "description": "Hibachi Cache Service",
+            "itemtype": "property",
+            "name": "hibachiCacheService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 43,
+            "description": "Hibachi event service",
+            "itemtype": "property",
+            "name": "hibachiEventService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 48,
+            "description": "Hibachi RB key service",
+            "itemtype": "property",
+            "name": "hibachiRBService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 53,
+            "description": "Hibachi session service",
+            "itemtype": "property",
+            "name": "hibachiSessionService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 58,
+            "description": "Hibachi tag service",
+            "itemtype": "property",
+            "name": "hibachiTagService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 63,
+            "description": "Hibachi utility service",
+            "itemtype": "property",
+            "name": "hibachiUtilityService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 68,
+            "description": "Handles all server side validation",
+            "itemtype": "property",
+            "name": "hibachiValidationService",
+            "type": "{any}",
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 73,
+            "description": "*Get is a entity helper method for retreiving entities by entity name.**",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "idOrFilter",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "isReturnNewOnNotFound",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "entity"
+            },
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 103,
+            "description": "*List of entities**",
+            "itemtype": "method",
+            "name": "list",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "filterCriteria",
+                    "description": "",
+                    "type": "Struct"
+                },
+                {
+                    "name": "sortOrder",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "entity"
+            },
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 115,
+            "description": "*Returns a new entity by entity name**",
+            "itemtype": "method",
+            "name": "new",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "entity"
+            },
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 124,
+            "description": "*Count by entity name**",
+            "itemtype": "method",
+            "name": "count",
+            "params": [
+                {
+                    "name": "entityname",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 133,
+            "description": "*Delete an entity**",
+            "itemtype": "method",
+            "name": "delete",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Required"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 230,
+            "description": "*The default save method will populate, validate, and if not errors delegate to the DAO where entitySave() is called.**",
+            "itemtype": "method",
+            "name": "save",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Required"
+                }
+            ],
+            "return": {
+                "description": "target"
+            },
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 277,
+            "description": "*Exports the given query/array to file.**",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Data to export. (Required) (Currently only supports query).",
+                    "type": "Any"
+                },
+                {
+                    "name": "columns",
+                    "description": "List of columns to export. (optional, default: all)",
+                    "type": "String"
+                },
+                {
+                    "name": "columnNames",
+                    "description": "List of column headers to export. (optional, default: none)",
+                    "type": "String"
+                },
+                {
+                    "name": "fileName",
+                    "description": "File name for export. (default: uuid)",
+                    "type": "String"
+                },
+                {
+                    "name": "fileType",
+                    "description": "File type for export. (default: csv)",
+                    "type": "String"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 320,
+            "description": "<p><b>Generic ORM CRUD methods and dynamic methods by convention via onMissingMethod.</b>\nSee all onMissing* method comments and other method signatures for usage.\n<b>Credit</b>:\n  Heavily influenced by ColdSpring 2.0-pre-alpha's coldspring.orm.hibernate.AbstractGateway.\n  So, thank you Mark Mandel and Bob Silverberg :)</p>\nProvides dynamic methods, by convention, on missing method:\n  <ul>\n  <li>newXXX()</li>\n  <li>countXXX()</li>\n  <li>saveXXX( required any xxxEntity )</li>\n  <li>deleteXXX( required any xxxEntity )</li>\n  <li>getXXX( required any ID, boolean isReturnNewOnNotFound = false )</li>\n  <li>getXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )</li>\n  <li>getXXXByYYYANDZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )</li>\n </ul>\n\t <b>And</b><p> Here is case sensetive to avoid matching in property name i.e brand</p>\n  <ul><li>listXXX( struct filterCriteria, string sortOrder, struct options )</li>\n  <li>listXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )</li>\n  <li>listXXXOrderByZZZ( struct filterCriteria, struct options )</li>\n  <li>listXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )</li></ul>\n...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.\n\t exportXXX()\n<b>Note:</b><p>Ordered arguments only--named arguments not supported.</p>",
+            "itemtype": "method",
+            "name": "onMissingMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "any"
+            },
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 379,
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 385,
+            "description": "<p>Provides dynamic get methods, by convention, on missing method:</p>\n<p>AND here is case sensetive to avoid matching in property name i.e <b>brand</b></p>\n<p>...in which XXX is an ORM entity name, and YYY is an entity property name.</p>\n<b>Note: Ordered arguments only--named arguments not supported.</b>",
+            "itemtype": "method",
+            "name": "onMissingGetMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "example": [
+                " \n\t\tgetXXX( required any ID, boolean isReturnNewOnNotFound = false )",
+                " \n\t\tgetXXXByYYY( required any yyyFilterValue, boolean isReturnNewOnNotFound = false )",
+                " \n \t\tgetXXXByYYYAndZZZ( required array [yyyFilterValue,zzzFilterValue], boolean isReturnNewOnNotFound = false )"
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 430,
+            "description": "Provides dynamic getSmarList method, by convention, on missing method:",
+            "example": [
+                " \n\t\t \tgetXXXSmartList( struct data )\n\n...in which XXX is an ORM entity name\n\nNOTE: Ordered arguments only--named arguments not supported."
+            ],
+            "itemtype": "method",
+            "name": "onMissingGetSmartListMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 458,
+            "description": "Provides dynamic list methods, by convention, on missing method:\n\nNOTE: Ordered arguments only--named arguments not supported.",
+            "itemtype": "method",
+            "name": "onMissingListMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "example": [
+                "\n\tlistXXX( struct filterCriteria, string sortOrder, struct options )\n\tlistXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )\n\tlistXXXOrderByZZZ( struct filterCriteria, struct options )\n\tlistXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )\n\t\n\t...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names."
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 502,
+            "description": "Provides dynamic list method, by convention, on missing method:\n\nlistXXX( struct filterCriteria, string sortOrder, struct options )\n\n...in which XXX is an ORM entity name.\n\nNOTE: Ordered arguments only--named arguments not supported.",
+            "itemtype": "method",
+            "name": "onMissingListXXXMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 535,
+            "description": "Provides dynamic list method, by convention, on missing method:\n\nlistXXXFilterByYYY( required any yyyFilterValue, string sortOrder, struct options )\n\n...in which XXX is an ORM entity name, and YYY is an entity property name.\n\nNOTE: Ordered arguments only--named arguments not supported.",
+            "itemtype": "method",
+            "name": "onMissingListXXXFilterByYYYMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 573,
+            "description": "Provides dynamic list method, by convention, on missing method:\nlistXXXFilterByYYYOrderByZZZ( required any yyyFilterValue, struct options )\n\n...in which XXX is an ORM entity name, and YYY and ZZZ are entity property names.\n>NOTE: Ordered arguments only--named arguments not supported.",
+            "itemtype": "method",
+            "name": "onMissingListXXXFilterByYYYOrderByZZZMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 608,
+            "description": "Provides dynamic list method, by convention, on missing method:\n\n  listXXXOrderByZZZ( struct filterCriteria, struct options )\n\n...in which XXX is an ORM entity name, and ZZZ is an entity property name.\n\nNOTE: Ordered arguments only--named arguments not supported.",
+            "itemtype": "method",
+            "name": "onMissingListXXXOrderByZZZMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 646,
+            "description": "Provides dynamic count methods, by convention, on missing method:\n\n  countXXX()\n\n...in which XXX is an ORM entity name.",
+            "itemtype": "method",
+            "name": "onMissingCountMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 662,
+            "description": "Handles the missing new method case",
+            "itemtype": "method",
+            "name": "onMissingNewMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 675,
+            "description": "Handles the missing save method case",
+            "itemtype": "method",
+            "name": "onMissingSaveMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 690,
+            "description": "Handles the missing process method case",
+            "itemtype": "method",
+            "name": "onMissingProcessMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiService.cfc",
+            "line": 704,
+            "description": "Provides dynamic export methods, by convention, on missing method:\n\n  exportXXX()\n\n...in which XXX is an ORM entity name.",
+            "itemtype": "method",
+            "name": "onMissingExportMethod",
+            "params": [
+                {
+                    "name": "missingMethodName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "missingMethodArguments",
+                    "description": "",
+                    "type": "Struct"
+                }
+            ],
+            "class": "HibachiService",
+            "module": "Hibachi"
+        },
+        {
+            "file": "org/Hibachi/HibachiUtilityService.cfc",
+            "line": 172,
+            "description": "Concatenates two arrays.",
+            "params": [
+                {
+                    "name": "a1",
+                    "description": "The first array."
+                },
+                {
+                    "name": "a2",
+                    "description": "The second array."
+                }
+            ],
+            "return": {
+                "description": "Returns an array."
+            },
+            "author": "Craig Fisher (craig@altainetractive.com)",
+            "version": "1, September 13, 2001\nModified by Tony Garcia 18Oct09 to deal with metadata arrays, which don't act like normal arrays",
+            "class": "HibachiValidationService",
+            "module": "Hibachi"
         }
     ],
     "warnings": [
         {
-            "message": "Missing item type\nHandles rendering the body of the markdown on click.",
-            "line": " meta/docs/js/controllers/BodyController.js:1"
+            "message": "unknown tag: hint",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:91"
         },
         {
-            "message": "Missing item type\nHandles generating a navigation bar from the readme.md files that live throughout Slatwall.\nReference Section:\n\t\tAPI Access Points\n\t\t\tREST API readme.md with other references coming from the main.cfc in the API directory\n\t\t\tColdFusion API readme.md in Hibachi Scope with examples\n\t\t\tAngularJS  API readme.md in slatscope\n\n\t\tModel\n\t\t\tEntities + Custom\n\t\t\tServices + Custom\n\t\t\tDAO\t\t + Custom\n\t\t\tOther    + Custom\n\t\t\t\tProcess\n\t\t\t\tHandler + Custom\n\t\t\t\tReport + Custom\n\t\t\t\tService\n\t\t\t\tTransient \n\t\t\t\tValidation + Custom\n\t\tOther\n\t\t\tIntegrationServices\n\t\t\tTags\n\t\t\tTemplates\n\t\t\tResource Bundles\n\t\t\tAssets\n\t\t\tTests\n\t\t\tTags",
-            "line": " meta/docs/js/controllers/NavController.js:1"
+            "message": "unknown tag: hint",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:102"
         },
         {
-            "message": "Missing item type\nHandles displaying the rendered MD on a nav click.",
-            "line": " meta/docs/js/routes/DocsMDRouter.js:1"
+            "message": "unknown tag: name",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:1"
+        },
+        {
+            "message": "unknown tag: info",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:1"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:2"
+        },
+        {
+            "message": "unknown tag: usage",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:2"
+        },
+        {
+            "message": "unknown tag: link",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:2"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:75"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:138"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:150"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " meta/docs/js/controllers/BodyController.js:13"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " meta/docs/js/controllers/BodyController.js:62"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " meta/docs/js/controllers/BodyController.js:71"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " model/service/HibachiUtilityService.cfc:418"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " org/Hibachi/HibachiUtilityService.cfc:172"
+        },
+        {
+            "message": "Missing item type",
+            "line": " frontend/api/resources/GenericAbstractResource.cfc:195"
+        },
+        {
+            "message": "Missing item type\nbase init method saves data all extending components will need. Private so only provides super \n\tfunctionality.",
+            "line": " meta/docs/DocumentationService/BaseDocumentationService.cfc:84"
+        },
+        {
+            "message": "Missing item type\nThis will return all documentation items list for a file type such as .cfc or .js",
+            "line": " meta/docs/DocumentationService/BaseDocumentationService.cfc:96"
+        },
+        {
+            "message": "Missing item type\nReturns the meta data for an item indexed by name.",
+            "line": " meta/docs/DocumentationService/BaseDocumentationService.cfc:104"
+        },
+        {
+            "message": "Missing item type\nThis will return use private helper methods to find meta for some filetype as defined by someone \n\telse.",
+            "line": " meta/docs/DocumentationService/BaseDocumentationService.cfc:116"
+        },
+        {
+            "message": "Missing item type\nThis will return all a list of documentation for a file type such as .cfc",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:22"
+        },
+        {
+            "message": "Missing item type\nReturns the meta data for an item indexed by name.",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:35"
+        },
+        {
+            "message": "Missing item type\nHelper method to get meta from a cold fusion source file.",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:46"
+        },
+        {
+            "message": "Missing item type\nSimply returns all files stored in the File[] as dot path",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:65"
+        },
+        {
+            "message": "Missing item type",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:91"
+        },
+        {
+            "message": "Missing item type\nFinds all the files starting with root.",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:102"
+        },
+        {
+            "message": "Missing item type\nTakes a fileName with full path (Dot notation) and grabs the meta data\nand pushes it into the AllDocumentationItems.",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:119"
+        },
+        {
+            "message": "Missing item type\nHelper method trimAndRemoveExt",
+            "line": " meta/docs/DocumentationService/ColdFusionDocumentationService.cfc:134"
+        },
+        {
+            "message": "Missing item type\nThis will be the primary web service to access the documentation API.",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:59"
+        },
+        {
+            "message": "Missing item type\nSimply returns all files stored in the File[] as dot path",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:83"
+        },
+        {
+            "message": "Missing item type\n=Removes the leading '/' and replaces the rest with '.'",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:98"
+        },
+        {
+            "message": "Missing item type\nFinds all the files starting with root.",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:110"
+        },
+        {
+            "message": "Missing item type\nTakes a fileName with full path (Dot notation) and grabs the meta data\nand pushes it into the AllDocumentationItems.",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:127"
+        },
+        {
+            "message": "Missing item type\nParse JS file and add back into the file list",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:148"
+        },
+        {
+            "message": "Missing item type\nHelper method trimAndRemoveExt",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:155"
+        },
+        {
+            "message": "Missing item type\nThis will return true if the list has another directory and false if the end is reached",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:165"
+        },
+        {
+            "message": "Missing item type\nThis will return true if the list has another file and false if the end is reached",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:172"
+        },
+        {
+            "message": "Missing item type\nParse custom annotations list",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:179"
+        },
+        {
+            "message": "Missing item type\nThis will return true on an annotation match, false otherwise.",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:186"
+        },
+        {
+            "message": "Missing item type\nProcesses a comment in a file and returns a struct of tags for that file",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:196"
+        },
+        {
+            "message": "Missing item type\nGets the next comment in a file\nA comment here is defined as the multiline comment (docs style) found\nin both coldfusion and javascrip.",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:207"
+        },
+        {
+            "message": "Missing item type\nSearch file will return a struct of matched text in a file using passed in regex or plain text.",
+            "line": " meta/docs/DocumentationService/DocumentationWebService.cfc:221"
+        },
+        {
+            "message": "Missing item type\njsDoc is a port of jsDoc from javascript to coldfusion. It parses jsDoc comments.",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:2"
+        },
+        {
+            "message": "Missing item type\nWhen function is found in a file, this proceses it.",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:34"
+        },
+        {
+            "message": "Missing item type\nWhen a function prototype is found, this processes it.",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:41"
+        },
+        {
+            "message": "Missing item type\nWhen a comment is found this parses the tags from the comment.",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:48"
+        },
+        {
+            "message": "Missing item type\nThis is the main parser that calls the other methods.",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:55"
+        },
+        {
+            "message": "Missing item type\nHelper method for finding and grabbing all regex matches in this case, javadoc comments.",
+            "line": " meta/docs/DocumentationService/JSDoc.cfc:80"
+        },
+        {
+            "message": "Missing item type\nInitializes this service to search for a specific file extension in a specific directory.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:50"
+        },
+        {
+            "message": "Missing item type\nThis will return all a list of documentation for a file type such as .js",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:62"
+        },
+        {
+            "message": "Missing item type\nReturns the meta data for an item indexed by name.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:75"
+        },
+        {
+            "message": "Missing item type\nHelper method to get meta from a cold fusion source file.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:94"
+        },
+        {
+            "message": "Missing item type\nSimply returns all files stored in the File[] as dot path",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:113"
+        },
+        {
+            "message": "Missing item type\n=Removes the leading '/' and replaces the rest with '.'",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:138"
+        },
+        {
+            "message": "Missing item type\nFinds all the files starting with root.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:150"
+        },
+        {
+            "message": "Missing item type\nTakes a fileName with full path (Dot notation) and grabs the meta data\nand pushes it into the AllDocumentationItems.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:167"
+        },
+        {
+            "message": "Missing item type\nHelper method trimAndRemoveExt",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:183"
+        },
+        {
+            "message": "Missing item type\nParses JS files for meta data.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:193"
+        },
+        {
+            "message": "Missing item type\nHelper method for finding and grabbing all regex matches in this case, javadoc comments.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:231"
+        },
+        {
+            "message": "Missing item type\nHelper function for finding annotations inside of comments.",
+            "line": " meta/docs/DocumentationService/JavaScriptDocumentationService.cfc:250"
+        },
+        {
+            "message": "Missing item type\nrenders the passed in markdown item",
+            "line": " meta/docs/js/controllers/BodyController.js:62"
+        },
+        {
+            "message": "Missing item type\nExecuted when the GET request was sucessfull.",
+            "line": " meta/docs/js/controllers/BodyController.js:71"
+        },
+        {
+            "message": "Missing item type\nMakes a row of a query into a structure.",
+            "line": " model/service/HibachiUtilityService.cfc:418"
+        },
+        {
+            "message": "Missing item type\nexports the given query/array to file.",
+            "line": " model/service/HibachiUtilityService.cfc:448"
+        },
+        {
+            "message": "Missing item type\n*Exports the given query/array to file.**",
+            "line": " org/Hibachi/HibachiService.cfc:277"
+        },
+        {
+            "message": "Missing item type",
+            "line": " org/Hibachi/HibachiService.cfc:379"
+        },
+        {
+            "message": "Missing item type\nConcatenates two arrays.",
+            "line": " org/Hibachi/HibachiUtilityService.cfc:172"
         }
     ]
 }

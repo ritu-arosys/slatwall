@@ -1,3 +1,8 @@
+/**
+ Hibachi is the custom framework that Slatwall is built on top of.
+ @module Hibachi
+ @class HibachiController
+*/
 component output="false" accessors="true" extends="HibachiObject" {
 	
 	property name="fw" type="any";
