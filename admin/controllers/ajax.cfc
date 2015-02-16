@@ -77,8 +77,13 @@ component persistent="false" accessors="true" output="false" extends="Slatwall.o
 		param name="arguments.rc.processObjectProperties" default="";
 		param name="arguments.rc.propertyIdentifiers" default="";
 		param name="arguments.rc.adminAttributes" default="";
+		param name="arguments.rc.fieldName" default="";
 	
 		var smartList = getHibachiService().getServiceByEntityName( entityName=rc.entityName ).invokeMethod( "get#getHibachiService().getProperlyCasedShortEntityName( rc.entityName )#SmartList", {1=rc} );
+		
+		if(arguments.rc.fieldName == 'assignedAccount'){
+			smartList.addWhereCondition(' AND EXISTS( ... )');
+		}
 		
 		var smartListPageRecords = smartList.getPageRecords();
 		var piArray = listToArray(rc.propertyIdentifiers);
