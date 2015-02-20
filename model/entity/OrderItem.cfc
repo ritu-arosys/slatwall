@@ -94,7 +94,7 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 	// Non persistent properties
 	property name="activeEventRegistrations" persistent="false"; 
 	property name="discountAmount" persistent="false" hb_formatType="currency" hint="This is the discount amount after quantity (talk to Greg if you don't understand)" ;
-	property name="extendedPrice" persistent="false" hb_formatType="currency";
+	property name="extendedPrice" persistent="false" hb_formatType="currency" hb_collectionHQL="this.quantity * this.price";
 	property name="extendedPriceAfterDiscount" persistent="false" hb_formatType="currency";
 	property name="orderStatusCode" persistent="false"; 
 	property name="quantityDelivered" persistent="false";
@@ -102,9 +102,9 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 	property name="quantityReceived" persistent="false";
 	property name="quantityUnreceived" persistent="false";
 	property name="registrants" persistent="false";
-	property name="taxAmount" persistent="false" hb_formatType="currency";
+	property name="taxAmount" persistent="false" hb_formatType="currency" hb_calculationHQL="SELECT sum(ta.amount) FROM SlatwallTaxAmount ta WHERE ta.orderItemID = this.orderItemID";
 	property name="taxLiabilityAmount" persistent="false" hb_formatType="currency";
-	property name="itemTotal" persistent="false" hb_formatType="currency";
+	property name="itemTotal" persistent="false" hb_formatType="currency" hb_collectionHQL="this.extendedPrice - this.discountAmount + this.taxAmount";
 
 	public numeric function getMaximumOrderQuantity() {
 		var maxQTY = 0;
@@ -252,6 +252,8 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 	}
 	
 	public numeric function getTaxAmount() {
+		return exequteCalculatedHQL( getProperties()[taxAmount].hb_calculationHQL );
+		/*
 		var taxAmount = 0;
 		
 		for(var taxApplied in getAppliedTaxes()) {
@@ -259,6 +261,13 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 		}
 		
 		return taxAmount;
+		*/
+	}
+	
+	onMissingMethod() {
+		if(hb_calculationHQL exists) {
+		  return ormExequteQuery(hb_calculationHQL);
+		}
 	}
 	
 	public numeric function getTaxLiabilityAmount() {
