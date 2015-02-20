@@ -619,7 +619,21 @@ component displayname="Collection" entityname="SlatwallCollection" table="SwColl
 			
 			if( !structKeyExists(variables, "pageRecords") || arguments.refresh eq true) {
 				saveState();
-				variables.pageRecords = ormExecuteQuery(getHQL(), getHQLParams(), false, {offset=getPageRecordsStart()-1, maxresults=getPageRecordsShow(), ignoreCase="true", cacheable=getCacheable(), cachename="pageRecords-#getCacheName()#"});
+				if(columnsRequireObjects()) {
+					var objectRecords = ormExecuteQuery(getHQL(returnObjects=true), getHQLParams(), false, {offset=getPageRecordsStart()-1, maxresults=getPageRecordsShow(), ignoreCase="true", cacheable=getCacheable(), cachename="pageRecords-#getCacheName()#"});	
+					
+					variables.pageRecords = [];
+					
+					for(var record in objectRecords) {
+						var thisData = {};
+						for(var column in columns) {
+						
+						}
+					}
+				} else {
+					variables.pageRecords = ormExecuteQuery(getHQL(returnObjects=false), getHQLParams(), false, {offset=getPageRecordsStart()-1, maxresults=getPageRecordsShow(), ignoreCase="true", cacheable=getCacheable(), cachename="pageRecords-#getCacheName()#"});	
+				}
+				
 			}
 		}
 		catch(any e){
