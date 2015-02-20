@@ -128,7 +128,35 @@ component displayname="Order" entityname="SlatwallOrder" table="SwOrder" persist
 	property name="orderRequirementsList" persistent="false";
 	property name="orderTypeOptions" persistent="false";
 	property name="defaultStockLocationOptions" persistent="false";
-	property name="paymentAmountTotal" persistent="false" hb_formatType="currency";
+	property name="paymentAmountTotal" persistent="false" hb_formatType="currency" hb_calculatedHQL="
+	
+		(SELECT sum(op.amount) 
+			FROM SlatwallOrderPayment op
+			WHERE op.orderID = this.orderID
+				AND op.orderPaymentType.systemCode = 'optCharge'
+				AND op.orderPaymentStatusType = 'opstActive')
+		-
+		(SELECT sum(op.amount)
+			FROM SlatwallOrderPayment op
+			WHERE op.orderID = this.orderID
+			AND op.orderPaymentType.systemCode = 'optCredit'
+			AND op.orderPaymentStatusType = 'opstActive')
+		
+		";
+		
+		----- ALTERNATE EXAMPLE -----
+		
+		"
+		(SELECT sum(
+			CASE op.orderPaymentType.systemCode
+			WHEN 'optCharge' THEN op.amount
+			WHEN 'optCredit' THEN op.amount * -1
+			)
+			FROM SlatwallOrderPayment op
+			WHERE op.orderID = this.orderID
+			AND op.orderPaymentStatusType = 'opstActive')
+		
+		"
 	property name="paymentAmountReceivedTotal" persistent="false" hb_formatType="currency";
 	property name="paymentAmountCreditedTotal" persistent="false" hb_formatType="currency";
 	property name="paymentAmountDue" persistent="false" hb_formatType="currency";
