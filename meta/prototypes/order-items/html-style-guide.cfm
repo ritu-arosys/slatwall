@@ -15,8 +15,8 @@
 		<link href="/admin/client/css/main.css" rel="stylesheet">
 		<link href="/assets/flags/css/flag-icon.min.css" rel="stylesheet">
 		<link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,800,700" rel="stylesheet" type="text/css">
-		<link href="/client/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="/client/lib/metismenu/metismenu.css" rel="stylesheet">
+		<link href="/org/Hibachi/client/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="/org/Hibachi/client/lib/metismenu/metismenu.css" rel="stylesheet">
 
 		<script type="text/javascript" src="/org/Hibachi/HibachiAssets/js/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="/org/Hibachi/HibachiAssets/js/jquery-ui-1.9.2.custom.min.js"></script>
@@ -24,7 +24,7 @@
 		<script type="text/javascript" src="/org/Hibachi/HibachiAssets/js/jquery-validate-1.9.0.min.js"></script>
 		<script type="text/javascript" src="/org/Hibachi/HibachiAssets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/org/Hibachi/HibachiAssets/js/jquery-typewatch-2.0.js"></script>
-		<script type="text/javascript" src="/client/lib/selectBoxIt/selectBoxIt.min.js"></script>
+		<script type="text/javascript" src="/org/Hibachi/client/lib/selectBoxIt/selectBoxIt.min.js"></script>
 
 		<script type="text/javascript" src="/org/Hibachi/HibachiAssets/js/hibachi-scope.js"></script><script type="text/javascript">(function( $ ){$.slatwall = new Hibachi({"rbLocale":"en_us","timeFormat":"hh:mm tt","instantiationKey":"56F7EDDC-C8DE-E248-23C7259A2EC812D9","debugFlag":true,"action":"slatAction","dateFormat":"mmm dd, yyyy","baseURL":""});})( jQuery );</script> 
 		<script type="text/javascript">
@@ -415,14 +415,14 @@
 		
 		
 		
-		<script type="text/javascript" src="/client/lib/date/date.min.js"></script>
-		<!-- <script type="text/javascript" src="/client/lib/angular/angular.min.js"></script> -->
-		<script type="text/javascript" src="/client/lib/angular-ui-bootstrap/ui.bootstrap.js"></script>
-		<script type="text/javascript" src="/client/lib/angular/angular-resource.min.js"></script>
-		<script type="text/javascript" src="/client/lib/angular/angular-cookies.min.js"></script>
-		<script type="text/javascript" src="/client/lib/angular/angular-animate.min.js"></script>
-		<script type="text/javascript" src="/client/lib/angular/angular-route.min.js"></script>
-		<script type="text/javascript" src="/client/lib/metismenu/metismenu.js"></script>
+		<script type="text/javascript" src="/org/Hibachi/client/lib/date/date.min.js"></script>
+		<!-- <script type="text/javascript" src="/org/Hibachi/client/lib/angular/angular.min.js"></script> -->
+		<script type="text/javascript" src="/org/Hibachi/client/lib/angular-ui-bootstrap/ui.bootstrap.js"></script>
+		<script type="text/javascript" src="/org/Hibachi/client/lib/angular/angular-resource.min.js"></script>
+		<script type="text/javascript" src="/org/Hibachi/client/lib/angular/angular-cookies.min.js"></script>
+		<script type="text/javascript" src="/org/Hibachi/client/lib/angular/angular-animate.min.js"></script>
+		<script type="text/javascript" src="/org/Hibachi/client/lib/angular/angular-route.min.js"></script>
+		<script type="text/javascript" src="/org/Hibachi/client/lib/metismenu/metismenu.js"></script>
 		
 		
 		<script type="text/javascript">
