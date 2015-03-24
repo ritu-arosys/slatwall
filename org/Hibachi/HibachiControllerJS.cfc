@@ -14,7 +14,7 @@
 		}
 		
 	</cfscript>
-	<cffunction name="ngSlatwall" >
+	<cffunction name="ngslatwall" >
 		<cfargument name="rc" type="struct" required="true">
 		<cfscript>
 			rc.entities = [];
@@ -35,10 +35,9 @@
 					}
 				}
 			}
-			//getJSForNgSlatwall(arguments.rc);
 		</cfscript>
 		
-		<!---<cfparam name="rc.entities" />
+		<cfparam name="rc.entities" />
 		
 		
 		<cfcontent type="text/javascript">
@@ -54,6 +53,7 @@
 		
 		<cfset local.jsOutput = "" />
 		<cfif !request.slatwallScope.hasApplicationValue('ngSlatwall')>
+			
 			<cfsavecontent variable="local.jsOutput">
 				<cfoutput>
 					angular.module('ngSlatwall',[])
@@ -1739,21 +1739,18 @@
 		</cfif>
 		
 		<cfif request.slatwallScope.getApplicationValue('debugFlag')>
-			<cfoutput>#local.jsOutput#</cfoutput>
+			<cfoutput>#local.jsOutput#</cfoutput><cfabort>
 		<cfelse>
 			<cfheader name="Content-Encoding" value="gzip">
 			<cfheader name="Content-Length" value="#ArrayLen(local.jsOutput)#" >
 			<cfcontent reset="yes" variable="#local.jsOutput#" />
 			<cfabort />
-		</cfif>--->
-
+		</cfif>
 	</cffunction>
 	
-	<!---<cffunction name="ngCompressor">
-		<cfargument name="rc" type="struct" required="true" />
+	<cffunction name="ngcompressor">
+		<cfargument name="rc" type="struct" required="true">
 		
-		<cfparam name="rc.jspath" default="client/js" />
-
 		<cfset local.jsOutput = "" />
 		
 		<!--- Let's have this page persist on the client for 60 days or until the version changes. --->
@@ -1770,25 +1767,39 @@
 		<cfif !request.slatwallScope.hasApplicationValue('ngCompressor_#hash(arguments.rc.jspath)#')>
 			<!---the order these are loaded matters --->
 			<cfset local.jsDirectoryArray = [
-				expandPath( '/Slatwall/#arguments.rc.jspath#' ),
-				expandPath( '/Slatwall/#arguments.rc.jspath#/services' ),
-				expandPath( '/Slatwall/#arguments.rc.jspath#/controllers' ),
-				expandPath( '/Slatwall/#arguments.rc.jspath#/directives' )
+				{
+					directory=expandPath( '/Slatwall/#arguments.rc.jspath#' ),
+					recurse=false
+				},
+				{
+					directory=expandPath( '/Slatwall/#arguments.rc.jspath#/services' ),
+					recurse=false
+				},
+				{
+					directory=expandPath( '/Slatwall/#arguments.rc.jspath#/controllers' ),
+					recurse=false
+				},
+				{
+					directory=expandPath( '/Slatwall/#arguments.rc.jspath#/directives' ),
+					recurse=true
+				}
 			]>
 			<cfloop array="#local.jsDirectoryArray#" index="local.jsDirectory">
 				<cfdirectory
 				    action="list"
-				    directory="#local.jsDirectory#"
+				    directory="#local.jsDirectory.directory#"
 				    listinfo="name"
 				    name="local.jsFileList"
 				    filter="*.js"
+				    recurse="#local.jsDirectory.recurse#"
 			    />
-			    
-			    <cfloop query="local.jsFileList">
-				    <cfset local.jsFilePath = local.jsDirectory & '/' & name>
-				    <cfset local.fileContent = fileRead(local.jsFilePath, 'utf-8')>
-					<cfset local.jsOutput &= local.fileContent />
-			    </cfloop>
+			    <cfif local.jsFileList.recordCount>
+				    <cfloop query="local.jsFileList">
+					    <cfset local.jsFilePath = local.jsDirectory.directory & '/' & name>
+					    <cfset local.fileContent = fileRead(local.jsFilePath, 'utf-8')>
+						<cfset local.jsOutput &= local.fileContent />
+				    </cfloop>
+			    </cfif>
 			</cfloop>
 			
 			<cfif request.slatwallScope.getApplicationValue('debugFlag')>
@@ -1807,8 +1818,8 @@
 					<cfset local.jsOutputCompressed = ''>
 				</cfif>													
 				<cfscript>
-					var ioOutput = CreateObject("java","java.io.ByteArrayOutputStream");
-					var gzOutput = CreateObject("java","java.util.zip.GZIPOutputStream");
+					ioOutput = CreateObject("java","java.io.ByteArrayOutputStream");
+					gzOutput = CreateObject("java","java.util.zip.GZIPOutputStream");
 					
 					ioOutput.init();
 					gzOutput.init(ioOutput);
@@ -1820,7 +1831,7 @@
 					ioOutput.flush();
 					ioOutput.close();
 					
-					var toOutput=ioOutput.toByteArray();
+					toOutput=ioOutput.toByteArray();
 				</cfscript>
 				
 				<cfset request.slatwallScope.setApplicationValue('ngCompressor_#hash(arguments.rc.jspath)#',toOutput)>
@@ -1831,13 +1842,12 @@
 		</cfif>
 		
 		<cfif request.slatwallScope.getApplicationValue('debugFlag')>
-			<cfoutput>#local.jsOutput#</cfoutput>
+			<cfoutput>#local.jsOutput#</cfoutput><cfabort>
 		<cfelse>
 			<cfheader name="Content-Encoding" value="gzip">
 			<cfheader name="Content-Length" value="#ArrayLen(local.jsOutput)#" >
 			<cfcontent reset="yes" variable="#local.jsOutput#" />
 			<cfabort />
 		</cfif>
-		
-	</cffunction>--->
+	</cffunction>
 </cfcomponent>
