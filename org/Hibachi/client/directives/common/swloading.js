@@ -1,13 +1,13 @@
 'use strict';
 //Thanks to AdamMettro
 angular.module('slatwalladmin')
-.directive('swLoading', ['$log','partialsPath',
+.directive('swLoading', ['$log','hibachiPartialsPath',
 
-function ($log,partialsPath) {
+function ($log,hibachiPartialsPath) {
     return {
         restrict: 'A',
         transclude:true,
-        templateUrl:partialsPath+'loading.html',
+        templateUrl:hibachiPartialsPath+'loading.html',
         scope:{
         	swLoading:'='
         },

@@ -2,17 +2,17 @@ angular.module('slatwalladmin')
 .directive('swPaginationBar', [
 	'$log',
 	'$timeout',
-	'partialsPath', 
+	'hibachiPartialsPath', 
 	'paginationService',
 	function(
 		$log,
 		$timeout,
-		partialsPath,
+		hibachiPartialsPath,
 		paginationService
 	){
 		return {
 			restrict:'A',
-			templateUrl: partialsPath+'paginationbar.html',
+			templateUrl: hibachiPartialsPath+'paginationbar.html',
 			scope: {
 				pageShow:"=",
 				currentPage:"=",

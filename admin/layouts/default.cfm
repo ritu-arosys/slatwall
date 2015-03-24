@@ -379,13 +379,16 @@ Notes:
 				$provide.constant("baseURL", $.slatwall.getConfig().baseURL);
 				
 				var _partialsPath = $.slatwall.getConfig().baseURL + '/admin/client/js/directives/partials/';
+				var _hibachiPartialsPath = $.slatwall.getConfig().baseURL + '/org/Hibachi/client/directives/partials/';
 				
 				$provide.constant("partialsPath", _partialsPath);
+				$provide.constant("hibachiPartialsPath",_hibachiPartialsPath);
 				$provide.constant("productBundlePartialsPath", _partialsPath+'productbundle/');
 				<cfloop collection="#rc.$.slatwall.getService('hibachiService').getEntitiesMetaData()#" item="local.entityName">
 					$provide.constant("#ReReplace(local.entityName,"\b(\w)","\l\1","ALL")#PartialsPath", _partialsPath+'#local.entityName#/');
 				</cfloop>
-				
+				//override collections partials path
+				$provide.constant("collectionPartialsPath", _hibachiPartialsPath+'collection/');
 				
 				$logProvider.debugEnabled( $.slatwall.getConfig().debugFlag );
 				$filterProvider.register('likeFilter',function(){
@@ -467,9 +470,9 @@ Notes:
 		</script>
 
 		<script type="text/javascript" src="#request.slatwallScope.getBaseUrl()#/?slatAction=api:js.ngslatwall&instantiationKey=#$.slatwall.getApplicationValue('instantiationKey')#"></script>
-		<!---<script type="text/javascript" src="#request.slatwallScope.getBaseUrl()#/?slatAction=api:js.ngcompressor&jspath=org/Hibachi/client/js&instantiationKey=#$.slatwall.getApplicationValue('instantiationKey')#"></script>--->
 		<!--- Load up the Slatwall Admin --->
 		<script type="text/javascript" src="#request.slatwallScope.getBaseUrl()#/?slatAction=api:js.ngcompressor&jspath=admin/client/js&instantiationKey=#$.slatwall.getApplicationValue('instantiationKey')#"></script>
+		<script type="text/javascript" src="#request.slatwallScope.getBaseUrl()#/?slatAction=api:js.ngcompressor&jspath=org/Hibachi/client&instantiationKey=#$.slatwall.getApplicationValue('instantiationKey')#"></script>
 		
 	</body>
 </html>
