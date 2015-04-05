@@ -1,19 +1,16 @@
-'use strict';
+"use strict";
 //Thanks to AdamMettro
-angular.module('slatwalladmin')
-.directive('swClickOutside', ['$document','$timeout',
-
-function ($document,$timeout) {
+angular.module("slatwalladmin").directive("swClickOutside", ["$document", "$timeout", function ($document, $timeout) {
     return {
-        restrict: 'A',
+        restrict: "A",
         scope: {
-            swClickOutside: '&'
+            swClickOutside: "&"
         },
         link: function ($scope, elem, attr) {
-            var classList = (attr.outsideIfNot !== undefined) ? attr.outsideIfNot.replace(', ', ',').split(',') : [];
+            var classList = attr.outsideIfNot !== undefined ? attr.outsideIfNot.replace(", ", ",").split(",") : [];
             if (attr.id !== undefined) classList.push(attr.id);
 
-            $document.on('click', function (e) {
+            $document.on("click", function (e) {
                 var i = 0,
                     element;
 
@@ -31,10 +28,9 @@ function ($document,$timeout) {
                         }
                     }
                 }
-               $timeout( function(){
-            	   $scope.swClickOutside();
-               });
-
+                $timeout(function () {
+                    $scope.swClickOutside();
+                });
             });
         }
     };
