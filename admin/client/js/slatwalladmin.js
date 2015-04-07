@@ -7,7 +7,7 @@ angular.module("slatwalladmin", ["ngSlatwall", "ui.bootstrap", "ngAnimate", "ngR
 	if (slatwallAngular.hashbang) {
 		$locationProvider.html5Mode(false).hashPrefix("!");
 	}
-
+ 
 	$provide.constant("baseURL", $.slatwall.getConfig().baseURL);
 
 	var _partialsPath = $.slatwall.getConfig().baseURL + "/admin/client/js/directives/partials/";
