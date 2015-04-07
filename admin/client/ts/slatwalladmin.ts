@@ -17,7 +17,7 @@ config(
 	$provide.constant("partialsPath", _partialsPath);
 	$provide.constant("productBundlePartialsPath", _partialsPath+'productbundle/');
 	
-
+//
 	angular.forEach(slatwallAngular.constantPaths, function(constantPath,key){
 		var constantKey = constantPath.charAt(0).toLowerCase()+constantPath.slice(1)+'PartialsPath';
 		var constantPartialsPath = _partialsPath+constantPath.toLowerCase()+'/';
@@ -29,6 +29,7 @@ config(
 		return function(text){
 			if(angular.isDefined(text) && angular.isString(text)){
 				return text.replace(new RegExp('%', 'g'), '');
+				
 			}
 		};
 	});

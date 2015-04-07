@@ -52,7 +52,7 @@ gulp.task('compress', ['traceur', '6to5'],function(){
       .pipe(rename(function(path){
           path.extname = '.min.js'
       }))
-      .pipe(sourcemaps.write('./',{includeContent: false, sourceRoot: '/'}))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./' + compilePath + 'es5'));
 
       gulp.src([
@@ -72,7 +72,7 @@ gulp.task('compress', ['traceur', '6to5'],function(){
       .pipe(rename(function(path){
           path.extname = '.min.js'
       }))
-      .pipe(sourcemaps.write('./',{includeContent: false, sourceRoot: '/'}))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./' + compilePath + 'es6'));
     },1000);
 });
