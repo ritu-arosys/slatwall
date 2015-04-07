@@ -10,12 +10,12 @@ angular.module("slatwalladmin", ["ngSlatwall", "ui.bootstrap", "ngAnimate", "ngR
 
 	$provide.constant("baseURL", $.slatwall.getConfig().baseURL);
 
-	var _partialsPath = $.slatwall.getConfig().baseURL + "/admin/client/js/directives/partials/";
+	var _partialsPath = $.slatwall.getConfig().baseURL + "/admin/client/js/partials/";
 
 	$provide.constant("partialsPath", _partialsPath);
 	$provide.constant("productBundlePartialsPath", _partialsPath + "productbundle/");
 
-	//
+
 	angular.forEach(slatwallAngular.constantPaths, function (constantPath, key) {
 		var constantKey = constantPath.charAt(0).toLowerCase() + constantPath.slice(1) + "PartialsPath";
 		var constantPartialsPath = _partialsPath + constantPath.toLowerCase() + "/";

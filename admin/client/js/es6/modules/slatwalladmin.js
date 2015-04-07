@@ -7,7 +7,7 @@ angular.module('slatwalladmin', ['ngSlatwall', 'ui.bootstrap', 'ngAnimate', 'ngR
     $locationProvider.html5Mode(false).hashPrefix('!');
   }
   $provide.constant("baseURL", $.slatwall.getConfig().baseURL);
-  var _partialsPath = $.slatwall.getConfig().baseURL + '/admin/client/js/directives/partials/';
+  var _partialsPath = $.slatwall.getConfig().baseURL + '/admin/client/js/partials/';
   $provide.constant("partialsPath", _partialsPath);
   $provide.constant("productBundlePartialsPath", _partialsPath + 'productbundle/');
   angular.forEach(slatwallAngular.constantPaths, function(constantPath, key) {
