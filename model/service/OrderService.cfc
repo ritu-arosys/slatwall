@@ -1244,14 +1244,24 @@ component extends="HibachiService" persistent="false" accessors="true" output="f
 	
 	public any function processOrder_removeOrderItem(required any order, required struct data) {
 		
+		var orderItemsToRemove = [];
+		var orderItemRemoved = false;
+		
 		// Make sure that an orderItemID was passed in
-		if(structKeyExists(arguments.data, "orderItemID")) {
+		if(structKeyExists(arguments.data, "orderItemIDList")) {
+			orderItemsToRemove = listToArray(arguments.data.orderItemIDList);
+		} else if(structKeyExists(arguments.data, "orderItemID")) {
+			arrayAppend(orderItemsToRemove, arguments.data.orderItemID);
+		}
+		
+		// Make sure there is something in the array
+		if(arrayLen(orderItemsToRemove)) {
 			
 			// Loop over all of the items in this order
 			for(var orderItem in arguments.order.getOrderItems())	{
 			
 				// Check to see if this item is the same ID as the one passed in to remove
-				if(orderItem.getOrderItemID() == arguments.data.orderItemID) {
+				if(arrayFindNoCase(orderItemsToRemove, orderItem.getOrderItemID())) {
 				
 					var okToRemove = true;
 					
@@ -1282,15 +1292,17 @@ component extends="HibachiService" persistent="false" accessors="true" output="f
 					if(okToRemove) {
 						// Delete this item
 						this.deleteOrderItem( orderItem );
+						orderItemRemoved = true;
 						
-						// Call saveOrder to recalculate all the orderTotal stuff
-						arguments.order = this.saveOrder(arguments.order);
 					}
-					
-					break;
 				}
 			}
 			
+			// Call saveOrder to recalculate all the orderTotal stuff
+			if(orderItemRemoved) {
+				arguments.order = this.saveOrder(arguments.order);	
+			}
+
 		}
 		
 		return arguments.order;
