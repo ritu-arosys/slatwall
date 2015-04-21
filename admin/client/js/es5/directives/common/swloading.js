@@ -11,3 +11,5 @@ angular.module("slatwalladmin").directive("swLoading", ["$log", "partialsPath", 
         link: function (scope, attrs, element) {}
     };
 }]);
+
+//# sourceMappingURL=../../directives/common/swloading.js.map

@@ -3,7 +3,6 @@
 /**
  * Returns true if the uservalue is empty and false otherwise
  */
-
 angular.module("slatwalladmin").directive("swvalidationrequired", [function () {
     return {
         restrict: "A",
@@ -19,3 +18,5 @@ angular.module("slatwalladmin").directive("swvalidationrequired", [function () {
         }
     };
 }]);
+
+//# sourceMappingURL=../../../directives/common/validation/swvalidationrequired.js.map

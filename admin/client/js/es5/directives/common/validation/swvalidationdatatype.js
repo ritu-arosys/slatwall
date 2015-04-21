@@ -10,7 +10,6 @@ angular.module("slatwalladmin").directive("swvalidationdatatype", [function () {
     return {
         restrict: "A",
         require: "^ngModel",
-
         link: function (scope, element, attributes, ngModel) {
             ngModel.$validators.swvalidationdatatype = function (modelValue) {
                 if (angular.isString(modelValue) && attributes.swvalidationdatatype === "string") {
@@ -36,3 +35,5 @@ angular.module("slatwalladmin").directive("swvalidationdatatype", [function () {
         }
     };
 }]);
+
+//# sourceMappingURL=../../../directives/common/validation/swvalidationdatatype.js.map

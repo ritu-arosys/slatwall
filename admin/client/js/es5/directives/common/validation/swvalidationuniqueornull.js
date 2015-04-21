@@ -21,7 +21,6 @@ angular.module("slatwalladmin").directive("swvalidationuniqueornull", ["$http", 
                     $slatwall.checkUniqueOrNullValue(key, property, currentValue).then(function (unique) {
                         $log.debug("uniquetest");
                         $log.debug(unique);
-
                         if (unique) {
                             deferred.resolve(); //It's unique
                         } else {
@@ -31,9 +30,10 @@ angular.module("slatwalladmin").directive("swvalidationuniqueornull", ["$http", 
                 } else {
                     deferred.resolve(); //Ensure promise is resolved if we hit this
                 }
-
                 return deferred.promise;
             };
         }
     };
 }]);
+
+//# sourceMappingURL=../../../directives/common/validation/swvalidationuniqueornull.js.map

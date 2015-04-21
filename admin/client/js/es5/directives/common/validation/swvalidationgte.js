@@ -5,7 +5,6 @@
  * @usage <input type='text' swvalidationgte='5' /> will validate false if the user enters
  * value less than OR equal to 5.
  */
-
 angular.module("slatwalladmin").directive("swvalidationgte", [function () {
     return {
         restrict: "A",
@@ -21,3 +20,5 @@ angular.module("slatwalladmin").directive("swvalidationgte", [function () {
         } //<--end link
     };
 }]);
+
+//# sourceMappingURL=../../../directives/common/validation/swvalidationgte.js.map

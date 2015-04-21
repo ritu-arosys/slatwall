@@ -3,7 +3,6 @@
 /**
  * Validates true if the model value matches a regex string.
  */
-
 angular.module("slatwalladmin").directive("swvalidationregex", [function () {
     return {
         restrict: "A",
@@ -22,3 +21,5 @@ angular.module("slatwalladmin").directive("swvalidationregex", [function () {
         }
     };
 }]);
+
+//# sourceMappingURL=../../../directives/common/validation/swvalidationregex.js.map

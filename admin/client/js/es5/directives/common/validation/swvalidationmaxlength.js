@@ -9,8 +9,6 @@ angular.module("slatwalladmin").directive("swvalidationmaxlength", [function () 
         require: "^ngModel",
         link: function (scope, element, attributes, ngModel) {
             ngModel.$validators.swvalidationmaxlength = function (modelValue, viewValue) {
-
-
                 var constraintValue = attributes.swvalidationmaxlength;
                 var userValue = viewValue || 0;
                 if (parseInt(viewValue.length) >= parseInt(constraintValue)) {
@@ -21,3 +19,5 @@ angular.module("slatwalladmin").directive("swvalidationmaxlength", [function () 
         }
     };
 }]);
+
+//# sourceMappingURL=../../../directives/common/validation/swvalidationmaxlength.js.map

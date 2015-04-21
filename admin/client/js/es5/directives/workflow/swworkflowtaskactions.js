@@ -11,7 +11,6 @@ angular.module("slatwalladmin").directive("swWorkflowTaskActions", ["$log", "$sl
             $log.debug("Workflow Task Actions Init");
             $log.debug(scope.workflowTask);
             scope.openActions = false;
-
             /**
              * Returns the correct object based on the selected object type.
              */
@@ -32,8 +31,8 @@ angular.module("slatwalladmin").directive("swWorkflowTaskActions", ["$log", "$sl
                 Note:
                 This conditional is checking whether or not we need to be retrieving to
                 items all over again. If we already have them, we won't make another
-                trip to the database. 
-                ***/
+                trip to the database.
+                                ***/
                 if (angular.isUndefined(scope.workflowTask.data.workflowTaskActions)) {
                     var workflowTaskPromise = scope.workflowTask.$$getWorkflowTaskActions();
                     workflowTaskPromise.then(function () {
@@ -52,8 +51,6 @@ angular.module("slatwalladmin").directive("swWorkflowTaskActions", ["$log", "$sl
                 }
             };
             scope.getWorkflowTaskActions(); //Call get
-
-
             /**
              * --------------------------------------------------------------------------------------------------------
              * Saves the workflow task actions by calling the objects $$save method.
@@ -77,15 +74,13 @@ angular.module("slatwalladmin").directive("swWorkflowTaskActions", ["$log", "$sl
                     }
                 });
             }; //<--end save
-
             /**
-            * Sets the editing state to show/hide the edit screen.
-            */
+                * Sets the editing state to show/hide the edit screen.
+                */
             scope.setHidden = function (task) {
                 if (!angular.isObject(task)) {
                     task = {};
                 }
-
                 if (angular.isUndefined(task.hidden)) {
                     task.hidden = false;
                 } else {
@@ -93,7 +88,6 @@ angular.module("slatwalladmin").directive("swWorkflowTaskActions", ["$log", "$sl
                     task.hidden = !task.hidden;
                 }
             };
-
             /**
              * --------------------------------------------------------------------------------------------------------
              * Adds workflow action items by calling the workflowTask objects $$addWorkflowTaskAction() method
@@ -106,7 +100,6 @@ angular.module("slatwalladmin").directive("swWorkflowTaskActions", ["$log", "$sl
                 scope.selectWorkflowTaskAction(workflowTaskAction);
                 $log.debug(scope.workflow);
             };
-
             /**
              * --------------------------------------------------------------------------------------------------------
              * Selects a new task action and populates the task action properties.
@@ -158,3 +151,5 @@ angular.module("slatwalladmin").directive("swWorkflowTaskActions", ["$log", "$sl
         }
     };
 }]);
+
+//# sourceMappingURL=../../directives/workflow/swworkflowtaskactions.js.map

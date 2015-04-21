@@ -2,10 +2,8 @@
 angular.module("slatwalladmin").directive("sw:sortable", ["expression", "compiledElement", function (expression, compiledElement) {
     // add my:sortable-index to children so we know the index in the model
     compiledElement.children().attr("sw:sortable-index", "{{$index}}");
-
     return function (linkElement) {
         var scope = this;
-
         linkElement.sortable({
             placeholder: "placeholder",
             opacity: 0.8,
@@ -17,17 +15,13 @@ angular.module("slatwalladmin").directive("sw:sortable", ["expression", "compile
                 var modelLength = model.length;
                 // rember html nodes
                 var items = [];
-
                 // loop through items in new order
                 linkElement.children().each(function (index) {
                     var item = $(this);
-
                     // get old item index
                     var oldIndex = parseInt(item.attr("sw:sortable-index"), 10);
-
                     // add item to the end of model
                     model.push(model[oldIndex]);
-
                     if (item.attr("sw:sortable-index")) {
                         // items in original order to restore dom
                         items[oldIndex] = item;
@@ -35,16 +29,14 @@ angular.module("slatwalladmin").directive("sw:sortable", ["expression", "compile
                         item.detach();
                     }
                 });
-
                 model.splice(0, modelLength);
-
                 // restore original dom order, so angular does not get confused
                 linkElement.append.apply(linkElement, items);
-
                 // notify angular of the change
                 scope.$digest();
             }
         });
     };
-
 }]);
+
+//# sourceMappingURL=../../directives/common/swsortable.js.map
