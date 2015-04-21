@@ -6,7 +6,10 @@ var GulpConfig = (function () {
         this.tsOutputPath = './admin/client' + '/js/es6';
         this.allJavaScript = ['./admin/client' + '/js/**/*.js'];
         this.allTypeScript = this.source+ '/**/*.ts';
-
+       
+        this.ngSlatwallTypescript = './client/ts/modules/*.ts';
+        this.ngSlatwallOutputPath = './client/js/es6';
+		
         this.typings = './client/typings/';
         this.libraryTypeScriptDefinitions = './client/typings/**/*.ts';
         this.appTypeScriptReferences = this.typings + 'slatwallTypescript.d.ts';

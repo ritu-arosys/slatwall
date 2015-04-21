@@ -64,9 +64,6 @@ Notes:
 <cfif !request.slatwallScope.hasApplicationValue('ngSlatwall')>
 	<cfsavecontent variable="local.jsOutput">
 		<cfoutput>
-			'use strict';
-			/// <reference path="../../../../client/typings/tsd.d.ts" />
-			/// <reference path="../../../../client/typings/slatwallTypeScript.d.ts" />
 			angular.module('ngSlatwall',[])
 			.provider('$slatwall',[ 
 			function(){
@@ -1358,7 +1355,7 @@ Notes:
 									
 									<!--- Loop over properties --->
 									<cfloop array="#local.entity.getProperties()#" index="local.property">
-										
+										<cfset fieldIDCount = 0>
 										<!--- Make sure that this property is a persistent one --->
 										<cfif !structKeyExists(local.property, "persistent") && ( !structKeyExists(local.property,"fieldtype") || listFindNoCase("column,id", local.property.fieldtype) )>
 											<!--- Find the default value for this property --->
@@ -1635,14 +1632,18 @@ Notes:
 													}
 												<cfelse>
 													<cfif listFindNoCase('id', local.property.fieldtype)>
-														,$$getID:function(){
-															//this should retreive id from the metadata
-															return this.data[this.$$getIDName()];
-														}
-														,$$getIDName:function(){
-															var IDNameString = '#local.property.name#';
-															return IDNameString;
-														}
+														<cfif !fieldIDCount>
+															,$$getID:function(){
+																//this should retreive id from the metadata
+																return this.data[this.$$getIDName()];
+															}
+															,$$getIDName:function(){
+																var IDNameString = '#local.property.name#';
+																return IDNameString;
+															}
+														</cfif>
+														<cfset fieldIDCount++>
+														
 													</cfif>
 													,$$get#ReReplace(local.property.name,"\b(\w)","\u\1","ALL")#:function() {
 														return this.data.#local.property.name#;
@@ -1690,10 +1691,10 @@ Notes:
 			    	_config = config;
 			    }
 			};
-			}]).config(function ($slatwallProvider) {
-			}).run(function($slatwall){
+			}]).config(['$slatwallProvider',function ($slatwallProvider) {
+			}]).run(['$slatwall',function($slatwall){
 				
-			});
+			}]);
 		</cfoutput>
 	</cfsavecontent>
 	<cfset ORMClearSession()>
