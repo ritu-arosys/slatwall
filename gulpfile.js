@@ -42,9 +42,9 @@ gulp.task('6to5', function () {
 
 gulp.task('compress',function(){
     gulp.src([
-      config.compilePath + 'es5/modules/ngSlatwall.js',
+      config.compilePath + 'es5/modules/ngslatwall.js',
       config.compilePath + 'es5/modules/slatwalladmin.js',
-      config.compilePath + 'es5/services/**/*.js',
+      config.compilePath + 'es5/services/*.js',
       config.compilePath + 'es5/controllers/**/*.js',
       config.compilePath + 'es5/directives/**/*.js'
     ])
@@ -53,6 +53,9 @@ gulp.task('compress',function(){
       .pipe(uglify({
           compress: {
               negate_iife: false
+          },
+          parse:{
+          	strict:true
           }
       }))
      
@@ -63,64 +66,10 @@ gulp.task('compress',function(){
       .pipe(chmod(777))
       .pipe(gulp.dest('./' + config.compilePath + 'es5'));
 
-      return gulp.src([
-        config.compilePath + 'es6/modules/ngSlatwall.js',
-        config.compilePath + 'es6/modules/slatwalladmin.js',
-        config.compilePath + 'es6/services/**/*.js',
-        config.compilePath + 'es6/controllers/**/*.js',
-        config.compilePath + 'es6/directives/**/*.js'
-      ])
-      .pipe(sourcemaps.init())
-      .pipe(concat('all.js'))
-      .pipe(uglify({
-          compress: {
-              negate_iife: false
-          }
-      }))
-      .pipe(rename(function(path){
-          path.extname = '.min.js'
-      }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(chmod(777))
-      .pipe(gulp.dest('./' + config.compilePath + 'es6'));
+     
 });
 
-/*
-gulp.task('properties2json',function(){
-	//get all files in a directory
-	var dir = 'config/resourceBundles';
-    var results = [];
-    fs.readdirSync(dir).forEach(function(file) {
-        file = dir+'/'+file;
-        properties.parse(file,{path:true}, function (error, obj){
-        	if (error) return console.error (error);
-        	var newobj = {};
-        	for(key in obj){
-        		newobj[key.toLowerCase()] = obj[key];
-        	}
-        	var newfile = file.replace('.properties','.json');
-        	
-        	if(fs.existsSync(newfile)){
-        		fs.unlink(newfile, function (err) {
-    				console.log(err);
-        		  if (err) throw err;
-        		  console.log('successfully deleted '+newfile);
-        		  	fs.writeFile(newfile, JSON.stringify(newobj), function(){
-              			console.log('It\'s saved!');
-              		});
-        		});
-        	}else{
-        		fs.writeFile(newfile, JSON.stringify(newobj), function(){
-            		console.log('It\'s saved!');
-            	});
-        	}
-	  	});
-    });
-});*/
 
-/**
- * Generates the app.d.ts references file dynamically from all application *.ts files.
- */
 gulp.task('gen-ts-refs', function () {
 	setTimeout(function () {
 	    var target = gulp.src(config.appTypeScriptReferences);
@@ -185,7 +134,7 @@ gulp.task('flattenNgslatwall',function(){
 	request('http://cf10.localhost/?slatAction=api:js.ngslatwall', function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
 		  var dir = 'admin/client/ts/modules/';
-		  var newFile = dir+'ngSlatwall.ts';
+		  var newFile = dir+'ngslatwall.ts';
 		  fs.writeFile(newFile, body, function(){
       		console.log('It\'s saved!');
 		  });
@@ -198,10 +147,47 @@ gulp.task('watch', function() {
     //gulp.watch([propertiesPath],['properties2json']);
 });
 
+/*
+gulp.task('properties2json',function(){
+	//get all files in a directory
+	var dir = 'config/resourceBundles';
+    var results = [];
+    fs.readdirSync(dir).forEach(function(file) {
+        file = dir+'/'+file;
+        properties.parse(file,{path:true}, function (error, obj){
+        	if (error) return console.error (error);
+        	var newobj = {};
+        	for(key in obj){
+        		newobj[key.toLowerCase()] = obj[key];
+        	}
+        	var newfile = file.replace('.properties','.json');
+        	
+        	if(fs.existsSync(newfile)){
+        		fs.unlink(newfile, function (err) {
+    				console.log(err);
+        		  if (err) throw err;
+        		  console.log('successfully deleted '+newfile);
+        		  	fs.writeFile(newfile, JSON.stringify(newobj), function(){
+              			console.log('It\'s saved!');
+              		});
+        		});
+        	}else{
+        		fs.writeFile(newfile, JSON.stringify(newobj), function(){
+            		console.log('It\'s saved!');
+            	});
+        	}
+	  	});
+    });
+});*/
+
+/**
+ * Generates the app.d.ts references file dynamically from all application *.ts files.
+ */
+
 gulp.task('default', function(){
 	runSequence(
-		'flattenNgslatwall'
-		,'compile-ts'
+		//'flattenNgslatwall'
+		'compile-ts'
 		,'gen-ts-refs'
 		,'traceur'
 		,'compress'

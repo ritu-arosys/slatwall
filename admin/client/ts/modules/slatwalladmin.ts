@@ -1,7 +1,6 @@
 /// <reference path="../../../../client/typings/tsd.d.ts" />
 /// <reference path="../../../../client/typings/slatwallTypeScript.d.ts" />
-//module slatwallAdmin{
-	'use strict';
+module slatwallAdmin{
 	angular.module('slatwalladmin', ['ngSlatwall','ui.bootstrap','ngAnimate','ngRoute']).
 	config(
 		["$provide",'$logProvider','$filterProvider','$httpProvider','$routeProvider','$injector','$locationProvider','datepickerConfig', 'datepickerPopupConfig',
@@ -27,6 +26,7 @@
 			var constantPartialsPath = _partialsPath+constantPath.toLowerCase()+'/';
 			$provide.constant(constantKey, constantPartialsPath);
 		});
+		
 		
 		$logProvider.debugEnabled( $.slatwall.getConfig().debugFlag );
 		$filterProvider.register('likeFilter',function(){
@@ -119,4 +119,4 @@
 			}
 		};
 	}]);
-//}
+}

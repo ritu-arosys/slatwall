@@ -64,6 +64,7 @@ Notes:
 <cfif !request.slatwallScope.hasApplicationValue('ngSlatwall')>
 	<cfsavecontent variable="local.jsOutput">
 		<cfoutput>
+			'use strict';
 			/// <reference path="../../../../client/typings/tsd.d.ts" />
 			/// <reference path="../../../../client/typings/slatwallTypeScript.d.ts" />
 			angular.module('ngSlatwall',[])
@@ -1690,7 +1691,6 @@ Notes:
 			    }
 			};
 			}]).config(function ($slatwallProvider) {
-				/* $slatwallProvider.setConfigValue($.slatwall.getConfig().baseURL); */
 			}).run(function($slatwall){
 				
 			});

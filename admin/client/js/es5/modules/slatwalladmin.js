@@ -1,5 +1,4 @@
 "use strict";
-'use strict';
 angular.module('slatwalladmin', ['ngSlatwall', 'ui.bootstrap', 'ngAnimate', 'ngRoute']).config(["$provide", '$logProvider', '$filterProvider', '$httpProvider', '$routeProvider', '$injector', '$locationProvider', 'datepickerConfig', 'datepickerPopupConfig', function($provide, $logProvider, $filterProvider, $httpProvider, $routeProvider, $injector, $locationProvider, datepickerConfig, datepickerPopupConfig) {
   datepickerConfig.showWeeks = false;
   datepickerConfig.format = 'MMM dd, yyyy hh:mm a';

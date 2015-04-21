@@ -108,7 +108,7 @@ angular.module('slatwalladmin')
 				this.selectFilterItem(filterItem);
 				
 				
-			},
+			}, 
 			newFilterGroupItem: function(filterItemGroup,setItemInUse){
 				var filterGroupItem = {
 					filterGroup:[],
