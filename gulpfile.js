@@ -14,36 +14,36 @@ var gulp = require('gulp'),
     tsc = require('gulp-typescript'),
     tslint = require('gulp-tslint'),
     rimraf = require('gulp-rimraf');
-	Config = require('./gulpfile.config');
+	Config = require('./gulpfile.config'),
+	request = require('request'),
+	chmod = require('gulp-chmod'),
+	runSequence = require('run-sequence');
 
 	var config = new Config();
 
-/*gulp.task('traceur', function () {
-  gulp.src([config.allTypeScript])
-      .pipe(rename(function (path) {
-          path.dirname = path.dirname.replace('/ts/','/js/'),
-          path.extname = '.js'
-      }))
+gulp.task('traceur', function () {
+  return gulp.src([config.es6Path])
+  	  .pipe(sourcemaps.init())
       .pipe(plumber())
       .pipe(traceur({ blockBinding: true }))
-      .pipe(gulp.dest('./' + compilePath + '/es6'));
-});*/
-
-gulp.task('6to5', function () {
-    gulp.src([config.es6Path])
-      .pipe(plumber())
-      .pipe(to5())
-      /*.pipe(rename(function (path) {
-          path.dirname = path.dirname.replace('/ts/','/js/'),
-          path.extname = '.js'
-      }))*/
+      .pipe(chmod(777))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./' + config.compilePath + '/es5'));
 });
 
-gulp.task('compress', [  'compile-ts', 'gen-ts-refs', '6to5'],function(){
-  setTimeout(function () {
+gulp.task('6to5', function () {
+   return gulp.src([config.es6Path])
+   	.pipe(sourcemaps.init())
+      .pipe(plumber())
+      .pipe(to5())
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('./' + config.compilePath + '/es5'));
+});
+
+gulp.task('compress',function(){
     gulp.src([
-      config.compilePath + 'es5/modules/**/*.js',
+      config.compilePath + 'es5/modules/ngSlatwall.js',
+      config.compilePath + 'es5/modules/slatwalladmin.js',
       config.compilePath + 'es5/services/**/*.js',
       config.compilePath + 'es5/controllers/**/*.js',
       config.compilePath + 'es5/directives/**/*.js'
@@ -60,10 +60,12 @@ gulp.task('compress', [  'compile-ts', 'gen-ts-refs', '6to5'],function(){
           path.extname = '.min.js'
       }))
       .pipe(sourcemaps.write('./'))
+      .pipe(chmod(777))
       .pipe(gulp.dest('./' + config.compilePath + 'es5'));
 
-      gulp.src([
-        config.compilePath + 'es6/modules/**/*.js',
+      return gulp.src([
+        config.compilePath + 'es6/modules/ngSlatwall.js',
+        config.compilePath + 'es6/modules/slatwalladmin.js',
         config.compilePath + 'es6/services/**/*.js',
         config.compilePath + 'es6/controllers/**/*.js',
         config.compilePath + 'es6/directives/**/*.js'
@@ -75,13 +77,12 @@ gulp.task('compress', [  'compile-ts', 'gen-ts-refs', '6to5'],function(){
               negate_iife: false
           }
       }))
-      
       .pipe(rename(function(path){
           path.extname = '.min.js'
       }))
       .pipe(sourcemaps.write('./'))
+      .pipe(chmod(777))
       .pipe(gulp.dest('./' + config.compilePath + 'es6'));
-    },1000);
 });
 
 /*
@@ -121,15 +122,19 @@ gulp.task('properties2json',function(){
  * Generates the app.d.ts references file dynamically from all application *.ts files.
  */
 gulp.task('gen-ts-refs', function () {
-    var target = gulp.src(config.appTypeScriptReferences);
-    var sources = gulp.src([config.allTypeScript], {read: false});
-    return target.pipe(inject(sources, {
-        starttag: '//{',
-        endtag: '//}',
-        transform: function (filepath) {
-            return '/// <reference path="../..' + filepath + '" />';
-        }
-    })).pipe(gulp.dest(config.typings));
+	setTimeout(function () {
+	    var target = gulp.src(config.appTypeScriptReferences);
+	    var sources = gulp.src([config.allTypeScript], {read: false});
+	     return target.pipe(inject(sources, {
+	        starttag: '//{',
+	        endtag: '//}',
+	        transform: function (filepath) {
+	            return '/// <reference path="../..' + filepath + '" />';
+	        }
+	    }))
+	    .pipe(chmod(777))
+	    .pipe(gulp.dest(config.typings));
+	},0);
 });
 
 /**
@@ -143,7 +148,7 @@ gulp.task('ts-lint', function () {
  * Compile TypeScript and include references to library and app .d.ts files.
  */
 gulp.task('compile-ts', function () {
-    var sourceTsFiles = [config.allTypeScript,                //path to typescript files
+	var sourceTsFiles = [config.allTypeScript,                //path to typescript files
                          config.libraryTypeScriptDefinitions, //reference to library .d.ts files
                          config.appTypeScriptReferences];     //reference to app.d.ts files
 
@@ -158,6 +163,7 @@ gulp.task('compile-ts', function () {
         tsResult.dts.pipe(gulp.dest(config.tsOutputPath));
         return tsResult.js
                         .pipe(sourcemaps.write('.'))
+                        .pipe(chmod(777))
                         .pipe(gulp.dest(config.tsOutputPath));
 });
 
@@ -175,9 +181,29 @@ gulp.task('clean-ts', function () {
       .pipe(rimraf());
 });
 
+gulp.task('flattenNgslatwall',function(){
+	request('http://cf10.localhost/?slatAction=api:js.ngslatwall', function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+		  var dir = 'admin/client/ts/modules/';
+		  var newFile = dir+'ngSlatwall.ts';
+		  fs.writeFile(newFile, body, function(){
+      		console.log('It\'s saved!');
+		  });
+	  }
+	});
+});
+
 gulp.task('watch', function() {
     gulp.watch([config.allTypeScript], ['compress']);
     //gulp.watch([propertiesPath],['properties2json']);
 });
 
-gulp.task('default', ['compress', 'watch']);
+gulp.task('default', function(){
+	runSequence(
+		'flattenNgslatwall'
+		,'compile-ts'
+		,'gen-ts-refs'
+		,'traceur'
+		,'compress'
+	);
+});

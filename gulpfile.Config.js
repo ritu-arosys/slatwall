@@ -13,6 +13,8 @@ var GulpConfig = (function () {
         
         this.compilePath = 'admin/client/js/';
         this.es6Path = './admin/client/js/es6/**/*.js';
+        this.modelPath = './model/entity/**/*.cfc';
+        
         //this.es5Path = 'admin/client/js/es5/**/*.js',
         //this.propertiesPath = 'config/resourceBundles/*.properties',
     }
