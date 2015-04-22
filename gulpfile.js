@@ -17,7 +17,8 @@ var gulp = require('gulp'),
 	Config = require('./gulpfile.config'),
 	request = require('request'),
 	chmod = require('gulp-chmod'),
-	runSequence = require('run-sequence');
+	runSequence = require('run-sequence'),
+	changed = require('gulp-changed');
 
 	var config = new Config();
 	
@@ -54,14 +55,19 @@ gulp.task('properties2json',function(){
     });
 });*/
 
-
-
 gulp.task('watch', function() {
-    gulp.watch([config.allTypeScript], ['compress']);
+	gulp.watch([config.ngSlatwallcfm],['flattenNgslatwall']);
+    gulp.watch([config.allTypeScript], 
+    [
+    	'compile-ts'
+		,'gen-ts-refs'
+		,'traceur'
+		,'compress'
+	]);
+    //gulp.watch([config.es6Path],['traceur']);
+    //gulp.watch([config.es5Path],['compress']);
     //gulp.watch([propertiesPath],['properties2json']);
 });
-
-
 
 
 /**
@@ -80,6 +86,7 @@ gulp.task('compile-ts', function () {
                          config.appTypeScriptReferences];     //reference to app.d.ts files
 
     var tsResult = gulp.src(sourceTsFiles)
+    					.pipe(changed(config.tsOutputPath))
                        .pipe(sourcemaps.init())
                        .pipe(tsc({
                            target: 'ES6',
@@ -89,6 +96,7 @@ gulp.task('compile-ts', function () {
 
         tsResult.dts.pipe(gulp.dest(config.tsOutputPath));
         return tsResult.js
+        				
                         .pipe(sourcemaps.write('.'))
                         .pipe(chmod(777))
                         .pipe(gulp.dest(config.tsOutputPath));
@@ -115,6 +123,7 @@ gulp.task('compile-ngslatwall-ts',function(){
 	];   
 
     var tsResult = gulp.src(sourceTsFiles)
+    					
                        .pipe(sourcemaps.init())
                        .pipe(tsc({
                            target: 'ES6',
@@ -124,6 +133,7 @@ gulp.task('compile-ngslatwall-ts',function(){
 
         tsResult.dts.pipe(gulp.dest(config.ngSlatwallOutputPath));
         return tsResult.js
+        				
                         .pipe(sourcemaps.write('.'))
                         .pipe(chmod(777))
                         .pipe(gulp.dest(config.ngSlatwallOutputPath));
@@ -168,10 +178,9 @@ gulp.task('flattenNgslatwall',function(){
 	});
 });
 
-
-
 gulp.task('traceur', function () {
   return gulp.src([config.es6Path])
+		.pipe(changed(config.compilePath))
   	  .pipe(sourcemaps.init())
       .pipe(plumber())
       .pipe(traceur({ blockBinding: true }))
@@ -182,6 +191,7 @@ gulp.task('traceur', function () {
 
 gulp.task('6to5', function () {
    return gulp.src([config.es6Path])
+   	.pipe(changed(config.compilePath))
    	.pipe(sourcemaps.init())
       .pipe(plumber())
       .pipe(to5())
@@ -217,10 +227,10 @@ gulp.task('compress',function(){
 
 gulp.task('default', function(){
 	runSequence(
-		//'flattenNgslatwall'
 		'compile-ts'
 		,'gen-ts-refs'
 		,'traceur'
 		,'compress'
+		,'watch'
 	);
 });

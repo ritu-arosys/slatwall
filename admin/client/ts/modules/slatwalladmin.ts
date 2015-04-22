@@ -1,7 +1,7 @@
 /// <reference path="../../../../client/typings/tsd.d.ts" />
 /// <reference path="../../../../client/typings/slatwallTypeScript.d.ts" />
 
-//module slatwallAdmin{
+module slatwallAdmin{
 	angular.module('slatwalladmin', ['ngSlatwall','ui.bootstrap','ngAnimate','ngRoute']).
 	config(
 		["$provide",'$logProvider','$filterProvider','$httpProvider','$routeProvider','$injector','$locationProvider','datepickerConfig', 'datepickerPopupConfig',
@@ -20,14 +20,12 @@
 		
 		$provide.constant("partialsPath", _partialsPath);
 		$provide.constant("productBundlePartialsPath", _partialsPath+'productbundle/');
-		//
 	
 		angular.forEach(slatwallAngular.constantPaths, function(constantPath,key){
 			var constantKey = constantPath.charAt(0).toLowerCase()+constantPath.slice(1)+'PartialsPath';
 			var constantPartialsPath = _partialsPath+constantPath.toLowerCase()+'/';
 			$provide.constant(constantKey, constantPartialsPath);
 		});
-		
 		
 		$logProvider.debugEnabled( $.slatwall.getConfig().debugFlag );
 		$filterProvider.register('likeFilter',function(){
@@ -87,7 +85,7 @@
 			controller: 'routerController',
 		}).otherwise({
 			templateUrl: $.slatwall.getConfig().baseURL + '/admin/client/js/partials/otherwise.html',
-		});  
+		});  //
 	
 	}]).run(['$rootScope','$filter','$anchorScroll','$slatwall','dialogService', function($rootScope,$filter,$anchorScroll, $slatwall ,dialogService) {
 	    $anchorScroll.yOffset = 100;
@@ -120,4 +118,4 @@
 			}
 		};
 	}]);
-//}
+}
