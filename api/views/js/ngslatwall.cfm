@@ -64,6 +64,17 @@ Notes:
 <cfif !request.slatwallScope.hasApplicationValue('ngSlatwall')>
 	<cfsavecontent variable="local.jsOutput">
 		<cfoutput>
+			var slatwallAngular = {}; 
+			slatwallAngular.slatwallConfig = $.slatwall.getConfig();
+			<cfif !isnull(rc.ng)> 
+				slatwallAngular.hashbang = true;
+			</cfif>
+			slatwallAngular.constantPaths = [];
+			<cfloop collection="#rc.$.slatwall.getService('hibachiService').getEntitiesMetaData()#" item="local.entityName">
+				slatwallAngular.constantPaths.push('#local.entityName#');
+			</cfloop>
+
+			
 			angular.module('ngSlatwall',[])
 			.provider('$slatwall',[ 
 			function(){

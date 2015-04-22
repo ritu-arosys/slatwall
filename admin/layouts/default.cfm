@@ -359,18 +359,7 @@ Notes:
 		<script type="text/javascript" src="#request.slatwallScope.getBaseURL()#/client/lib/metismenu/metismenu.js"></script>
 		
 		<!---lib END --->
-		<script type="text/javascript">
-			var slatwallAngular = {};
-			slatwallAngular.slatwallConfig = $.slatwall.getConfig();
-			<cfif !isnull(rc.ng)> 
-				slatwallAngular.hashbang = true;
-			</cfif>
-			slatwallAngular.constantPaths = [];
-			<cfloop collection="#rc.$.slatwall.getService('hibachiService').getEntitiesMetaData()#" item="local.entityName">
-				slatwallAngular.constantPaths.push('#local.entityName#');
-			</cfloop>
-
-		</script>
+		
 		
 		<!--- Load up the Slatwall Angular Provider --->
 		
