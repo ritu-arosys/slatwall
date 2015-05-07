@@ -22,7 +22,14 @@ angular.module('slatwalladmin')
                     $log.debug('Workflow Task Actions Init');
                     $log.debug(scope.workflowTask);
                     scope.openActions = false;
-                    scope.filter = angular.toJson("{filterGroup:'{propertyIdentifier:'_workflow.workflowObject', comparisonOperator:'=', value:'order'}}");
+                    scope.filter = {
+                        "filterGroup":[
+                            {   propertyIdentifier:'_workflow.workflowObject', 
+                                comparisonOperator:'=', 
+                                value:'order'
+                            }]
+                    };  
+                    $log.debug("Filter Group");
                     $log.debug(scope.filter);
                     /**
                      * Returns the correct object based on the selected object type.

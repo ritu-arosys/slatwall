@@ -27,7 +27,7 @@ angular.module('slatwalladmin').directive('swPropertyDisplay', ['$log', 'partial
       $log.debug("Property = ");
       $log.debug(scope.property);
       $log.debug("filter");
-      $log.debug(scope.filter);
+      $log.debug(scope.filters);
       scope.propertyDisplay = {
         object: scope.object,
         property: scope.property,

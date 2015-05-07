@@ -20,33 +20,27 @@ angular.module('slatwalladmin').directive('swFormFieldSearchSelect', ['$http', '
       var object = $slatwall.newEntity(propertyMetaData.cfc);
       scope.cfcProperCase = propertyMetaData.cfcProperCase;
       scope.selectionOptions.getOptionsByKeyword = function(keyword) {
-        var filterGroupsConfig = '[' + ' {  ' + '"filterGroup":[  ' + '{' + ' "propertyIdentifier":"_' + scope.cfcProperCase.toLowerCase() + '.' + scope.cfcProperCase + 'Name",' + ' "comparisonOperator":"like",' + ' "ormtype":"string",' + ' "value":"%' + keyword + '%"' + '  }' + ' ]' + ' }' + ']';
+        var filterGroupsConfig = '{filterGroups:[' + ' {  ' + '"filterGroup":[  ' + '{' + ' "propertyIdentifier":"_' + scope.cfcProperCase.toLowerCase() + '.' + scope.cfcProperCase + 'Name",' + ' "comparisonOperator":"like",' + ' "ormtype":"string",' + ' "value":"%' + keyword + '%"' + '  }' + ' ]' + ' }' + ']}';
         var filterGroupsConfigTemp = angular.fromJson(filterGroupsConfig);
+        var definedFilters = scope.propertyDisplay.filters;
         $log.debug("FilterGroupsConfig");
         $log.debug(filterGroupsConfigTemp);
-        if (angular.isDefined(scope.propertyDisplay.filters)) {
-          $log.debug("Adding Filter");
-          $log.debug(scope.propertyDisplay.filters);
-          var myFilter = angular.fromJson(scope.propertyDisplay.filters);
-          for (var filter in myFilter) {
-            $log.debug("filter: " + filter);
-            var filterTemplate = {};
-            filterTemplate.propertyIdentifier = filter.propertyIdentifier;
-            filterTemplate.comparisonOperator = filter.comparisonOperator;
-            filterTemplate.value = filter.value;
-            $log.debug(filterTemplate);
-            filterGroupsConfigTemp[0].filterGroup.push(filterTemplate);
-          }
-          if (angular.isArray(angular.fromJson(scope.propertyDisplay.filters))) {} else if (angular.isObject(angular.fromJson(scope.propertyDisplay.filter))) {
-            $log.debug("Object filter: " + filter);
-            var filterTemplate = {};
-            filterTemplate.propertyIdentifier = scope.propertyDisplay.filter.propertyIdentifier;
-            filterTemplate.comparisonOperator = scope.propertyDisplay.filter.comparisonOperator;
-            filterTemplate.value = scope.propertyDisplay.filter.value;
-            $log.debug(filterTemplate);
-            filterGroupsConfigTemp[0].filterGroup.push(filterTemplate);
-            $log.debug(filterGroupsConfig);
-          }
+        if (angular.isDefined(definedFilters)) {
+          $log.debug("filter");
+          $log.debug(definedFilters);
+          var filterTemplate = {
+            propertyIdentifier: "",
+            comparisonOperator: "",
+            value: ""
+          };
+          filterTemplate.propertyIdentifier = definedFilters.filterGroup.propertyIdentifier;
+          filterTemplate.comparisonOperator = definedFilters.filterGroup.comparisonOperator;
+          filterTemplate.value = definedFilters.filterGroup.value;
+          $log.debug(filterTemplate);
+          filterGroupsConfigTemp[0].filterGroup.push(filterGroup);
+          filterGroupsConfig = filterGroupsConfigTemp;
+          $log.debug("New filter Groups Config");
+          $log.debug(filterGroupsConfig);
         }
         return $slatwall.getEntity(propertyMetaData.cfc, {filterGroupsConfig: filterGroupsConfig}).then(function(value) {
           $log.debug('typesByKeyword');
