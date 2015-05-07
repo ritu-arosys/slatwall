@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("slatwalladmin").directive("swPropertyDisplay", ["$log", "partialsPath", function ($log, partialsPath) {
+angular.module("slatwalladmin").directive("swPropertyDisplay", ["$log", "partialsPath", "$slatwall", function ($log, partialsPath, $slatwall) {
 	return {
 		require: "^form",
 		restrict: "AE",
@@ -17,16 +17,19 @@ angular.module("slatwalladmin").directive("swPropertyDisplay", ["$log", "partial
 			isDirty: "=",
 			onChange: "=",
 			fieldType: "@",
-			noValidate: "="
-
+			noValidate: "=",
+			filters: "="
 		},
 		templateUrl: partialsPath + "propertydisplay.html",
 		link: function (scope, element, attrs, formController) {
 			//if the item is new, then all fields at the object level are dirty
-			$log.debug("editingproper");
-			$log.debug(scope.property);
 			$log.debug(scope.title);
-
+			$log.debug("Object = ");
+			$log.debug(scope.object);
+			$log.debug("Property = ");
+			$log.debug(scope.property);
+			$log.debug("filter");
+			$log.debug(scope.filter);
 			/**
     * Configuration for property display object.
     */
@@ -44,7 +47,8 @@ angular.module("slatwalladmin").directive("swPropertyDisplay", ["$log", "partial
 				eagerLoadOptions: scope.eagerLoadOptions || true,
 				isDirty: scope.isDirty,
 				onChange: scope.onChange,
-				noValidate: scope.noValidate
+				noValidate: scope.noValidate,
+				filters: scope.filters || {}
 			};
 			if (angular.isUndefined(scope.propertyDisplay.noValidate)) {
 				scope.propertyDisplay.noValidate = false;

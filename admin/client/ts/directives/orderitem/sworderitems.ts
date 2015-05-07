@@ -25,7 +25,6 @@ angular.module('slatwalladmin')
 			templateUrl:partialsPath+"orderitemrows.html",
 			
 			link: function(scope, element, attrs){
-				
 				scope.currentPage= paginationService.getCurrentPage();
 				scope.pageShow = paginationService.getPageShow();
 				scope.pageStart = paginationService.getPageStart;

@@ -230,8 +230,8 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 	public numeric function getExtendedPrice() {
 		var price = 0;
 		
-		//get bundle price
-		if(!isnull(getSku()) && getSku().getProduct().getProductType().getSystemCode() == 'productBundle'){
+		//get bundle price getSku().getBaseProductType()
+		if(!isnull(getSku()) && getSku().getBaseProductType() == 'productBundle'){
 			price = getProductBundlePrice();
 		}else{
 			price = getPrice();
@@ -270,9 +270,7 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 		}else if(amountType == 'skuPrice'){
 			if(
 				!isnull(arguments.orderItem.getSku())
-				&& !isnull(arguments.orderItem.getSku().getProduct())
-				&& !isnull(arguments.orderItem.getSku().getProduct().getProductType()) 
-				&& arguments.orderItem.getSku().getProduct().getProductType().getSystemCode() == 'productBundle'
+				&& arguments.orderItem.getSku().getBaseProductType() == 'productBundle'
 			){
 				return arguments.orderItem.getProductBundlePrice();
 			}else{
@@ -282,9 +280,7 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 		}else if(amountType == 'skuPricePercentageIncrease'){
 			if(
 				!isnull(arguments.orderItem.getSku())
-				&& !isnull(arguments.orderItem.getSku().getProduct())
-				&& !isnull(arguments.orderItem.getSku().getProduct().getProductType()) 
-				&& arguments.orderItem.getSku().getProduct().getProductType().getSystemCode() == 'productBundle'
+				&& arguments.orderItem.getSku().getBaseProductType() == 'productBundle'
 			){
 				return arguments.orderItem.getProductBundlePrice() + (arguments.orderItem.getProductBundlePrice() * (arguments.orderItem.getProductBundleGroup().getAmount()/100));
 			}else{
@@ -295,9 +291,7 @@ component entityname="SlatwallOrderItem" table="SwOrderItem" persistent="true" a
 		}else if(amountType == 'skuPricePercentageDecrease'){
 			if(
 				!isnull(arguments.orderItem.getSku())
-				&& !isnull(arguments.orderItem.getSku().getProduct())
-				&& !isnull(arguments.orderItem.getSku().getProduct().getProductType()) 
-				&& arguments.orderItem.getSku().getProduct().getProductType().getSystemCode() == 'productBundle'
+				&& arguments.orderItem.getSku().getBaseProductType() == 'productBundle'
 			){
 				return arguments.orderItem.getProductBundlePrice() - (arguments.orderItem.getProductBundlePrice() * (arguments.orderItem.getProductBundleGroup().getAmount()/100));
 			}else{
