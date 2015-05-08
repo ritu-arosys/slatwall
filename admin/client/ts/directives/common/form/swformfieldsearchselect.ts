@@ -58,7 +58,7 @@ angular.module('slatwalladmin')
 				//set up query function for finding related object
 				scope.cfcProperCase = propertyMetaData.cfcProperCase;
 				scope.selectionOptions.getOptionsByKeyword=function(keyword){
-				/*	var filterGroupsConfig = {filterGroups:
+				var filterGroupsConfig = {filterGroups:
                     [  
                         {    
                            "filterGroup":[    
@@ -71,8 +71,8 @@ angular.module('slatwalladmin')
                            ]  
                       }  
                     ]
-                    };*/
-                  var filterGroupsConfig = '{filterGroups:['+  
+                    };
+                 /* var filterGroupsConfig = '{filterGroups:['+  
                       ' {  '+
                           '"filterGroup":[  '+
                              '{'+
@@ -83,7 +83,7 @@ angular.module('slatwalladmin')
                            '  }'+
                          ' ]'+
                       ' }'+
-                    ']}'; 
+                    ']}'; */
                    var filterGroupsConfigTemp = angular.fromJson(filterGroupsConfig);
                    var definedFilters = scope.propertyDisplay.filters;
                     $log.debug("FilterGroupsConfig");
@@ -93,13 +93,14 @@ angular.module('slatwalladmin')
                        $log.debug(definedFilters);
                        
                         var filterTemplate = {propertyIdentifier: "", comparisonOperator: "", value: ""}; 
-                       filterTemplate.propertyIdentifier = definedFilters.filterGroup.propertyIdentifier;
-                       filterTemplate.comparisonOperator = definedFilters.filterGroup.comparisonOperator;
-                       filterTemplate.value = definedFilters.filterGroup.value;
+                        $log.debug(definedFilters.filterGroup[0]);
+                       filterTemplate.propertyIdentifier = definedFilters.filterGroup[0].propertyIdentifier;
+                       filterTemplate.comparisonOperator = definedFilters.filterGroup[0].comparisonOperator;
+                       filterTemplate.value = definedFilters.filterGroup[0].value;
                        
-                       $log.debug(filterTemplate);
+                       $log.debug(filterGroupsConfigTemp);
                        
-                       filterGroupsConfigTemp[0].filterGroup.push(filterGroup);
+                       filterGroupsConfigTemp['filterGroups'].push(filterTemplate);
                         filterGroupsConfig = filterGroupsConfigTemp;
                         $log.debug("New filter Groups Config");
                         $log.debug(filterGroupsConfig);
