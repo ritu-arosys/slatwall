@@ -74,9 +74,11 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 	
 	// Account - Login
 	public void function login( required struct rc ) {
-		var account = getAccountService().processAccount( rc.$.slatwall.getAccount(), arguments.rc, 'login' );
+			var result = getPublicService.login(arguments.rc);
+			var account = getAccountService().processAccount( rc.$.slatwall.getAccount(), arguments.rc, 'login' );
 		
-		arguments.rc.$.slatwall.addActionResult( "public:account.login", account.hasErrors() );
+			arguments.rc.$.slatwall.addActionResult( "public:account.login", account.hasErrors() );
+		
 	}
 	
 	// Account - Logout

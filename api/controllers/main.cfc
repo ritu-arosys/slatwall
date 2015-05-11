@@ -29,8 +29,13 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 	
 	public any function before( required struct rc ) {
 		arguments.rc.apiRequest = true;
+		var httpRequestData = getHTTPRequestData();
+ 		if(structKeyExists(httpRequestData,'headers')){
+			arguments.rc.apiRequestHeaders = httpRequestData.headers;	
+		}
+		
 		getFW().setView("public:main.blank");
-
+		
 		//If someone is hitting the public API (scope), use API authentication to authenticate them.
 		//var baseURL = "#arguments.rc.$.slatwall.getUrl#";
 		/*
@@ -332,6 +337,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 			handle accessing collections by id
 		*/
 		param name="arguments.rc.propertyIdentifiers" default="";
+		
 		//first check if we have an entityName value
 		if(!structKeyExists(arguments.rc, "entityName")) {
 			//show hibachi scope stuff
@@ -344,7 +350,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 			}else if(structKeyExists(arguments.rc, "context")){//If we have a context other than GET then perform work on public service using that context.
 				var publicService = getService('PublicService');
 				//Set the flag so Public service knowns this is an API request.
-				publicService.setIsAPIRequest(true);
+				//writeDump(var="#getHTTPRequestData()#", top=2);abort;
 					var result = publicService.invokeMethod("#arguments.rc.context#", {rc=arguments.rc});
 					if (isNull(result)){
 						publicService.setResponse(false, 500, '', arguments.rc, true);
@@ -456,18 +462,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		}
 		
 		//------->Check if this is a public method request and if so, handle it.
-		if(structKeyExists(arguments.rc, "context") && arguments.rc.context != "save" && arguments.rc.context != "delete" && !StructKeyExists(arguments.rc, "entityName")){
-				//If we have a context other than GET then perform work on public service using that context.
-				var publicService = getService('PublicService');
-				publicService.setIsAPIRequest(true); //Set this so the Public service knows its handling an API request.
-				var result = publicService.invokeMethod("#arguments.rc.context#", {rc=arguments.rc});
-				if (isNull(result)){
-					publicService.setResponse(false, 500, '', arguments.rc, true);
-				}
-				getFW().abortController();
-		//------->End handling public API			
-				
-		} else if(structKeyExists(arguments.rc, 'serializedJSONData') && isSimpleValue(arguments.rc.serializedJSONData) && isJSON(arguments.rc.serializedJSONData)) {
+		if(structKeyExists(arguments.rc, 'serializedJSONData') && isSimpleValue(arguments.rc.serializedJSONData) && isJSON(arguments.rc.serializedJSONData)) {
 			var structuredData = deserializeJSON(arguments.rc.serializedJSONData);
 		
 		} else {
@@ -481,23 +476,32 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		
 		//if entityname is not specified then we are using the public api and it should act upon the current users session
 		if(!structKeyExists(arguments.rc, "entityName")) {
-			arguments.rc.entityName = 'Session';
-			var entityService = getService('SessionService');
-			var entity = getHibachiScope().getSession();
+			//arguments.rc.entityName = getService('publicService').(context=arguments.rc.context);	
+			//If we have a context other than GET then perform work on public service using that context.
+				/*var publicService = getService('PublicService');
+				var result = publicService.invokeMethod("#arguments.rc.context#", {rc=arguments.rc});
+				if (isNull(result)){
+					publicService.setResponse(false, 500, '', arguments.rc, true);
+					
+				}*/
+				var result = getService('publicService').invokeMethod("#arguments.rc.context#", {rc=arguments.rc});
+				var entityService = result.entityService;
+				var entity = result.entity;
 		}else{
 			var entityService = getHibachiService().getServiceByEntityName( entityName=arguments.rc.entityName );
 			var entity = entityService.invokeMethod("get#arguments.rc.entityName#", {1=arguments.rc.entityID, 2=true});
 		}
 		
+			
 		// SAVE
 		if(arguments.rc.context eq 'save') {
-			entity = entityService.invokeMethod("save#arguments.rc.entityName#", {1=entity, 2=structuredData});
+			entity = entityService.invokeMethod("save#entity.getClassName()#", {1=entity, 2=structuredData});
 		// DELETE
 		} else if (arguments.rc.context eq 'delete') {
-			var deleteOK = entityService.invokeMethod("delete#arguments.rc.entityName#", {1=entity});
+			var deleteOK = entityService.invokeMethod("delete#entity.getClassName()#", {1=entity});
 		// PROCESS
 		} else {
-			entity = entityService.invokeMethod("process#arguments.rc.entityName#", {1=entity, 2=structuredData, 3=arguments.rc.context});
+			entity = entityService.invokeMethod("process#entity.getClassName()#", {1=entity, 2=structuredData, 3=arguments.rc.context});
 		}
 		
 		// respond with data

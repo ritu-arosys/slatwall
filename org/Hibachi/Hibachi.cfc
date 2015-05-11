@@ -523,7 +523,8 @@ component extends="FW1.framework" {
     		if(structKeyExists(request.context, "messages")) {
 				request.context.apiResponse.content["messages"] = request.context.messages;	
 			}
-    		
+				
+		
     		//leaving a note here in case we ever wish to support XML for api responses
     		if(isStruct(request.context.apiResponse.content) && request.context.headers.contentType eq 'application/json'){
     			responseString = serializeJSON(request.context.apiResponse.content);
