@@ -100,6 +100,7 @@ angular.module('slatwalladmin').controller('collections', [
                 $scope.loadingCollection = false;
             }, function (reason) {
             });
+            return collectionListingPromise;
         };
         $scope.getCollection();
         var unbindCollectionObserver = $scope.$watch('collection', function (newValue, oldValue) {

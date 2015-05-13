@@ -56,13 +56,17 @@ gulp.task('properties2json',function(){
 });*/
 
 gulp.task('watch', function() {
-	gulp.watch([config.ngSlatwallcfm],['flattenNgslatwall']);
+	//gulp.watch([config.ngSlatwallcfm],['flattenNgslatwall']);
     gulp.watch([config.allTypeScript], 
     [
     	'compile-ts'
 		,'gen-ts-refs'
-		,'traceur'
+		
 		,'compress'
+	]);
+	gulp.watch([config.es6Path],
+	[
+		'traceur'
 	]);
     //gulp.watch([config.es6Path],['traceur']);
     //gulp.watch([config.es5Path],['compress']);
@@ -203,6 +207,7 @@ gulp.task('compress',function(){
     gulp.src([
       config.compilePath + 'es5/modules/ngslatwall.js',
       config.compilePath + 'es5/modules/slatwalladmin.js',
+      config.compilePath + 'es5/model/*.js',
       config.compilePath + 'es5/services/*.js',
       config.compilePath + 'es5/controllers/**/*.js',
       config.compilePath + 'es5/directives/**/*.js'

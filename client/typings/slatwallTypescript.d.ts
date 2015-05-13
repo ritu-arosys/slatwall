@@ -1,4 +1,5 @@
 //{
+/// <reference path="../../admin/client/ts/model/alert.ts" />
 /// <reference path="../../admin/client/ts/controllers/alertcontroller.ts" />
 /// <reference path="../../admin/client/ts/controllers/collections.ts" />
 /// <reference path="../../admin/client/ts/controllers/collectionstabcontroller.ts" />
