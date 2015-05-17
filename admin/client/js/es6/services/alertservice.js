@@ -28,7 +28,6 @@ var slatwalladmin;
                     _this.alerts.splice(index, 1);
                 }
             };
-            // put(alerts:)
             this.getAlerts = function () {
                 return _this.alerts;
             };
@@ -52,6 +51,9 @@ var slatwalladmin;
                 }
                 return alerts;
             };
+            this.removeOldestAlert = function () {
+                _this.alerts.splice(0, 1);
+            };
             this.alerts = [];
         }
         AlertService.$inject = [
@@ -65,19 +67,5 @@ var slatwalladmin;
 (function (slatwalladmin) {
     angular.module('slatwalladmin').service('alertService', slatwalladmin.AlertService);
 })(slatwalladmin || (slatwalladmin = {}));
-/*[
-'$timeout',
-function(
-    $timeout
-){
-    
-    
-    var alertService = {
-        
-    };
-    
-    return alertService;
-}
-]);*/
 
 //# sourceMappingURL=../services/alertservice.js.map

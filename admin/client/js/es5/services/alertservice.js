@@ -48,6 +48,9 @@ var slatwalladmin;
         }
         return alerts;
       };
+      this.removeOldestAlert = function() {
+        _this.alerts.splice(0, 1);
+      };
       this.alerts = [];
     }
     AlertService.$inject = ['$timeout'];
