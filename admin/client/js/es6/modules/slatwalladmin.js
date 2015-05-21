@@ -78,7 +78,11 @@ var slatwallAdmin;
             controller: 'routerController',
         }).otherwise({
             templateUrl: $.slatwall.getConfig().baseURL + '/admin/client/js/partials/otherwise.html',
+<<<<<<< HEAD
         }); //
+=======
+        });
+>>>>>>> branch 'hotfix' of ssh://git@github.com/ten24/slatwall.git
     }]).run(['$rootScope', '$filter', '$anchorScroll', '$slatwall', 'dialogService', function ($rootScope, $filter, $anchorScroll, $slatwall, dialogService) {
         $anchorScroll.yOffset = 100;
         $rootScope.openPageDialog = function (partial) {

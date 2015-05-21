@@ -20,6 +20,7 @@ module slatwallAdmin{
 		
 		$provide.constant("partialsPath", _partialsPath);
 		$provide.constant("productBundlePartialsPath", _partialsPath+'productbundle/');
+		
 	
 		angular.forEach(slatwallAngular.constantPaths, function(constantPath,key){
 			var constantKey = constantPath.charAt(0).toLowerCase()+constantPath.slice(1)+'PartialsPath';
@@ -85,7 +86,7 @@ module slatwallAdmin{
 			controller: 'routerController',
 		}).otherwise({
 			templateUrl: $.slatwall.getConfig().baseURL + '/admin/client/js/partials/otherwise.html',
-		});  //
+		});  
 	
 	}]).run(['$rootScope','$filter','$anchorScroll','$slatwall','dialogService', function($rootScope,$filter,$anchorScroll, $slatwall ,dialogService) {
 	    $anchorScroll.yOffset = 100;
