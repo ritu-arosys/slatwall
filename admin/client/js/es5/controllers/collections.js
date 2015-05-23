@@ -65,14 +65,17 @@ angular.module('slatwalladmin').controller('collections', ['$scope', '$location'
     if ($scope.pageShow !== 'Auto') {
       pageShow = $scope.pageShow;
     }
-    var collectionListingPromise = $slatwall.getEntity('collection', {
+    var collectionConfiguration = {
       id: $scope.collectionID,
       currentPage: $scope.currentPage,
       pageShow: pageShow,
       keywords: $scope.keywords
-    });
+    };
+    var collectionListingPromise = $slatwall.getEntity('collection', collectionConfiguration);
     collectionListingPromise.then(function(value) {
       $scope.collection = value;
+      $scope.collectionExportID = $scope.collectionID;
+      $scope.collectionExportKeywords = $scope.keywords || "false";
       $scope.collectionInitial = angular.copy($scope.collection);
       if (angular.isUndefined($scope.collectionConfig)) {
         $scope.collectionConfig = angular.fromJson($scope.collection.collectionConfig);

@@ -186,15 +186,19 @@
 	    }
 	    
 		/**
-		* exports the given query/array to file.
+		* Exports the given query/array to file.
 		* 
-		* @param data      Data to export. (Required) (Currently only supports query).
-		* @param columns      list of columns to export. (optional, default: all)
-		* @param columnNames      list of column headers to export. (optional, default: none)
-		* @param fileName      file name for export. (default: uuid)
-		* @param fileType      file type for export. (default: csv)
+		* @param data Data to export. (Required) (Currently only supports query and array of structs).
+		* @param columns List of columns to export. (optional, default: all)
+		* @param columnNames List of column headers to export. (optional, default: none)
+		* @param fileName File name for export. (default: uuid)
+		* @param fileType File type for export. (default: csv)
 		*/
 		public void function export(required any data, string columns, string columnNames, string fileName, string fileType = 'csv') {
+			if (isArray(data)){
+				//transform the data into a query before going further.
+				arguments.data = transformArrayOfStructsToQuery( data, ListToArray(columnNames), ArrayLen(data), ArrayLen(ListToArray(columnNames) ) );
+			}
 			if(!structKeyExists(arguments,"fileName")){
 				arguments.fileName = createUUID() ;
 			}
@@ -227,7 +231,27 @@
 			// Open / Download File
 			getHibachiUtilityService().downloadFile(fileNameWithExt,filePath,"application/#arguments.fileType#",true);
 		}
-			
+		
+	/** 
+	  *	Transforms an array of structs into a query. Used by export so it can accept and array of structs as an option.
+	  *	@param arrayOfStructs The array of structures to transform into a query object
+	  *	@param colNames An array containing the column names
+	  *	@param rowsTotal The total number of rows that will be generated
+	  *	@param columnsTotal The total number of columns that need to be generated.
+	  * @return Returns a query object.
+	  */
+	private query function transformArrayOfStructsToQuery( required array arrayOfStructs, required array colNames, required rowsTotal, required columnsTotal ){
+		if (arguments.rowsTotal < 1){return QueryNew("");}
+		var columnNames = arguments.colNames;
+		var newQuery = queryNew(arrayToList(columnNames));
+		queryAddRow(newQuery, arguments.rowsTotal);
+		for (var i=1; i <= arguments.rowsTotal; i++){
+			for(var n=1; n <= columnsTotal; n++){
+				querySetCell(newQuery, columnNames[n], arrayOfStructs[i][columnNames[n]], i);
+			}
+		}
+		return newQuery;
+	}	
 			    
 	 	/**
 		 * Generic ORM CRUD methods and dynamic methods by convention via onMissingMethod.

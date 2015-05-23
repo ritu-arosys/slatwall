@@ -153,6 +153,16 @@
 							</div>
 							<!-- s-select-list-wrapper -->
 						</li>
+						<li>
+							<!--- Generates an exportable collection --->
+							<form method="post" class="form-inline" action="?s=1">
+									<input type="hidden" name="slatAction" value="api:main.collectionExport">
+									<input type="hidden" name="downloadReport" value="1">
+									<input type="hidden" name="collectionExportID" value="{{collectionExportID}}">	
+									<input type="hidden" name="collectionExportKeywords" value="{{collectionExportKeywords}}">	
+									<button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i>Export Collection</button>
+							</form>
+						</li>
 					</ul>
 				</div>
 				<div class="col-xs-6 s-table-view-options">

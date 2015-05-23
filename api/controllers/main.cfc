@@ -6,6 +6,7 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 	property name="hibachiUtilityService" type="any";
 	
 	this.publicMethods='';
+	this.publicMethods=listAppend(this.publicMethods, 'getCollectionAsQuery');
 	
 	this.anyAdminMethods='';
 	this.anyAdminMethods=listAppend(this.anyAdminMethods, 'getObjectOptions');
@@ -78,7 +79,6 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 			}
  	}
 
-	
 	public any function getValidationPropertyStatus(required struct rc){
 			
 		var service = request.slatwallScope.getService("hibachiValidationService");

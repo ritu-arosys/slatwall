@@ -102,12 +102,19 @@ metadataService,
 			if($scope.pageShow !== 'Auto'){
 				pageShow = $scope.pageShow;
 			}
-			
-			var collectionListingPromise = $slatwall.getEntity('collection', {id:$scope.collectionID, currentPage:$scope.currentPage, pageShow:pageShow, keywords:$scope.keywords});
+			var collectionConfiguration = {id:$scope.collectionID, currentPage:$scope.currentPage, pageShow:pageShow, keywords:$scope.keywords};
+			var collectionListingPromise = $slatwall.getEntity('collection', collectionConfiguration);
 			collectionListingPromise.then(function(value){
-				$scope.collection = value;
-	
-				$scope.collectionInitial = angular.copy($scope.collection);
+				
+                //Setup the export variable id
+                $scope.collection = value;
+	            
+                //Handle data for exporting this collection
+                $scope.collectionExportID = $scope.collectionID;
+                $scope.collectionExportKeywords = $scope.keywords || "false";
+				
+                //Handle initial population
+                $scope.collectionInitial = angular.copy($scope.collection);
 				if(angular.isUndefined($scope.collectionConfig)){
 					$scope.collectionConfig = angular.fromJson($scope.collection.collectionConfig);
 				}
@@ -126,6 +133,7 @@ metadataService,
 				$scope.loadingCollection = false;
 			},function(reason){
 			});
+            
             return collectionListingPromise;
 		};
 		
