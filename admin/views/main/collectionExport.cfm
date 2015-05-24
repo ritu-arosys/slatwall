@@ -20,7 +20,7 @@ public void function collectionsExport(required struct rc) {
 		param name="rc.collectionExportFileName" default="" type="string";    	//<--The fileName of the report to export.
 		param name="rc.collectionExportID" default="" type="string"; 					//<--The collection to export ID
 		param name="rc.collectionExportKeywords" default="" type="string"; 		//<--The collection columns to export names (headers)
-		param name="rc.collectionColumnsToExport" default="" type="string"; 		//<--The collection columns to export
+		param name="rc.collectionColumnsToExport" default="" type="string"; 	//<--The collection columns to export
 		var collection = {};
 		/** Iterate over the struct and turn it into a query */
 		if(arguments.rc.downloadReport) {
@@ -51,7 +51,7 @@ public void function collectionsExport(required struct rc) {
 						numberOfRows = ArrayLen(innerRecords);
 						if (numberOfRows){
 							var currentCount = 0;
-							/** Now we have all the records as they are displayed. We should simply allow them to configure the collection and export it. */
+							/** Now we have all the records as they are displayed. */
 							for (var header in innerRecords){
 								ArrayAppend(arrayOfStruct, header); 
 								numberOfColumns = StructCount(header);
@@ -70,7 +70,7 @@ public void function collectionsExport(required struct rc) {
 										if (ListFind(columnsToIncludeInExport, value)){
 											columnNames &= ",#value#";//We only add if this is in our list of exportable columns.
 											
-										}//<--end adding colukn
+										}//<--end adding column
 									}//<--end check column count	
 								}//<--end columns
 							}//<--end records 
@@ -79,7 +79,7 @@ public void function collectionsExport(required struct rc) {
 				}//<--end clean all record values
 				//<<Now we have a valid cleaned (no undefined fields) arrayOfStructs that contains our records.>>
 				
-				/* Handle the columns to include in the query. */
+				/* Handle the columns to include in the query, and remove extra commas at begining or end of lists */
 				var columnsToInclude = "";
 				//numberOfColumns= ArrayLen(columnNamesArray);
 				if (Left(columnNames, 1) == ","){
@@ -99,9 +99,10 @@ public void function collectionsExport(required struct rc) {
 				}
 				//Make sure we have a populated array
 				if ( !isNull(arrayOfStruct) ){
+					//Send the array for export.
 					hibachiService.export( arrayOfStruct, columnsToInclude, columnsToInclude, "ExportCollection", "csv" );
-				}
-			}
-		}	
-	}
+				}//<--end send array
+			}//<--end correct record
+		}//<--end main logic loop	
+	}//<--end function
 </cfscript>
