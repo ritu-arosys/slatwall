@@ -74,11 +74,22 @@ angular.module('slatwalladmin').controller('collections', ['$scope', '$location'
     var collectionListingPromise = $slatwall.getEntity('collection', collectionConfiguration);
     collectionListingPromise.then(function(value) {
       $scope.collection = value;
-      $scope.collectionExportID = $scope.collectionID;
-      $scope.collectionExportKeywords = $scope.keywords || "false";
       $scope.collectionInitial = angular.copy($scope.collection);
       if (angular.isUndefined($scope.collectionConfig)) {
         $scope.collectionConfig = angular.fromJson($scope.collection.collectionConfig);
+      }
+      $scope.collectionExportID = $scope.collectionID;
+      $scope.collectionExportKeywords = "";
+      $scope.collectionColumnsToExport = "";
+      for (var column in $scope.collectionConfig.columns) {
+        $log.debug($scope.collectionConfig.columns[column]);
+        if ($scope.collectionConfig.columns[column].isExportable && $scope.collectionConfig.columns[column].title && $scope.collectionConfig.columns[column].key !== undefined) {
+          $scope.collectionExportKeywords += $scope.collectionConfig.columns[column].title;
+          $scope.collectionExportKeywords += ",";
+          $scope.collectionColumnsToExport += $scope.collectionConfig.columns[column].key;
+          $scope.collectionColumnsToExport += ",";
+          $log.debug($scope.collectionConfig.columns[column].key);
+        }
       }
       if (angular.isUndefined($scope.collectionConfig.filterGroups)) {
         $scope.collectionConfig.filterGroups = [{filterGroup: []}];

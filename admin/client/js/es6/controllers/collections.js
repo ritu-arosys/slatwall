@@ -85,13 +85,24 @@ angular.module('slatwalladmin').controller('collections', [
             collectionListingPromise.then(function (value) {
                 //Setup the export variable id
                 $scope.collection = value;
-                //Handle data for exporting this collection
-                $scope.collectionExportID = $scope.collectionID;
-                $scope.collectionExportKeywords = $scope.keywords || "false";
                 //Handle initial population
                 $scope.collectionInitial = angular.copy($scope.collection);
                 if (angular.isUndefined($scope.collectionConfig)) {
                     $scope.collectionConfig = angular.fromJson($scope.collection.collectionConfig);
+                }
+                //Handle data for exporting this collection
+                $scope.collectionExportID = $scope.collectionID;
+                $scope.collectionExportKeywords = "";
+                $scope.collectionColumnsToExport = "";
+                for (var column in $scope.collectionConfig.columns) {
+                    $log.debug($scope.collectionConfig.columns[column]);
+                    if ($scope.collectionConfig.columns[column].isExportable && $scope.collectionConfig.columns[column].title && $scope.collectionConfig.columns[column].key !== undefined) {
+                        $scope.collectionExportKeywords += $scope.collectionConfig.columns[column].title;
+                        $scope.collectionExportKeywords += ",";
+                        $scope.collectionColumnsToExport += $scope.collectionConfig.columns[column].key;
+                        $scope.collectionColumnsToExport += ",";
+                        $log.debug($scope.collectionConfig.columns[column].key);
+                    }
                 }
                 //check if we have any filter Groups
                 if (angular.isUndefined($scope.collectionConfig.filterGroups)) {
