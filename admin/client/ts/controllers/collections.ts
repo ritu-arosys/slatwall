@@ -4,6 +4,7 @@ angular.module('slatwalladmin')
 .controller('collections', [ 
 	'$scope',
 '$location',
+'$routeParams',
 '$log',
 '$timeout',
 '$slatwall',
@@ -13,6 +14,7 @@ angular.module('slatwalladmin')
 	function(
 		$scope,
         $location,
+        $routeParams,
         $log,
         $timeout,
         $slatwall,
@@ -31,6 +33,7 @@ angular.module('slatwalladmin')
             var id = pathParts[pathParts.length-1];
             return id;
 		} 
+        $log.debug($routeParams);
 		//get entity id
 		$scope.collectionID = getPath();
 		$log.debug("ID:" + $scope.collectionID);

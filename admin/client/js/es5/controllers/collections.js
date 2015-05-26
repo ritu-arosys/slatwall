@@ -1,6 +1,6 @@
 "use strict";
 'use strict';
-angular.module('slatwalladmin').controller('collections', ['$scope', '$location', '$log', '$timeout', '$slatwall', 'collectionService', 'metadataService', 'paginationService', function($scope, $location, $log, $timeout, $slatwall, collectionService, metadataService, paginationService) {
+angular.module('slatwalladmin').controller('collections', ['$scope', '$location', '$routeParams', '$log', '$timeout', '$slatwall', 'collectionService', 'metadataService', 'paginationService', function($scope, $location, $routeParams, $log, $timeout, $slatwall, collectionService, metadataService, paginationService) {
   $scope.$id = "collectionsController";
   var getPath = function() {
     var absUrl = $location.path();
@@ -8,6 +8,7 @@ angular.module('slatwalladmin').controller('collections', ['$scope', '$location'
     var id = pathParts[pathParts.length - 1];
     return id;
   };
+  $log.debug($routeParams);
   $scope.collectionID = getPath();
   $log.debug("ID:" + $scope.collectionID);
   $scope.currentPage = paginationService.getCurrentPage();

@@ -2,13 +2,14 @@
 angular.module('slatwalladmin').controller('collections', [
     '$scope',
     '$location',
+    '$routeParams',
     '$log',
     '$timeout',
     '$slatwall',
     'collectionService',
     'metadataService',
     'paginationService',
-    function ($scope, $location, $log, $timeout, $slatwall, collectionService, metadataService, paginationService) {
+    function ($scope, $location, $routeParams, $log, $timeout, $slatwall, collectionService, metadataService, paginationService) {
         //init values
         //$scope.collectionTabs =[{tabTitle:'PROPERTIES',isActive:true},{tabTitle:'FILTERS ('+filterCount+')',isActive:false},{tabTitle:'DISPLAY OPTIONS',isActive:false}];
         $scope.$id = "collectionsController";
@@ -18,6 +19,7 @@ angular.module('slatwalladmin').controller('collections', [
             var id = pathParts[pathParts.length - 1];
             return id;
         };
+        $log.debug($routeParams);
         //get entity id
         $scope.collectionID = getPath();
         $log.debug("ID:" + $scope.collectionID);
