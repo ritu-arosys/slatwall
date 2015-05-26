@@ -4,13 +4,20 @@
 <cfparam name="rc.collection" type="any">
 <cfparam name="rc.edit" type="boolean">
 
-<hb:HibachiEntityDetailForm object="#rc.collection#" edit="#rc.edit#">
+<!---<hb:HibachiEntityDetailForm object="#rc.collection#" edit="#rc.edit#">
 	<hb:HibachiEntityActionBar type="detail" object="#rc.collection#" edit="#rc.edit#" />
 	<hb:HibachiEntityDetailGroup object="#rc.collection#">
 		<hb:HibachiEntityDetailItem view="admin:entity/collectiontabs/basic" open="true" text="#$.slatwall.rbKey('admin.define.basic')#" showOnCreateFlag=true />
 		<hb:HibachiEntityDetailItem view="admin:entity/collectiontabs/options" open="true" text="#$.slatwall.rbKey('admin.define.configuration')#" />
 	</hb:HibachiEntityDetailGroup>		
-</hb:HibachiEntityDetailForm>
+</hb:HibachiEntityDetailForm>--->
+<hb:HibachiEntityActionBar type="detail" object="#rc.collection#" edit="#rc.edit#" />
+<form name="form.collectionForm">
+	<hb:HibachiEntityDetailGroup object="#rc.collection#">
+			<hb:HibachiEntityDetailItem view="admin:entity/collectiontabs/basic" open="true" text="#$.slatwall.rbKey('admin.define.basic')#" showOnCreateFlag=true />
+			<hb:HibachiEntityDetailItem view="admin:entity/collectiontabs/options" open="true" text="#$.slatwall.rbKey('admin.define.configuration')#" />
+	</hb:HibachiEntityDetailGroup>	
+</form>
 
 <script charset="utf-8">
   //activate tooltips

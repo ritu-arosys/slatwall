@@ -21,7 +21,7 @@ public void function collectionsExport(required struct rc) {
 		param name="rc.collectionExportID" default="" type="string"; 					//<--The collection to export ID
 		param name="rc.collectionExportKeywords" default="" type="string"; 		//<--The collection columns to export names (headers)
 		param name="rc.collectionColumnsToExport" default="" type="string"; 	//<--The collection columns to export
-		var collection = {};
+		
 		/** Iterate over the struct and turn it into a query */
 		if(arguments.rc.downloadReport) {
 			if ( !isNull(rc.collectionExportID) && len(rc.collectionExportID)){
@@ -41,7 +41,6 @@ public void function collectionsExport(required struct rc) {
 				var arrayOfStruct = [];
 				var columnNamesArray = [];
 				var columnsToIncludeInExport = rc.collectionColumnsToExport;
-				writeDump("#columnsToIncludeInExport#");
 				//Push all cleaned records into an array of structs.
 				for (rec in records){
 					var id = rec.getCollectionID();
@@ -65,11 +64,9 @@ public void function collectionsExport(required struct rc) {
 									//Clean the undefined out of each column and add to our columnNames:Value lists but only if the column was exportable.
 									if (currentCount <= numberOfColumns){
 										var value = hibachiService.nullReplace("#column#", "");
-										
 										//Make sure we actually need to list this 
 										if (ListFind(columnsToIncludeInExport, value)){
 											columnNames &= ",#value#";//We only add if this is in our list of exportable columns.
-											
 										}//<--end adding column
 									}//<--end check column count	
 								}//<--end columns
@@ -77,11 +74,9 @@ public void function collectionsExport(required struct rc) {
 						}//<--end number of rows
 					}//<--end id verification
 				}//<--end clean all record values
-				//<<Now we have a valid cleaned (no undefined fields) arrayOfStructs that contains our records.>>
-				
+				/* Now we have a valid cleaned (no undefined fields) arrayOfStructs that contains our records. */
 				/* Handle the columns to include in the query, and remove extra commas at begining or end of lists */
 				var columnsToInclude = "";
-				//numberOfColumns= ArrayLen(columnNamesArray);
 				if (Left(columnNames, 1) == ","){
 					columnsToInclude = RemoveChars(columnNames, 1, 1);
 				}else{

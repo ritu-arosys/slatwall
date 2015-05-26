@@ -23,9 +23,9 @@ angular.module('slatwalladmin').directive('swPropertyDisplay', [
             templateUrl: partialsPath + "propertydisplay.html",
             link: function (scope, element, attrs, formController) {
                 //if the item is new, then all fields at the object level are dirty
-                $log.debug('editingproper');
+                $log.debug('editingproperty');
                 $log.debug(scope.property);
-                $log.debug(scope.title);
+                $log.debug(scope.object);
                 /**
                  * Configuration for property display object.
                  */

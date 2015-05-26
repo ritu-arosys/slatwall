@@ -1,4 +1,4 @@
-<div ng-controller="collections">
+<div ng-controller="collections" ng-init="exporting=false">
 	<div class="col-xs-12 s-filter-content s-filter-content-table-view">
 		<span sw-export-action>
 			
@@ -155,14 +155,13 @@
 						</li>
 						<li>
 							<!--- Generates an exportable collection --->
-							<form method="post" class="form-inline" action="?s=1">
-									<input type="hidden" name="slatAction" value="api:main.collectionExport">
+							<form method="post" action="?s=1">
+									<input type="hidden" name="slatAction" value="admin:main.collectionExport">
 									<input type="hidden" name="downloadReport" value="1">
 									<input type="hidden" name="collectionExportID" value="{{collectionExportID}}">	
 									<input type="hidden" name="collectionColumnsToExport" value="{{collectionColumnsToExport}}">
-									<input type="hidden" name="collectionExportKeywords" value="{{collectionExportKeywords}}">
-											
-									<button type="submit" class="btn btn-success"><i class="icon-ok icon-white"></i>Export Collection</button>
+									<input type="hidden" name="collectionExportKeywords" value="{{collectionExportKeywords}}">		
+									<button type="submit" class="btn btn-success">Export Collection</button>
 							</form>
 						</li>
 					</ul>

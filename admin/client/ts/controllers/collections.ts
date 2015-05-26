@@ -12,45 +12,28 @@ angular.module('slatwalladmin')
 'paginationService',
 	function(
 		$scope,
-$location,
-$log,
-$timeout,
-$slatwall,
-collectionService,
-metadataService,
-		paginationService
+        $location,
+        $log,
+        $timeout,
+        $slatwall,
+        collectionService,
+        metadataService,
+        paginationService
 	){
 	
 		//init values
 		//$scope.collectionTabs =[{tabTitle:'PROPERTIES',isActive:true},{tabTitle:'FILTERS ('+filterCount+')',isActive:false},{tabTitle:'DISPLAY OPTIONS',isActive:false}];
 		$scope.$id="collectionsController";
 		
-		/*used til we convert to use route params*/
-		var QueryString = function () {
-		  // This function is anonymous, is executed immediately and 
-		  // the return value is assigned to QueryString!
-		  var query_string = {};
-		  var query = window.location.search.substring(1);
-		  var vars = query.split("&");
-		  for (var i=0;i<vars.length;i++) {
-		    var pair = vars[i].split("=");
-		    	// If first entry with this name
-		    if (typeof query_string[pair[0]] === "undefined") {
-		      query_string[pair[0]] = pair[1];
-		    	// If second entry with this name
-		    } else if (typeof query_string[pair[0]] === "string") {
-		      var arr = [ query_string[pair[0]], pair[1] ];
-		      query_string[pair[0]] = arr;
-		    	// If third or later entry with this name
-		    } else {
-		      query_string[pair[0]].push(pair[1]);
-		    }
-		  } 
-		    return query_string;
-		} ();
-		//get url param to retrieve collection listing
-		$scope.collectionID = QueryString.collectionID;
-		
+		var getPath = function () {
+            var absUrl = $location.path();
+            var pathParts = absUrl.split("/");
+            var id = pathParts[pathParts.length-1];
+            return id;
+		} 
+		//get entity id
+		$scope.collectionID = getPath();
+		$log.debug("ID:" + $scope.collectionID);
 		$scope.currentPage= paginationService.getCurrentPage();
 		$scope.pageShow = paginationService.getPageShow();
 		$scope.pageStart = paginationService.getPageStart;
@@ -58,7 +41,6 @@ metadataService,
 		$scope.recordsCount = paginationService.getRecordsCount;
 		$scope.autoScrollPage = 1;
 		$scope.autoScrollDisabled = false;
-		
 		
 		$scope.appendToCollection = function(){
 			if($scope.pageShow === 'Auto'){
@@ -98,6 +80,7 @@ metadataService,
 		
 	
 		$scope.getCollection = function(){
+            
 			var pageShow = 50;
 			if($scope.pageShow !== 'Auto'){
 				pageShow = $scope.pageShow;
@@ -120,15 +103,12 @@ metadataService,
                 $scope.collectionColumnsToExport = "";
                 //Populate the export value with exportable columns.
                 for (var column in $scope.collectionConfig.columns){
-                    $log.debug( $scope.collectionConfig.columns[column]);
-                    
                     if ($scope.collectionConfig.columns[column].isExportable && $scope.collectionConfig.columns[column].title && $scope.collectionConfig.columns[column].key !== undefined){
                         
                         $scope.collectionExportKeywords += $scope.collectionConfig.columns[column].title;
                         $scope.collectionExportKeywords += ",";
                         $scope.collectionColumnsToExport += $scope.collectionConfig.columns[column].key;
                         $scope.collectionColumnsToExport += ",";
-                        $log.debug($scope.collectionConfig.columns[column].key);
                             
                     }  
                 }

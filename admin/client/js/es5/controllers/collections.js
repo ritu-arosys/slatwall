@@ -2,24 +2,14 @@
 'use strict';
 angular.module('slatwalladmin').controller('collections', ['$scope', '$location', '$log', '$timeout', '$slatwall', 'collectionService', 'metadataService', 'paginationService', function($scope, $location, $log, $timeout, $slatwall, collectionService, metadataService, paginationService) {
   $scope.$id = "collectionsController";
-  var QueryString = function() {
-    var query_string = {};
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split("=");
-      if (typeof query_string[pair[0]] === "undefined") {
-        query_string[pair[0]] = pair[1];
-      } else if (typeof query_string[pair[0]] === "string") {
-        var arr = [query_string[pair[0]], pair[1]];
-        query_string[pair[0]] = arr;
-      } else {
-        query_string[pair[0]].push(pair[1]);
-      }
-    }
-    return query_string;
-  }();
-  $scope.collectionID = QueryString.collectionID;
+  var getPath = function() {
+    var absUrl = $location.path();
+    var pathParts = absUrl.split("/");
+    var id = pathParts[pathParts.length - 1];
+    return id;
+  };
+  $scope.collectionID = getPath();
+  $log.debug("ID:" + $scope.collectionID);
   $scope.currentPage = paginationService.getCurrentPage();
   $scope.pageShow = paginationService.getPageShow();
   $scope.pageStart = paginationService.getPageStart;
@@ -82,13 +72,11 @@ angular.module('slatwalladmin').controller('collections', ['$scope', '$location'
       $scope.collectionExportKeywords = "";
       $scope.collectionColumnsToExport = "";
       for (var column in $scope.collectionConfig.columns) {
-        $log.debug($scope.collectionConfig.columns[column]);
         if ($scope.collectionConfig.columns[column].isExportable && $scope.collectionConfig.columns[column].title && $scope.collectionConfig.columns[column].key !== undefined) {
           $scope.collectionExportKeywords += $scope.collectionConfig.columns[column].title;
           $scope.collectionExportKeywords += ",";
           $scope.collectionColumnsToExport += $scope.collectionConfig.columns[column].key;
           $scope.collectionColumnsToExport += ",";
-          $log.debug($scope.collectionConfig.columns[column].key);
         }
       }
       if (angular.isUndefined($scope.collectionConfig.filterGroups)) {

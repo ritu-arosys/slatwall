@@ -20,9 +20,9 @@ angular.module('slatwalladmin').directive('swPropertyDisplay', ['$log', 'partial
     },
     templateUrl: partialsPath + "propertydisplay.html",
     link: function(scope, element, attrs, formController) {
-      $log.debug('editingproper');
+      $log.debug('editingproperty');
       $log.debug(scope.property);
-      $log.debug(scope.title);
+      $log.debug(scope.object);
       scope.propertyDisplay = {
         object: scope.object,
         property: scope.property,

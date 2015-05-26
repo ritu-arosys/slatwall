@@ -1,0 +1,37 @@
+<div class="col-md-6 s-header-left" ng-if="collection">
+	<div class="s-header-detail">
+		<dl class="dl-horizontal">
+			<span  	
+					sw-property-display
+					data-object="collection"
+					data-property="collectionName"
+					data-editing="true"
+					data-editable="true">
+			</span>
+			<span  	sw-property-display
+					data-object="collection"
+					data-options-arguments="{property:'collectionObject'}"
+					data-eager-load-options="true"
+					data-property="collectionObject"
+					data-editing="false"
+					data-editable="!collection.$$isPersisted()">
+			</span>
+			<span  	sw-property-display
+					data-object="collection"
+					data-property="collectionDescription"
+					data-editing="true"
+					data-editable="true"> 
+			</span>
+			<span  	sw-property-display
+					data-object="collection"
+					data-property="collectionCode"
+					data-editing="true"
+					data-editable="true"> 
+			</span>
+		</dl>
+	</div>
+</div>
+
+<div class="col-md-6 s-header-right">
+
+</div>
