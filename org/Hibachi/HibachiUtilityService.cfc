@@ -280,6 +280,7 @@
 							// if the directory exists and not part of exclusion the delete
 							if(directoryExists("#arguments.destination##currentDir#") && findNoCase(currentDir,arguments.deleteDestinationContentExclusionList) EQ 0){
 								try {
+									logHibachi("Del Dir #arguments.destination# #currentDir#", true);
 									directoryDelete("#arguments.destination##currentDir#",true);	
 								} catch(any e) {
 									logHibachi("Could not delete the directory: #arguments.destination##currentDir# most likely because it is in use by the file system", true);
@@ -291,6 +292,7 @@
 							// if the file exists and not part of exclusion the delete
 							if(fileExists("#arguments.destination##currentFile#") && findNoCase(currentFile,arguments.deleteDestinationContentExclusionList) EQ 0){
 								try {
+									logHibachi("Del File #arguments.destination# #currentFile# #findNoCase(currentFile,arguments.deleteDestinationContentExclusionList)# #arguments.deleteDestinationContentExclusionList# ", true);
 									fileDelete("#arguments.destination##currentFile#");	
 								} catch(any e) {
 									logHibachi("Could not delete file: #arguments.destination##currentFile# most likely because it is in use by the file system", true);
