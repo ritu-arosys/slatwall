@@ -136,6 +136,8 @@ component extends="FW1.framework" {
 	// Allow For Instance Config
 	try{include "../../custom/config/configORM.cfm";}catch(any e){}
 	
+	
+	
 	// ==================== START: PRE UPDATE SCRIPTS ======================
 	if(!fileExists("#this.mappings[ '/#variables.framework.applicationKey#' ]#/custom/config/lastFullUpdate.txt.cfm") || !fileExists("#this.mappings[ '/#variables.framework.applicationKey#' ]#/custom/config/preUpdatesRun.txt.cfm") || (structKeyExists(url, variables.framework.hibachi.fullUpdateKey) && url[ variables.framework.hibachi.fullUpdateKey ] == variables.framework.hibachi.fullUpdatePassword)){
 		
@@ -164,7 +166,7 @@ component extends="FW1.framework" {
 	}
 	// ==================== END: PRE UPDATE SCRIPTS ======================
 	
-	// =======  END: ENVIORNMENT CONFIGURATION  =======
+	// =======  END: ENVIRONMENT CONFIGURATION  =======
 	
 	public any function bootstrap() {
 		setupGlobalRequest();
@@ -509,6 +511,14 @@ component extends="FW1.framework" {
 						
 						// Set the request timeout to 360
 						getHibachiScope().getService("hibachiTagService").cfsetting(requesttimeout=600);
+						
+						//Move entities from Precompilation to the model directory so that we have any custom changes.
+						var success = getBeanFactory().getBean("dataService").moveEntitiesFromPrecompilationToModelDirectory();
+						if (success){
+							writeLog(file="Slatwall", text="General Log - Entities moved from precompilation to model entity folder");
+						}else{
+							writeLog(file="Slatwall", text="General Log - Error moving entities from precompilation to model entity folder");
+						}
 						
 						// Reload ORM
 						writeLog(file="#variables.framework.applicationKey#", text="General Log - ORMReload() started");

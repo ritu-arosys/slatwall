@@ -45,8 +45,12 @@
 
 Notes:
 
+	If this entity has a file extension that ends in .cfc, it is used to generate the entity located in the /model/entity folder. Modifications
+	should be made to the version of this file that has the file extension .swe (Slatwall Entity) and that 
+	resides in /custom/model/entity/precompilation/ folder so that changes are not overwritten on update.
+	
 */
-component displayname="Account" entityname="SlatwallAccount" table="SwAccount" persistent="true" output="false" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="accountService" hb_permission="this" hb_processContexts="addAccountLoyalty,addAccountPayment,createPassword,changePassword,create,forgotPassword,lock,login,logout,resetPassword,setupInitialAdmin,unlock,updatePassword,generateAuthToken" {
+ component  displayname="Account" entityname="SlatwallAccount" output="false"  table="SWAccount"  persistent="true" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="accountService" hb_permission="this" hb_processContexts="addAccountLoyalty,addAccountPayment,createPassword,changePassword,create,forgotPassword,lock,login,logout,resetPassword,setupInitialAdmin,unlock,updatePassword,generateAuthToken" {
 	
 	// Persistent Properties
 	property name="accountID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";

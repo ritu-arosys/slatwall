@@ -46,12 +46,12 @@
 Notes:
 
 */
-component displayname="Product Type" entityname="SlatwallProductType" table="SwProductType" persistent="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="productService" hb_permission="this" hb_parentPropertyName="parentProductType" {
+ component  displayname="Product Type" entityname="SlatwallProductType" table="SWProductType"  persistent="true" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="productService" hb_permission="this" hb_parentPropertyName="parentProductType" {
 			
 	// Persistent Properties
 	property name="productTypeID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";
 	property name="productTypeIDPath" ormtype="string" length="4000";
-	property name="activeFlag" ormtype="boolean" hint="As A ProductType Get Old, They would be marked as Not Active";
+	property name="activeFlag" ormtype="boolean" hint="As a product type gets older - they would be marked as not active";
 	property name="publishedFlag" ormtype="boolean";
 	property name="urlTitle" ormtype="string" unique="true" hint="This is the name that is used in the URL string";
 	property name="productTypeName" ormtype="string";

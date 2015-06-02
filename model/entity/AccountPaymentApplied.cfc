@@ -1,4 +1,4 @@
-﻿/*
+﻿/*persistent='true'*//*persistent='true'*//*
 
     Slatwall - An Open Source eCommerce Platform
     Copyright (C) ten24, LLC
@@ -46,7 +46,7 @@
 Notes:
 
 */
-component entityname="SlatwallAccountPaymentApplied" table="SwAccountPaymentApplied" persistent="true" accessors="true" extends="HibachiEntity" hb_serviceName="accountService" {
+ component  entityname="SlatwallAccountPaymentApplied"  table="SWAccountPaymentApplied"  persistent="true" accessors="true" extends="HibachiEntity" hb_serviceName="accountService" {
 	
 	// Persistent Properties
 	property name="accountPaymentAppliedID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";

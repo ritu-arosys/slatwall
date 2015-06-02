@@ -36,7 +36,7 @@
 Notes:
 
 */
-component displayname="LoyaltyAccruement" entityname="SlatwallLoyaltyAccruement" table="SwLoyaltyAccru" persistent="true"  extends="HibachiEntity" cacheuse="transactional" hb_serviceName="loyaltyService" hb_permission="this" {
+ component  displayname="LoyaltyAccruement" entityname="SlatwallLoyaltyAccruement"  table="SWLoyaltyAccruement"  persistent="true" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="loyaltyService" hb_permission="this" {
 	
 	// Persistent Properties
 	property name="loyaltyAccruementID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";
