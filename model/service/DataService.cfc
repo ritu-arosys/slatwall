@@ -74,18 +74,21 @@ component output="false" accessors="true" extends="HibachiService" {
 	*/
 	public boolean function moveEntitiesFromPrecompilationToModelDirectory(){
 		//==================== START: ENTITY UPDATE ============================//
-		try{
+		try{/*
 			//Grab the path separator in use for this filesystem.
 			fileObj = createObject("java", "java.io.File"); 
 			defaultSeparator = fileObj.separator;
 			//Use that separator to build a path.
-			path = "#ExpandPath('/')#"&defaultSeparator&"custom"&defaultSeparator&"model"&defaultSeparator&"entity"&defaultSeparator&"precompilation";
+			path = "#ExpandPath('/')#"&defaultSeparator&"preCompiledModel";
+			pathCustom = "#ExpandPath('/')#"&defaultSeparator&"custom"&defaultSeparator&"model"&defaultSeparator&"entity";
 			//Use the path to grab a file list making sure that we don't access at the same time as anyone else'
-			lock name="getFileList" type="exclusive" timeout="10" {
+			lock name="getFileList" type="exclusive" timeout="5" {
 				directoryList = DirectoryList(path, false, "path", "*.swe", "directory ASC");
+				directoryListCustom = DirectoryList(pathCustom, false, "path", "*.swe", "directory ASC");
 			}//<--end list lock
+			
 			//Lock the thread and grab our component definitions from the custom model directory.
-			lock name="UpdateSlatwallComponentsFromEntityDefinitions" type="exclusive" timeout="20" {
+			lock name="UpdateSlatwallComponentsFromEntityDefinitions" type="exclusive" timeout="40" {
 				if (!isNull(directoryList)){
 					for (record in directoryList){
 						//Clean up the file name
@@ -102,13 +105,28 @@ component output="false" accessors="true" extends="HibachiService" {
 						//Write and then close the file.
 						FileWrite("#ExpandPath('/')#"&defaultSeparator&"model"&defaultSeparator&"entity"&defaultSeparator&"#fileName#.cfc" , newString);
 						FileClose(entityDefinitionFile);
-						return true;
 					}//<--end for
 				}//<--end if
 			}//<--end copy lock
+			//Now that we copied our own entities, grab the properties and methods from any custom entities with the same name and merge them with our own.
+			//If there are files in the custom directory, figure out if any filenames match core files. If they do, merge them, if they don't add them.
+			*/
+			
+			//parser setup
+			var cfPropertyConfig = {
+				jarArray = [ExpandPath("/Slatwall/org/Hibachi/CFProperty/CFTranspiler.jar")]
+			};
+			
+			cfPropertyConfig.classLoader = CreateObject("component", "Slatwall.org.Hibachi.antisamy.lib.javaloader.JavaLoader").init(cfPropertyConfig.jarArray);
+			var cfTranspiler = cfPropertyConfig.classLoader.create("Transpiler").init();
+			dataStruct = cfTranspiler.transpileDelegate("#ExpandPath('/Slatwall/model/entity/Access.cfc')#", "basic", "array");
+			writeDump(var=dataStruct);
+			dataStruct = cfTranspiler.transpileDelegate("#ExpandPath('/Slatwall/model/entity/Account.cfc')#", "annotations", "struct");
+			writeDump(var=dataStruct);abort;
+			return true;
 		}catch(any e){
 			//<--log that we couldn't update the entities but try to continue with bootstraping the application
-			writeLog(file="Slatwall", text="Could not finish moving Slatwall Entity Definitions (.swe) files from custom folder to model entity folder: #e#");
+			writeLog(file="Slatwall", text="Could not finish moving .swe files from custom folder to model entity folder: #e#");
 			return false;
 		}//<--end catch
 	//========================END: ENTITY UPDATE=========================//

@@ -43,8 +43,7 @@
     If you modify this program, you may extend this exception to your version 
     of the program, but you are not obligated to do so.
 
-Notes:
-
+Note:
 */
  component  displayname="Address" entityname="SlatwallAddress" output="false"  table="SWAddress" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="addressService" hb_permission="this" {
 	

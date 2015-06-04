@@ -108,8 +108,6 @@ Notes:
 					SwOrder.currencyCode,
 					<cfif getApplicationValue('databaseType') eq "Oracle10g">
 						oit."type" as type,
-					<cfelse>
-						oit.type,
 					</cfif>
 					SwAddress.city,
 					SwAddress.stateCode,
