@@ -1,0 +1,3394 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Slatwall API Documentation
+  description: This documentation is intended as a reference for a Slatwall Installation.
+  contact:
+    name: Ten24
+    email: info@slatwallcommerce.com
+    url: http://slatwallcommerce.com
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+host: yoursite.com
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /Account:
+    get:
+      tags:
+        - Account
+      description: Returns a list of all Account entities
+      operationId: getAllAccount
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account response
+          schema:
+            $ref: '#/definitions/Account'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      description: Creates a new Account.
+      operationId: addAccount
+      produces:
+        - application/json
+      parameters:
+        - name: Account
+          in: body
+          description: Account to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newAccount'
+      responses:
+        '200':
+          description: Account response
+          schema:
+            $ref: '#/definitions/Account'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+  /Account/{id}:
+    get:
+      description: Returns a Account based on a Account ID
+      operationId: findAccountById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of Account to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Account response
+          schema:
+            $ref: '#/definitions/Account'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+    delete:
+      description: deletes a single Account based on the ID supplied
+      operationId: deleteAccount
+      parameters:
+        - name: id
+          in: path
+          description: ID of Account to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Account deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+  /AccountAddress:
+    get:
+      description: Returns a list of all AccountAddress entities
+      operationId: getAllAccountAddress
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: AccountAddress response
+          schema:
+            $ref: '#/definitions/AccountAddress'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+    post:
+      description: Creates a new AccountAddress.
+      operationId: addAccountAddress
+      produces:
+        - application/json
+      parameters:
+        - name: AccountAddress
+          in: body
+          description: AccountAddress to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newAccountAddress'
+      responses:
+        '200':
+          description: AccountAddress response
+          schema:
+            $ref: '#/definitions/AccountAddress'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+  /AccountAddress/{id}:
+    get:
+      description: Returns a AccountAddress based on a AccountAddress ID
+      operationId: findAccountAddressById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of AccountAddress to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: AccountAddress response
+          schema:
+            $ref: '#/definitions/AccountAddress'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+    delete:
+      description: deletes a single AccountAddress based on the ID supplied
+      operationId: deleteAccountAddress
+      parameters:
+        - name: id
+          in: path
+          description: ID of AccountAddress to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: AccountAddress deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'  
+      tags:
+        - Account
+  /AccountEmailAddress:
+    get:
+      description: Returns a list of all AccountEmailAddress entities
+      operationId: getAllAccountEmailAddress
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: AccountEmailAddress response
+          schema:
+            $ref: '#/definitions/AccountEmailAddress'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+    post:
+      description: Creates a new AccountEmailAddress.
+      operationId: addAccountEmailAddress
+      produces:
+        - application/json
+      parameters:
+        - name: AccountEmailAddress
+          in: body
+          description: AccountEmailAddress to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newAccountEmailAddress'
+      responses:
+        '200':
+          description: AccountEmailAddress response
+          schema:
+            $ref: '#/definitions/AccountEmailAddress'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+  /AccountEmailAddress/{id}:
+    get:
+      description: Returns a AccountEmailAddress based on a AccountEmailAddress ID
+      operationId: findAccountEmailAddressById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of AccountEmailAddress to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: AccountEmailAddress response
+          schema:
+            $ref: '#/definitions/AccountEmailAddress'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+    delete:
+      description: deletes a single AccountEmailAddress based on the ID supplied
+      operationId: deleteAccountEmailAddress
+      parameters:
+        - name: id
+          in: path
+          description: ID of AccountEmailAddress to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: AccountEmailAddress deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'  
+      tags:
+        - Account
+  /AccountContentAccess:
+    get:
+      description: Returns a list of all AccountContentAccess entities
+      operationId: getAllAccountContentAccess
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: AccountContentAccess response
+          schema:
+            $ref: '#/definitions/AccountContentAccess'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+    post:
+      description: Creates a new AccountContentAccess.
+      operationId: addAccountContentAccess
+      produces:
+        - application/json
+      parameters:
+        - name: AccountContentAccess
+          in: body
+          description: AccountContentAccess to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newAccountContentAccess'
+      responses:
+        '200':
+          description: AccountContentAccess response
+          schema:
+            $ref: '#/definitions/AccountContentAccess'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+  /AccountContentAccess/{id}:
+    get:
+      description: Returns a AccountContentAccess based on a AccountContentAccess ID
+      operationId: findAccountContentAccessById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of AccountContentAccess to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: AccountContentAccess response
+          schema:
+            $ref: '#/definitions/AccountContentAccess'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+    delete:
+      description: deletes a single AccountContentAccess based on the ID supplied
+      operationId: deleteAccountContentAccess
+      parameters:
+        - name: id
+          in: path
+          description: ID of AccountContentAccess to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: AccountContentAccess deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Account
+  /Order:
+    get:
+      description: Returns a list of all Order entities
+      operationId: getAllOrder
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Order response
+          schema:
+            $ref: '#/definitions/Order'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+    post:
+      description: Creates a new Order.
+      operationId: addOrder
+      produces:
+        - application/json
+      parameters:
+        - name: Order
+          in: body
+          description: Order to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newOrder'
+      responses:
+        '200':
+          description: Order response
+          schema:
+            $ref: '#/definitions/Order'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+  /Order/{id}:
+    get:
+      description: Returns a Order based on a Order ID
+      operationId: findOrderById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of Order to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Order response
+          schema:
+            $ref: '#/definitions/Order'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+    delete:
+      description: deletes a single Order based on the ID supplied
+      operationId: deleteOrder
+      parameters:
+        - name: id
+          in: path
+          description: ID of Order to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Order deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+  /OrderItem:
+    get:
+      description: Returns a list of all OrderItem entities
+      operationId: getAllOrderItem
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OrderItem response
+          schema:
+            $ref: '#/definitions/OrderItem'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+    post:
+      description: Creates a new OrderItem.
+      operationId: addOrderItem
+      produces:
+        - application/json
+      parameters:
+        - name: OrderItem
+          in: body
+          description: OrderItem to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newOrderItem'
+      responses:
+        '200':
+          description: OrderItem response
+          schema:
+            $ref: '#/definitions/OrderItem'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+  /OrderItem/{id}:
+    get:
+      description: Returns a OrderItem based on a OrderItem ID
+      operationId: findOrderItemById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of OrderItem to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OrderItem response
+          schema:
+            $ref: '#/definitions/OrderItem'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+    delete:
+      description: deletes a single OrderItem based on the ID supplied
+      operationId: deleteOrderItem
+      parameters:
+        - name: id
+          in: path
+          description: ID of OrderItem to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: OrderItem deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Order
+  /Product:
+    get:
+      description: Returns a list of all Product entities
+      operationId: getAllProduct
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Product response
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Product
+    post:
+      description: Creates a new Product.
+      operationId: addProduct
+      produces:
+        - application/json
+      parameters:
+        - name: Product
+          in: body
+          description: Product to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newProduct'
+      responses:
+        '200':
+          description: Product response
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Product
+  /Product/{id}:
+    get:
+      description: Returns a Product based on a Product ID
+      operationId: findProductById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of Product to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Product response
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Product
+    delete:
+      description: deletes a single Product based on the ID supplied
+      operationId: deleteProduct
+      parameters:
+        - name: id
+          in: path
+          description: ID of Product to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Product deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Product
+  /Sku:
+    get:
+      description: Returns a list of all Sku entities
+      operationId: getAllSku
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Sku response
+          schema:
+            $ref: '#/definitions/Sku'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Sku
+    post:
+      description: Creates a new Sku.
+      operationId: addSku
+      produces:
+        - application/json
+      parameters:
+        - name: Sku
+          in: body
+          description: Sku to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newSku'
+      responses:
+        '200':
+          description: Sku response
+          schema:
+            $ref: '#/definitions/Sku'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Sku
+  /Sku/{id}:
+    get:
+      description: Returns a Sku based on a Sku ID
+      operationId: findSkuById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of Sku to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sku response
+          schema:
+            $ref: '#/definitions/Sku'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Sku
+    delete:
+      description: deletes a single Sku based on the ID supplied
+      operationId: deleteSku
+      parameters:
+        - name: id
+          in: path
+          description: ID of Sku to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Sku deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Sku
+  /SubscriptionUsage:
+    get:
+      description: Returns a list of all SubscriptionUsage entities
+      operationId: getAllSubscriptionUsage
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: SubscriptionUsage response
+          schema:
+            $ref: '#/definitions/SubscriptionUsage'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    post:
+      description: Creates a new SubscriptionUsage.
+      operationId: addSubscriptionUsage
+      produces:
+        - application/json
+      parameters:
+        - name: SubscriptionUsage
+          in: body
+          description: SubscriptionUsage to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newSubscriptionUsage'
+      responses:
+        '200':
+          description: SubscriptionUsage response
+          schema:
+            $ref: '#/definitions/SubscriptionUsage'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionUsage/{id}:
+    get:
+      description: Returns a SubscriptionUsage based on a SubscriptionUsage ID
+      operationId: findSubscriptionUsageById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionUsage to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: SubscriptionUsage response
+          schema:
+            $ref: '#/definitions/SubscriptionUsage'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    delete:
+      description: deletes a single SubscriptionUsage based on the ID supplied
+      operationId: deleteSubscriptionUsage
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionUsage to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: SubscriptionUsage deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionTerm:
+    get:
+      description: Returns a list of all SubscriptionTerm entities
+      operationId: getAllSubscriptionTerm
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: SubscriptionTerm response
+          schema:
+            $ref: '#/definitions/SubscriptionTerm'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    post:
+      description: Creates a new SubscriptionTerm.
+      operationId: addSubscriptionTerm
+      produces:
+        - application/json
+      parameters:
+        - name: SubscriptionTerm
+          in: body
+          description: SubscriptionTerm to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newSubscriptionTerm'
+      responses:
+        '200':
+          description: SubscriptionTerm response
+          schema:
+            $ref: '#/definitions/SubscriptionTerm'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionTerm/{id}:
+    get:
+      description: Returns a SubscriptionTerm based on a SubscriptionTerm ID
+      operationId: findSubscriptionTermById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionTerm to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: SubscriptionTerm response
+          schema:
+            $ref: '#/definitions/SubscriptionTerm'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    delete:
+      description: deletes a single SubscriptionTerm based on the ID supplied
+      operationId: deleteSubscriptionTerm
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionTerm to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: SubscriptionTerm deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionBenefit:
+    get:
+      description: Returns a list of all SubscriptionBenefit entities
+      operationId: getAllSubscriptionBenefit
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: SubscriptionBenefit response
+          schema:
+            $ref: '#/definitions/SubscriptionBenefit'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    post:
+      description: Creates a new SubscriptionBenefit.
+      operationId: addSubscriptionBenefit
+      produces:
+        - application/json
+      parameters:
+        - name: SubscriptionBenefit
+          in: body
+          description: SubscriptionBenefit to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newSubscriptionBenefit'
+      responses:
+        '200':
+          description: SubscriptionBenefit response
+          schema:
+            $ref: '#/definitions/SubscriptionBenefit'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionBenefit/{id}:
+    get:
+      description: Returns a SubscriptionBenefit based on a SubscriptionBenefit ID
+      operationId: findSubscriptionBenefitById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionBenefit to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: SubscriptionBenefit response
+          schema:
+            $ref: '#/definitions/SubscriptionBenefit'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    delete:
+      description: deletes a single SubscriptionBenefit based on the ID supplied
+      operationId: deleteSubscriptionBenefit
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionBenefit to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: SubscriptionBenefit deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionUsageBenefit:
+    get:
+      description: Returns a list of all SubscriptionUsageBenefit entities
+      operationId: getAllSubscriptionUsageBenefit
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: SubscriptionUsageBenefit response
+          schema:
+            $ref: '#/definitions/SubscriptionUsageBenefit'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    post:
+      description: Creates a new SubscriptionUsageBenefit.
+      operationId: addSubscriptionUsageBenefit
+      produces:
+        - application/json
+      parameters:
+        - name: SubscriptionUsageBenefit
+          in: body
+          description: SubscriptionUsageBenefit to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newSubscriptionUsageBenefit'
+      responses:
+        '200':
+          description: SubscriptionUsageBenefit response
+          schema:
+            $ref: '#/definitions/SubscriptionUsageBenefit'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionUsageBenefit/{id}:
+    get:
+      description: Returns a SubscriptionUsageBenefit based on a SubscriptionUsageBenefit ID
+      operationId: findSubscriptionUsageBenefitById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionUsageBenefit to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: SubscriptionUsageBenefit response
+          schema:
+            $ref: '#/definitions/SubscriptionUsageBenefit'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    delete:
+      description: deletes a single SubscriptionUsageBenefit based on the ID supplied
+      operationId: deleteSubscriptionUsageBenefit
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionUsageBenefit to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: SubscriptionUsageBenefit deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionOrderItem:
+    get:
+      description: Returns a list of all SubscriptionOrderItem entities
+      operationId: getAllSubscriptionOrderItem
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: SubscriptionOrderItem response
+          schema:
+            $ref: '#/definitions/SubscriptionOrderItem'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    post:
+      description: Creates a new SubscriptionOrderItem.
+      operationId: addSubscriptionOrderItem
+      produces:
+        - application/json
+      parameters:
+        - name: SubscriptionOrderItem
+          in: body
+          description: SubscriptionOrderItem to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newSubscriptionOrderItem'
+      responses:
+        '200':
+          description: SubscriptionOrderItem response
+          schema:
+            $ref: '#/definitions/SubscriptionOrderItem'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionOrderItem/{id}:
+    get:
+      description: Returns a SubscriptionOrderItem based on a SubscriptionOrderItem ID
+      operationId: findSubscriptionOrderItemById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionOrderItem to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: SubscriptionOrderItem response
+          schema:
+            $ref: '#/definitions/SubscriptionOrderItem'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    delete:
+      description: deletes a single SubscriptionOrderItem based on the ID supplied
+      operationId: deleteSubscriptionOrderItem
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionOrderItem to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: SubscriptionOrderItem deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionStatus:
+    get:
+      description: Returns a list of all SubscriptionStatus entities
+      operationId: getAllSubscriptionStatus
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: SubscriptionStatus response
+          schema:
+            $ref: '#/definitions/SubscriptionStatus'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    post:
+      description: Creates a new SubscriptionStatus.
+      operationId: addSubscriptionStatus
+      produces:
+        - application/json
+      parameters:
+        - name: SubscriptionStatus
+          in: body
+          description: SubscriptionStatus to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newSubscriptionStatus'
+      responses:
+        '200':
+          description: SubscriptionStatus response
+          schema:
+            $ref: '#/definitions/SubscriptionStatus'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /SubscriptionStatus/{id}:
+    get:
+      description: Returns a SubscriptionStatus based on a SubscriptionStatus ID
+      operationId: findSubscriptionStatusById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionStatus to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: SubscriptionStatus response
+          schema:
+            $ref: '#/definitions/SubscriptionStatus'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+    delete:
+      description: deletes a single SubscriptionStatus based on the ID supplied
+      operationId: deleteSubscriptionStatus
+      parameters:
+        - name: id
+          in: path
+          description: ID of SubscriptionStatus to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: SubscriptionStatus deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Subscription
+  /FulfillmentMethod:
+    get:
+      description: Returns a list of all FulfillmentMethod entities
+      operationId: getAllFulfillmentMethod
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: FulfillmentMethod response
+          schema:
+            $ref: '#/definitions/FulfillmentMethod'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Fulfillment
+    post:
+      description: Creates a new FulfillmentMethod.
+      operationId: addFulfillmentMethod
+      produces:
+        - application/json
+      parameters:
+        - name: FulfillmentMethod
+          in: body
+          description: FulfillmentMethod to add to Slatwall
+          required: true
+          schema:
+            $ref: '#/definitions/newFulfillmentMethod'
+      responses:
+        '200':
+          description: FulfillmentMethod response
+          schema:
+            $ref: '#/definitions/FulfillmentMethod'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Fulfillment
+  /FulfillmentMethod/{id}:
+    get:
+      description: Returns a FulfillmentMethod based on a FulfillmentMethod ID
+      operationId: findFulfillmentMethodById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of FulfillmentMethod to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: FulfillmentMethod response
+          schema:
+            $ref: '#/definitions/FulfillmentMethod'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+      tags:
+        - Fulfillment
+    delete:
+      description: deletes a single FulfillmentMethod based on the ID supplied
+      operationId: deleteFulfillmentMethod
+      parameters:
+        - name: id
+          in: path
+          description: ID of FulfillmentMethod to delete
+          required: true
+          type: string
+      responses:
+        '204':
+          description: FulfillmentMethod deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'  
+      tags:
+        - Fulfillment
+definitions:
+  Account:
+    required:
+      - accountID
+    properties:
+      termOrderPaymentsByDueDateSmartList:
+        type: string
+      unenrolledAccountLoyaltyOptions:
+        type: string
+      termAccountBalance:
+        type: string
+      termAccountAvailableCredit:
+        type: string
+      slatwallAuthenticationExistsFlag:
+        type: string
+      eligibleAccountPaymentMethodsSmartList:
+        type: string
+      saveablePaymentMethodsSmartList:
+        type: string
+      phoneNumber:
+        type: string
+      passwordResetID:
+        type: string
+      ordersNotPlacedSmartList:
+        type: string
+      ordersPlacedSmartList:
+        type: string
+      guestAccountFlag:
+        type: string
+      gravatarURL:
+        type: string
+      fullName:
+        type: string
+      emailAddress:
+        type: string
+      adminAccountFlag:
+        type: string
+      adminIcon:
+        type: string
+      address:
+        type: string
+      activeSubscriptionUsageBenefitsSmartList:
+        type: string
+      primaryEmailAddressNotInUseFlag:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteContactID:
+        description: string 
+      remoteCustomerID:
+        description: string 
+      remoteEmployeeID:
+        description: string 
+      remoteID:
+        description: string 
+      promotionCodes:
+        description:  many-to-many
+      permissionGroups:
+        description:  many-to-many
+      priceGroups:
+        description:  many-to-many
+      termAccountOrderPayments:
+        description:  one-to-many
+      subscriptionUsages:
+        description:  one-to-many
+      subscriptionUsageBenefitAccounts:
+        description:  one-to-many
+      productReviews:
+        description:  one-to-many
+      orders:
+        description:  one-to-many
+      eventRegistrations:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      accountPhoneNumbers:
+        description:  one-to-many
+      accountPayments:
+        description:  one-to-many
+      accountPaymentMethods:
+        description:  one-to-many
+      accountLoyalties:
+        description:  one-to-many
+      accountEmailAddresses:
+        description:  one-to-many
+      accountContentAccesses:
+        description:  one-to-many
+      accountAuthentications:
+        description:  one-to-many
+      accountAddresses:
+        description:  one-to-many
+      accountCreatedSite:
+        description:  many-to-one
+      primaryShippingAddress:
+        description:  many-to-one
+      primaryPaymentMethod:
+        description:  many-to-one
+      primaryAddress:
+        description:  many-to-one
+      primaryPhoneNumber:
+        description:  many-to-one
+      primaryEmailAddress:
+        description:  many-to-one
+      primaryBillingAddress:
+        description:  many-to-one
+      cmsAccountID:
+        description: string 
+      failedLoginAttemptCount:
+        description: integer 
+      loginLockExpiresDateTime:
+        description: timestamp 
+      company:
+        description: string 
+      lastName:
+        description: string 
+      firstName:
+        description: string 
+      superUserFlag:
+        description: boolean 
+      accountID:
+        description: string Primary ID   
+  newAccount:
+    required:
+      - accountID
+    properties:
+      termOrderPaymentsByDueDateSmartList:
+        type: string
+      unenrolledAccountLoyaltyOptions:
+        type: string
+      termAccountBalance:
+        type: string
+      termAccountAvailableCredit:
+        type: string
+      slatwallAuthenticationExistsFlag:
+        type: string
+      eligibleAccountPaymentMethodsSmartList:
+        type: string
+      saveablePaymentMethodsSmartList:
+        type: string
+      phoneNumber:
+        type: string
+      passwordResetID:
+        type: string
+      ordersNotPlacedSmartList:
+        type: string
+      ordersPlacedSmartList:
+        type: string
+      guestAccountFlag:
+        type: string
+      gravatarURL:
+        type: string
+      fullName:
+        type: string
+      emailAddress:
+        type: string
+      adminAccountFlag:
+        type: string
+      adminIcon:
+        type: string
+      address:
+        type: string
+      activeSubscriptionUsageBenefitsSmartList:
+        type: string
+      primaryEmailAddressNotInUseFlag:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteContactID:
+        description: string 
+      remoteCustomerID:
+        description: string 
+      remoteEmployeeID:
+        description: string 
+      remoteID:
+        description: string 
+      promotionCodes:
+        description:  many-to-many
+      permissionGroups:
+        description:  many-to-many
+      priceGroups:
+        description:  many-to-many
+      termAccountOrderPayments:
+        description:  one-to-many
+      subscriptionUsages:
+        description:  one-to-many
+      subscriptionUsageBenefitAccounts:
+        description:  one-to-many
+      productReviews:
+        description:  one-to-many
+      orders:
+        description:  one-to-many
+      eventRegistrations:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      accountPhoneNumbers:
+        description:  one-to-many
+      accountPayments:
+        description:  one-to-many
+      accountPaymentMethods:
+        description:  one-to-many
+      accountLoyalties:
+        description:  one-to-many
+      accountEmailAddresses:
+        description:  one-to-many
+      accountContentAccesses:
+        description:  one-to-many
+      accountAuthentications:
+        description:  one-to-many
+      accountAddresses:
+        description:  one-to-many
+      accountCreatedSite:
+        description:  many-to-one
+      primaryShippingAddress:
+        description:  many-to-one
+      primaryPaymentMethod:
+        description:  many-to-one
+      primaryAddress:
+        description:  many-to-one
+      primaryPhoneNumber:
+        description:  many-to-one
+      primaryEmailAddress:
+        description:  many-to-one
+      primaryBillingAddress:
+        description:  many-to-one
+      cmsAccountID:
+        description: string 
+      failedLoginAttemptCount:
+        description: integer 
+      loginLockExpiresDateTime:
+        description: timestamp 
+      company:
+        description: string 
+      lastName:
+        description: string 
+      firstName:
+        description: string 
+      superUserFlag:
+        description: boolean 
+      accountID:
+        description: string Primary ID
+  AccountAddress:
+    required:
+      - accountAddressID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      attributeValues:
+        description:  one-to-many
+      address:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      accountAddressName:
+        description: string 
+      accountAddressID:
+        description: string Primary ID   
+  newAccountAddress:
+    required:
+      - accountAddressID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      attributeValues:
+        description:  one-to-many
+      address:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      accountAddressName:
+        description: string 
+      accountAddressID:
+        description: string Primary ID
+  AccountEmailAddress:
+    required:
+      - accountEmailAddressID
+    properties:
+      primaryFlag:
+        type: string
+      primaryEmailAddressNotInUseFlag:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      accountEmailType:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      verificationCode:
+        description: string 
+      verifiedFlag:
+        description: boolean 
+      emailAddress:
+        description: string 
+      accountEmailAddressID:
+        description: string Primary ID   
+  newAccountEmailAddress:
+    required:
+      - accountEmailAddressID
+    properties:
+      primaryFlag:
+        type: string
+      primaryEmailAddressNotInUseFlag:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      accountEmailType:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      verificationCode:
+        description: string 
+      verifiedFlag:
+        description: boolean 
+      emailAddress:
+        description: string 
+      accountEmailAddressID:
+        description: string Primary ID
+  AccountContentAccess:
+    required:
+      - accountContentAccessID
+    properties:
+      accessContents:
+        description:  many-to-many
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      contents:
+        description:  many-to-many
+      account:
+        description:  many-to-one
+      orderItem:
+        description:  many-to-one
+      accountContentAccessID:
+        description: string   
+  newAccountContentAccess:
+    required:
+      - accountContentAccessID
+    properties:
+      accessContents:
+        description:  many-to-many
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      contents:
+        description:  many-to-many
+      account:
+        description:  many-to-one
+      orderItem:
+        description:  many-to-one
+      accountContentAccessID:
+        description: string Primary ID
+  Order:
+    required:
+      - orderID
+    properties:
+      totalReturnQuantity:
+        type: string
+      totalSaleQuantity:
+        type: string
+      totalQuantity:
+        type: string
+      totalItems:
+        type: string
+      total:
+        type: string
+      taxTotal:
+        type: string
+      subTotalAfterItemDiscounts:
+        type: string
+      subTotal:
+        type: string
+      statusCode:
+        type: string
+      saveShippingAccountAddressName:
+        type: string
+      saveShippingAccountAddressFlag:
+        type: string
+      saveBillingAccountAddressName:
+        type: string
+      saveBillingAccountAddressFlag:
+        type: string
+      saleItemSmartList:
+        type: string
+      referencingPaymentAmountCreditedTotal:
+        type: string
+      returnItemSmartList:
+        type: string
+      quantityUnreceived:
+        type: string
+      quantityReceived:
+        type: string
+      quantityUndelivered:
+        type: string
+      quantityDelivered:
+        type: string
+      promotionCodeList:
+        type: string
+      paymentMethodOptionsSmartList:
+        type: string
+      paymentAmountDue:
+        type: string
+      paymentAmountCreditedTotal:
+        type: string
+      paymentAmountReceivedTotal:
+        type: string
+      paymentAmountTotal:
+        type: string
+      defaultStockLocationOptions:
+        type: string
+      orderTypeOptions:
+        type: string
+      orderRequirementsList:
+        type: string
+      orderPaymentRefundOptions:
+        type: string
+      orderPaymentCreditAmountNeeded:
+        type: string
+      orderPaymentChargeAmountNeeded:
+        type: string
+      orderPaymentAmountNeeded:
+        type: string
+      orderDiscountAmountTotal:
+        type: string
+      nextEstimatedFulfillmentDateTime:
+        type: string
+      nextEstimatedDeliveryDateTime:
+        type: string
+      fulfillmentChargeAfterDiscountTotal:
+        type: string
+      fulfillmentRefundTotal:
+        type: string
+      fulfillmentChargeTotal:
+        type: string
+      fulfillmentTotal:
+        type: string
+      fulfillmentDiscountAmountTotal:
+        type: string
+      itemDiscountAmountTotal:
+        type: string
+      eligiblePaymentMethodDetails:
+        type: string
+      dynamicCreditOrderPaymentAmount:
+        type: string
+      dynamicChargeOrderPaymentAmount:
+        type: string
+      dynamicCreditOrderPayment:
+        type: string
+      dynamicChargeOrderPayment:
+        type: string
+      discountTotal:
+        type: string
+      depositItemSmartList:
+        type: string
+      deliveredItemsAmountTotal:
+        type: string
+      addPaymentRequirementDetails:
+        type: string
+      addOrderItemStockOptionsSmartList:
+        type: string
+      addOrderItemSkuOptionsSmartList:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      promotionCodes:
+        description:  many-to-many
+      accountLoyaltyTransactions:
+        description:  one-to-many
+      referencingOrders:
+        description:  one-to-many
+      stockReceivers:
+        description:  one-to-many
+      orderReturns:
+        description:  one-to-many
+      orderPayments:
+        description:  one-to-many
+      orderFulfillments:
+        description:  one-to-many
+      orderDeliveries:
+        description:  one-to-many
+      appliedPromotions:
+        description:  one-to-many
+      orderItems:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      orderPlacedSite:
+        description:  many-to-one
+      orderCreatedSite:
+        description:  many-to-one
+      shippingAddress:
+        description:  many-to-one
+      shippingAccountAddress:
+        description:  many-to-one
+      referencedOrder:
+        description:  many-to-one
+      orderOrigin:
+        description:  many-to-one
+      orderStatusType:
+        description:  many-to-one
+      orderType:
+        description:  many-to-one
+      defaultStockLocation:
+        description:  many-to-one
+      billingAddress:
+        description:  many-to-one
+      billingAccountAddress:
+        description:  many-to-one
+      assignedAccount:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      calculatedTotal:
+        description: big_decimal 
+      estimatedFulfillmentDateTime:
+        description: timestamp 
+      estimatedDeliveryDateTime:
+        description: timestamp 
+      referencedOrderType:
+        description: string 
+      orderCloseDateTime:
+        description: timestamp 
+      orderOpenIPAddress:
+        description: string 
+      orderOpenDateTime:
+        description: timestamp 
+      currencyCode:
+        description: string 
+      orderNumber:
+        description: string 
+      orderID:
+        description: string Primary ID   
+  newOrder:
+    required:
+      - orderID
+    properties:
+      totalReturnQuantity:
+        type: string
+      totalSaleQuantity:
+        type: string
+      totalQuantity:
+        type: string
+      totalItems:
+        type: string
+      total:
+        type: string
+      taxTotal:
+        type: string
+      subTotalAfterItemDiscounts:
+        type: string
+      subTotal:
+        type: string
+      statusCode:
+        type: string
+      saveShippingAccountAddressName:
+        type: string
+      saveShippingAccountAddressFlag:
+        type: string
+      saveBillingAccountAddressName:
+        type: string
+      saveBillingAccountAddressFlag:
+        type: string
+      saleItemSmartList:
+        type: string
+      referencingPaymentAmountCreditedTotal:
+        type: string
+      returnItemSmartList:
+        type: string
+      quantityUnreceived:
+        type: string
+      quantityReceived:
+        type: string
+      quantityUndelivered:
+        type: string
+      quantityDelivered:
+        type: string
+      promotionCodeList:
+        type: string
+      paymentMethodOptionsSmartList:
+        type: string
+      paymentAmountDue:
+        type: string
+      paymentAmountCreditedTotal:
+        type: string
+      paymentAmountReceivedTotal:
+        type: string
+      paymentAmountTotal:
+        type: string
+      defaultStockLocationOptions:
+        type: string
+      orderTypeOptions:
+        type: string
+      orderRequirementsList:
+        type: string
+      orderPaymentRefundOptions:
+        type: string
+      orderPaymentCreditAmountNeeded:
+        type: string
+      orderPaymentChargeAmountNeeded:
+        type: string
+      orderPaymentAmountNeeded:
+        type: string
+      orderDiscountAmountTotal:
+        type: string
+      nextEstimatedFulfillmentDateTime:
+        type: string
+      nextEstimatedDeliveryDateTime:
+        type: string
+      fulfillmentChargeAfterDiscountTotal:
+        type: string
+      fulfillmentRefundTotal:
+        type: string
+      fulfillmentChargeTotal:
+        type: string
+      fulfillmentTotal:
+        type: string
+      fulfillmentDiscountAmountTotal:
+        type: string
+      itemDiscountAmountTotal:
+        type: string
+      eligiblePaymentMethodDetails:
+        type: string
+      dynamicCreditOrderPaymentAmount:
+        type: string
+      dynamicChargeOrderPaymentAmount:
+        type: string
+      dynamicCreditOrderPayment:
+        type: string
+      dynamicChargeOrderPayment:
+        type: string
+      discountTotal:
+        type: string
+      depositItemSmartList:
+        type: string
+      deliveredItemsAmountTotal:
+        type: string
+      addPaymentRequirementDetails:
+        type: string
+      addOrderItemStockOptionsSmartList:
+        type: string
+      addOrderItemSkuOptionsSmartList:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      promotionCodes:
+        description:  many-to-many
+      accountLoyaltyTransactions:
+        description:  one-to-many
+      referencingOrders:
+        description:  one-to-many
+      stockReceivers:
+        description:  one-to-many
+      orderReturns:
+        description:  one-to-many
+      orderPayments:
+        description:  one-to-many
+      orderFulfillments:
+        description:  one-to-many
+      orderDeliveries:
+        description:  one-to-many
+      appliedPromotions:
+        description:  one-to-many
+      orderItems:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      orderPlacedSite:
+        description:  many-to-one
+      orderCreatedSite:
+        description:  many-to-one
+      shippingAddress:
+        description:  many-to-one
+      shippingAccountAddress:
+        description:  many-to-one
+      referencedOrder:
+        description:  many-to-one
+      orderOrigin:
+        description:  many-to-one
+      orderStatusType:
+        description:  many-to-one
+      orderType:
+        description:  many-to-one
+      defaultStockLocation:
+        description:  many-to-one
+      billingAddress:
+        description:  many-to-one
+      billingAccountAddress:
+        description:  many-to-one
+      assignedAccount:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      calculatedTotal:
+        description: big_decimal 
+      estimatedFulfillmentDateTime:
+        description: timestamp 
+      estimatedDeliveryDateTime:
+        description: timestamp 
+      referencedOrderType:
+        description: string 
+      orderCloseDateTime:
+        description: timestamp 
+      orderOpenIPAddress:
+        description: string 
+      orderOpenDateTime:
+        description: timestamp 
+      currencyCode:
+        description: string 
+      orderNumber:
+        description: string 
+      orderID:
+        description: string Primary ID
+  OrderItem:
+    required:
+      - orderItemID
+    properties:
+      salePrice:
+        type: string
+      productBundleGroupPrice:
+        type: string
+      productBundlePrice:
+        type: string
+      itemTotal:
+        type: string
+      taxLiabilityAmount:
+        type: string
+      taxAmount:
+        type: string
+      registrants:
+        type: string
+      quantityUnreceived:
+        type: string
+      quantityReceived:
+        type: string
+      quantityUndelivered:
+        type: string
+      quantityDelivered:
+        type: string
+      orderStatusCode:
+        type: string
+      extendedPriceAfterDiscount:
+        type: string
+      extendedPrice:
+        type: string
+      discountAmount:
+        type: string
+      activeEventRegistrations:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      publicRemoteID:
+        description: string 
+      accountLoyaltyTransactions:
+        description:  one-to-many
+      referencingOrderItems:
+        description:  one-to-many
+      stockReceiverItems:
+        description:  one-to-many
+      orderDeliveryItems:
+        description:  one-to-many
+      eventRegistrations:
+        description:  one-to-many
+      childOrderItems:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      appliedTaxes:
+        description:  one-to-many
+      appliedPromotions:
+        description:  one-to-many
+      referencedOrderItem:
+        description:  many-to-one
+      productBundleGroup:
+        description:  many-to-one
+      parentOrderItem:
+        description:  many-to-one
+      orderReturn:
+        description:  many-to-one
+      orderFulfillment:
+        description:  many-to-one
+      order:
+        description:  many-to-one
+      stock:
+        description:  many-to-one
+      sku:
+        description:  many-to-one
+      orderItemStatusType:
+        description:  many-to-one
+      orderItemType:
+        description:  many-to-one
+      appliedPriceGroup:
+        description:  many-to-one
+      estimatedFulfillmentDateTime:
+        description: timestamp 
+      estimatedDeliveryDateTime:
+        description: timestamp 
+      quantity:
+        description: integer 
+      currencyCode:
+        description: string 
+      skuPrice:
+        description: big_decimal 
+      price:
+        description: big_decimal 
+      orderItemID:
+        description: string Primary ID   
+  newOrderItem:
+    required:
+      - orderItemID
+    properties:
+      salePrice:
+        type: string
+      productBundleGroupPrice:
+        type: string
+      productBundlePrice:
+        type: string
+      itemTotal:
+        type: string
+      taxLiabilityAmount:
+        type: string
+      taxAmount:
+        type: string
+      registrants:
+        type: string
+      quantityUnreceived:
+        type: string
+      quantityReceived:
+        type: string
+      quantityUndelivered:
+        type: string
+      quantityDelivered:
+        type: string
+      orderStatusCode:
+        type: string
+      extendedPriceAfterDiscount:
+        type: string
+      extendedPrice:
+        type: string
+      discountAmount:
+        type: string
+      activeEventRegistrations:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      publicRemoteID:
+        description: string 
+      accountLoyaltyTransactions:
+        description:  one-to-many
+      referencingOrderItems:
+        description:  one-to-many
+      stockReceiverItems:
+        description:  one-to-many
+      orderDeliveryItems:
+        description:  one-to-many
+      eventRegistrations:
+        description:  one-to-many
+      childOrderItems:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      appliedTaxes:
+        description:  one-to-many
+      appliedPromotions:
+        description:  one-to-many
+      referencedOrderItem:
+        description:  many-to-one
+      productBundleGroup:
+        description:  many-to-one
+      parentOrderItem:
+        description:  many-to-one
+      orderReturn:
+        description:  many-to-one
+      orderFulfillment:
+        description:  many-to-one
+      order:
+        description:  many-to-one
+      stock:
+        description:  many-to-one
+      sku:
+        description:  many-to-one
+      orderItemStatusType:
+        description:  many-to-one
+      orderItemType:
+        description:  many-to-one
+      appliedPriceGroup:
+        description:  many-to-one
+      estimatedFulfillmentDateTime:
+        description: timestamp 
+      estimatedDeliveryDateTime:
+        description: timestamp 
+      quantity:
+        description: integer 
+      currencyCode:
+        description: string 
+      skuPrice:
+        description: big_decimal 
+      price:
+        description: big_decimal 
+      orderItemID:
+        description: string Primary ID
+  Product:
+    required:
+      - productID
+    properties:
+      schedulingOptions:
+        type: string
+      salePrice:
+        type: string
+      livePrice:
+        type: string
+      listPrice:
+        type: string
+      renewalPrice:
+        type: string
+      price:
+        type: string
+      defaultProductImageFiles:
+        type: string
+      currencyCode:
+        type: string
+      currentAccountPrice:
+        type: string
+      unusedProductSubscriptionTerms:
+        type: string
+      unusedProductOptionGroups:
+        type: string
+      unusedProductOptions:
+        type: string
+      transactionExistsFlag:
+        type: string
+      title:
+        type: string
+      salePriceDetailsForSkus:
+        type: string
+      qats:
+        type: string
+      placedOrderItemsSmartList:
+        type: string
+      optionGroupCount:
+        type: string
+      nextSkuCodeCount:
+        type: string
+      eventRegistrations:
+        type: string
+      eventConflictExistsFlag:
+        type: string
+      estimatedReceivalDetails:
+        type: string
+      bundleSkusSmartList:
+        type: string
+      brandOptions:
+        type: string
+      brandName:
+        type: string
+      baseProductType:
+        type: string
+      allowAddOptionGroupFlag:
+        type: string
+      availableForPurchaseFlag:
+        type: string
+      allowBackorderFlag:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      physicals:
+        description:  many-to-many
+      vendors:
+        description:  many-to-many
+      priceGroupRates:
+        description:  many-to-many
+      loyaltyRedemptionExclusions:
+        description:  many-to-many
+      loyaltyRedemptions:
+        description:  many-to-many
+      loyaltyAccruementExclusions:
+        description:  many-to-many
+      loyaltyAccruements:
+        description:  many-to-many
+      promotionQualifierExclusions:
+        description:  many-to-many
+      promotionQualifiers:
+        description:  many-to-many
+      promotionRewardExclusions:
+        description:  many-to-many
+      promotionRewards:
+        description:  many-to-many
+      relatedProducts:
+        description:  many-to-many
+      categories:
+        description:  many-to-many
+      listingPages:
+        description:  many-to-many
+      productSchedules:
+        description:  one-to-many
+      productReviews:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      productImages:
+        description:  one-to-many
+      skus:
+        description:  one-to-many
+      defaultSku:
+        description:  many-to-one
+      productType:
+        description:  many-to-one
+      brand:
+        description:  many-to-one
+      calculatedTitle:
+        description: string 
+      calculatedAllowBackorderFlag:
+        description: boolean 
+      calculatedQATS:
+        description: integer 
+      calculatedSalePrice:
+        description: big_decimal 
+      purchaseEndDateTime:
+        description: timestamp 
+      purchaseStartDateTime:
+        description: timestamp 
+      sortOrder:
+        description: integer 
+      publishedFlag:
+        description: boolean 
+      productDescription:
+        description: string 
+      productCode:
+        description: string 
+      productName:
+        description: string 
+      urlTitle:
+        description: string 
+      activeFlag:
+        description: boolean 
+      productID:
+        description: string Primary ID   
+  newProduct:
+    required:
+      - productID
+    properties:
+      schedulingOptions:
+        type: string
+      salePrice:
+        type: string
+      livePrice:
+        type: string
+      listPrice:
+        type: string
+      renewalPrice:
+        type: string
+      price:
+        type: string
+      defaultProductImageFiles:
+        type: string
+      currencyCode:
+        type: string
+      currentAccountPrice:
+        type: string
+      unusedProductSubscriptionTerms:
+        type: string
+      unusedProductOptionGroups:
+        type: string
+      unusedProductOptions:
+        type: string
+      transactionExistsFlag:
+        type: string
+      title:
+        type: string
+      salePriceDetailsForSkus:
+        type: string
+      qats:
+        type: string
+      placedOrderItemsSmartList:
+        type: string
+      optionGroupCount:
+        type: string
+      nextSkuCodeCount:
+        type: string
+      eventRegistrations:
+        type: string
+      eventConflictExistsFlag:
+        type: string
+      estimatedReceivalDetails:
+        type: string
+      bundleSkusSmartList:
+        type: string
+      brandOptions:
+        type: string
+      brandName:
+        type: string
+      baseProductType:
+        type: string
+      allowAddOptionGroupFlag:
+        type: string
+      availableForPurchaseFlag:
+        type: string
+      allowBackorderFlag:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      physicals:
+        description:  many-to-many
+      vendors:
+        description:  many-to-many
+      priceGroupRates:
+        description:  many-to-many
+      loyaltyRedemptionExclusions:
+        description:  many-to-many
+      loyaltyRedemptions:
+        description:  many-to-many
+      loyaltyAccruementExclusions:
+        description:  many-to-many
+      loyaltyAccruements:
+        description:  many-to-many
+      promotionQualifierExclusions:
+        description:  many-to-many
+      promotionQualifiers:
+        description:  many-to-many
+      promotionRewardExclusions:
+        description:  many-to-many
+      promotionRewards:
+        description:  many-to-many
+      relatedProducts:
+        description:  many-to-many
+      categories:
+        description:  many-to-many
+      listingPages:
+        description:  many-to-many
+      productSchedules:
+        description:  one-to-many
+      productReviews:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      productImages:
+        description:  one-to-many
+      skus:
+        description:  one-to-many
+      defaultSku:
+        description:  many-to-one
+      productType:
+        description:  many-to-one
+      brand:
+        description:  many-to-one
+      calculatedTitle:
+        description: string 
+      calculatedAllowBackorderFlag:
+        description: boolean 
+      calculatedQATS:
+        description: integer 
+      calculatedSalePrice:
+        description: big_decimal 
+      purchaseEndDateTime:
+        description: timestamp 
+      purchaseStartDateTime:
+        description: timestamp 
+      sortOrder:
+        description: integer 
+      publishedFlag:
+        description: boolean 
+      productDescription:
+        description: string 
+      productCode:
+        description: string 
+      productName:
+        description: string 
+      urlTitle:
+        description: string 
+      activeFlag:
+        description: boolean 
+      productID:
+        description: string Primary ID
+  Sku:
+    required:
+      - skuID
+    properties:
+      transactionExistsFlag:
+        type: string
+      stocksDeletableFlag:
+        type: string
+      skuDefinition:
+        type: string
+      salePriceExpirationDateTime:
+        type: string
+      salePriceDiscountAmount:
+        type: string
+      salePriceDiscountType:
+        type: string
+      salePrice:
+        type: string
+      salePriceDetails:
+        type: string
+      registrantEmailList:
+        type: string
+      registrantCount:
+        type: string
+      registeredUserCount:
+        type: string
+      qats:
+        type: string
+      eventStatus:
+        type: string
+      productScheduleSmartList:
+        type: string
+      placedOrderItemsSmartList:
+        type: string
+      optionsIDList:
+        type: string
+      optionsByOptionGroupIDStruct:
+        type: string
+      optionsByOptionGroupCodeStruct:
+        type: string
+      nextEstimatedAvailableDate:
+        type: string
+      locations:
+        type: string
+      livePrice:
+        type: string
+      imageExistsFlag:
+        type: string
+      eventOverbookedFlag:
+        type: string
+      eventConflictExistsFlag:
+        type: string
+      eventConflictsSmartList:
+        type: string
+      eligibleFulfillmentMethods:
+        type: string
+      defaultFlag:
+        type: string
+      currencyDetails:
+        type: string
+      currencyCode:
+        type: string
+      currentAccountPrice:
+        type: string
+      baseProductType:
+        type: string
+      availableSeatCount:
+        type: string
+      availableForPurchaseFlag:
+        type: string
+      assignedOrderItemAttributeSetSmartList:
+        type: string
+      adminIcon:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      physicals:
+        description:  many-to-many
+      priceGroupRates:
+        description:  many-to-many
+      loyaltyRedemptionExclusions:
+        description:  many-to-many
+      loyaltyRedemptions:
+        description:  many-to-many
+      loyaltyAccruementExclusions:
+        description:  many-to-many
+      loyaltyAccruements:
+        description:  many-to-many
+      promotionQualifierExclusions:
+        description:  many-to-many
+      promotionQualifiers:
+        description:  many-to-many
+      promotionRewardExclusions:
+        description:  many-to-many
+      promotionRewards:
+        description:  many-to-many
+      locationConfigurations:
+        description:  many-to-many
+      renewalSubscriptionBenefits:
+        description:  many-to-many
+      subscriptionBenefits:
+        description:  many-to-many
+      accessContents:
+        description:  many-to-many
+      options:
+        description:  many-to-many
+      productReviews:
+        description:  one-to-many
+      productBundleGroups:
+        description:  one-to-many
+      assignedSkuBundles:
+        description:  one-to-many
+      eventRegistrations:
+        description:  one-to-many
+      bundledSkus:
+        description:  one-to-many
+      stocks:
+        description:  one-to-many
+      skuCurrencies:
+        description:  one-to-many
+      orderItems:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      alternateSkuCodes:
+        description:  one-to-many
+      waitlistQueueTerm:
+        description:  many-to-one
+      subscriptionTerm:
+        description:  many-to-one
+      productSchedule:
+        description:  many-to-one
+      product:
+        description:  many-to-one
+      calculatedQATS:
+        description: integer 
+      allowEventWaitlistingFlag:
+        description: boolean 
+      attendedQuantity:
+        description: integer 
+      eventCapacity:
+        description: integer 
+      bundleFlag:
+        description: boolean 
+      purchaseEndDateTime:
+        description: timestamp 
+      purchaseStartDateTime:
+        description: timestamp 
+      endReservationDateTime:
+        description: timestamp 
+      startReservationDateTime:
+        description: timestamp 
+      eventEndDateTime:
+        description: timestamp 
+      eventStartDateTime:
+        description: timestamp 
+      userDefinedPriceFlag:
+        description: boolean 
+      imageFile:
+        description: string 
+      renewalPrice:
+        description: big_decimal 
+      price:
+        description: big_decimal 
+      listPrice:
+        description: big_decimal 
+      eventAttendanceCode:
+        description: string 
+      skuCode:
+        description: string 
+      skuDescription:
+        description: string 
+      skuName:
+        description: string 
+      publishedFlag:
+        description: boolean 
+      activeFlag:
+        description: boolean 
+      skuID:
+        description: string Primary ID   
+  newSku:
+    required:
+      - skuID
+    properties:
+      transactionExistsFlag:
+        type: string
+      stocksDeletableFlag:
+        type: string
+      skuDefinition:
+        type: string
+      salePriceExpirationDateTime:
+        type: string
+      salePriceDiscountAmount:
+        type: string
+      salePriceDiscountType:
+        type: string
+      salePrice:
+        type: string
+      salePriceDetails:
+        type: string
+      registrantEmailList:
+        type: string
+      registrantCount:
+        type: string
+      registeredUserCount:
+        type: string
+      qats:
+        type: string
+      eventStatus:
+        type: string
+      productScheduleSmartList:
+        type: string
+      placedOrderItemsSmartList:
+        type: string
+      optionsIDList:
+        type: string
+      optionsByOptionGroupIDStruct:
+        type: string
+      optionsByOptionGroupCodeStruct:
+        type: string
+      nextEstimatedAvailableDate:
+        type: string
+      locations:
+        type: string
+      livePrice:
+        type: string
+      imageExistsFlag:
+        type: string
+      eventOverbookedFlag:
+        type: string
+      eventConflictExistsFlag:
+        type: string
+      eventConflictsSmartList:
+        type: string
+      eligibleFulfillmentMethods:
+        type: string
+      defaultFlag:
+        type: string
+      currencyDetails:
+        type: string
+      currencyCode:
+        type: string
+      currentAccountPrice:
+        type: string
+      baseProductType:
+        type: string
+      availableSeatCount:
+        type: string
+      availableForPurchaseFlag:
+        type: string
+      assignedOrderItemAttributeSetSmartList:
+        type: string
+      adminIcon:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      physicals:
+        description:  many-to-many
+      priceGroupRates:
+        description:  many-to-many
+      loyaltyRedemptionExclusions:
+        description:  many-to-many
+      loyaltyRedemptions:
+        description:  many-to-many
+      loyaltyAccruementExclusions:
+        description:  many-to-many
+      loyaltyAccruements:
+        description:  many-to-many
+      promotionQualifierExclusions:
+        description:  many-to-many
+      promotionQualifiers:
+        description:  many-to-many
+      promotionRewardExclusions:
+        description:  many-to-many
+      promotionRewards:
+        description:  many-to-many
+      locationConfigurations:
+        description:  many-to-many
+      renewalSubscriptionBenefits:
+        description:  many-to-many
+      subscriptionBenefits:
+        description:  many-to-many
+      accessContents:
+        description:  many-to-many
+      options:
+        description:  many-to-many
+      productReviews:
+        description:  one-to-many
+      productBundleGroups:
+        description:  one-to-many
+      assignedSkuBundles:
+        description:  one-to-many
+      eventRegistrations:
+        description:  one-to-many
+      bundledSkus:
+        description:  one-to-many
+      stocks:
+        description:  one-to-many
+      skuCurrencies:
+        description:  one-to-many
+      orderItems:
+        description:  one-to-many
+      attributeValues:
+        description:  one-to-many
+      alternateSkuCodes:
+        description:  one-to-many
+      waitlistQueueTerm:
+        description:  many-to-one
+      subscriptionTerm:
+        description:  many-to-one
+      productSchedule:
+        description:  many-to-one
+      product:
+        description:  many-to-one
+      calculatedQATS:
+        description: integer 
+      allowEventWaitlistingFlag:
+        description: boolean 
+      attendedQuantity:
+        description: integer 
+      eventCapacity:
+        description: integer 
+      bundleFlag:
+        description: boolean 
+      purchaseEndDateTime:
+        description: timestamp 
+      purchaseStartDateTime:
+        description: timestamp 
+      endReservationDateTime:
+        description: timestamp 
+      startReservationDateTime:
+        description: timestamp 
+      eventEndDateTime:
+        description: timestamp 
+      eventStartDateTime:
+        description: timestamp 
+      userDefinedPriceFlag:
+        description: boolean 
+      imageFile:
+        description: string 
+      renewalPrice:
+        description: big_decimal 
+      price:
+        description: big_decimal 
+      listPrice:
+        description: big_decimal 
+      eventAttendanceCode:
+        description: string 
+      skuCode:
+        description: string 
+      skuDescription:
+        description: string 
+      skuName:
+        description: string 
+      publishedFlag:
+        description: boolean 
+      activeFlag:
+        description: boolean 
+      skuID:
+        description: string Primary ID
+  SubscriptionUsage:
+    required:
+      - subscriptionUsageID
+    properties:
+      subscriptionOrderItemName:
+        type: string
+      currentStatusType:
+        type: string
+      currentStatusCode:
+        type: string
+      currentStatus:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      renewalSubscriptionUsageBenefits:
+        description:  one-to-many
+      subscriptionStatus:
+        description:  one-to-many
+      subscriptionOrderItems:
+        description:  one-to-many
+      subscriptionUsageBenefits:
+        description:  one-to-many
+      subscriptionTerm:
+        description:  many-to-one
+      renewalTerm:
+        description:  many-to-one
+      initialTerm:
+        description:  many-to-one
+      gracePeriodTerm:
+        description:  many-to-one
+      accountPaymentMethod:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      expirationDate:
+        description: timestamp 
+      nextReminderEmailDate:
+        description: timestamp 
+      nextBillDate:
+        description: timestamp 
+      autoPayFlag:
+        description: boolean 
+      autoRenewFlag:
+        description: boolean 
+      currencyCode:
+        description: string 
+      renewalPrice:
+        description: big_decimal 
+      allowProrateFlag:
+        description: boolean 
+      subscriptionUsageID:
+        description: string Primary ID   
+  newSubscriptionUsage:
+    required:
+      - subscriptionUsageID
+    properties:
+      subscriptionOrderItemName:
+        type: string
+      currentStatusType:
+        type: string
+      currentStatusCode:
+        type: string
+      currentStatus:
+        type: string
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      renewalSubscriptionUsageBenefits:
+        description:  one-to-many
+      subscriptionStatus:
+        description:  one-to-many
+      subscriptionOrderItems:
+        description:  one-to-many
+      subscriptionUsageBenefits:
+        description:  one-to-many
+      subscriptionTerm:
+        description:  many-to-one
+      renewalTerm:
+        description:  many-to-one
+      initialTerm:
+        description:  many-to-one
+      gracePeriodTerm:
+        description:  many-to-one
+      accountPaymentMethod:
+        description:  many-to-one
+      account:
+        description:  many-to-one
+      expirationDate:
+        description: timestamp 
+      nextReminderEmailDate:
+        description: timestamp 
+      nextBillDate:
+        description: timestamp 
+      autoPayFlag:
+        description: boolean 
+      autoRenewFlag:
+        description: boolean 
+      currencyCode:
+        description: string 
+      renewalPrice:
+        description: big_decimal 
+      allowProrateFlag:
+        description: boolean 
+      subscriptionUsageID:
+        description: string Primary ID 
+  SubscriptionUsageBenefit:
+    required:
+      - subscriptionUsageBenefitID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      excludedContents:
+        description:  many-to-many
+      excludedCategories:
+        description:  many-to-many
+      contents:
+        description:  many-to-many
+      categories:
+        description:  many-to-many
+      promotions:
+        description:  many-to-many
+      priceGroups:
+        description:  many-to-many
+      subscriptionUsageBenefitAccounts:
+        description:  one-to-many
+      accessType:
+        description:  many-to-one
+      renewalSubscriptionUsage:
+        description:  many-to-one
+      subscriptionUsage:
+        description:  many-to-one
+      subscriptionBenefit:
+        description:  many-to-one
+      maxUseCount:
+        description: integer 
+      subscriptionUsageBenefitID:
+        description: string Primary ID   
+  newSubscriptionUsageBenefit:
+    required:
+      - subscriptionUsageBenefitID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      excludedContents:
+        description:  many-to-many
+      excludedCategories:
+        description:  many-to-many
+      contents:
+        description:  many-to-many
+      categories:
+        description:  many-to-many
+      promotions:
+        description:  many-to-many
+      priceGroups:
+        description:  many-to-many
+      subscriptionUsageBenefitAccounts:
+        description:  one-to-many
+      accessType:
+        description:  many-to-one
+      renewalSubscriptionUsage:
+        description:  many-to-one
+      subscriptionUsage:
+        description:  many-to-one
+      subscriptionBenefit:
+        description:  many-to-one
+      maxUseCount:
+        description: integer 
+      subscriptionUsageBenefitID:
+        description: string Primary ID
+  SubscriptionTerm:
+    required:
+      - subscriptionTermID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      skus:
+        description:  one-to-many
+      gracePeriodTerm:
+        description:  many-to-one
+      renewalTerm:
+        description:  many-to-one
+      initialTerm:
+        description:  many-to-one
+      autoPayFlag:
+        description: boolean 
+      autoRenewFlag:
+        description: boolean 
+      allowProrateFlag:
+        description: boolean 
+      subscriptionTermName:
+        description: string 
+      subscriptionTermID:
+        description: string Primary ID   
+  newSubscriptionTerm:
+    required:
+      - subscriptionTermID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      skus:
+        description:  one-to-many
+      gracePeriodTerm:
+        description:  many-to-one
+      renewalTerm:
+        description:  many-to-one
+      initialTerm:
+        description:  many-to-one
+      autoPayFlag:
+        description: boolean 
+      autoRenewFlag:
+        description: boolean 
+      allowProrateFlag:
+        description: boolean 
+      subscriptionTermName:
+        description: string 
+      subscriptionTermID:
+        description: string Primary ID
+  SubscriptionBenefit:
+    required:
+      - subscriptionBenefitID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      skus:
+        description:  many-to-many
+      excludedContents:
+        description:  many-to-many
+      excludedCategories:
+        description:  many-to-many
+      contents:
+        description:  many-to-many
+      categories:
+        description:  many-to-many
+      promotions:
+        description:  many-to-many
+      priceGroups:
+        description:  many-to-many
+      attributeValues:
+        description:  one-to-many
+      accessType:
+        description:  many-to-one
+      maxUseCount:
+        description: integer 
+      subscriptionBenefitName:
+        description: string 
+      subscriptionBenefitID:
+        description: string Primary ID   
+  newSubscriptionBenefit:
+    required:
+      - subscriptionBenefitID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      skus:
+        description:  many-to-many
+      excludedContents:
+        description:  many-to-many
+      excludedCategories:
+        description:  many-to-many
+      contents:
+        description:  many-to-many
+      categories:
+        description:  many-to-many
+      promotions:
+        description:  many-to-many
+      priceGroups:
+        description:  many-to-many
+      attributeValues:
+        description:  one-to-many
+      accessType:
+        description:  many-to-one
+      maxUseCount:
+        description: integer 
+      subscriptionBenefitName:
+        description: string 
+      subscriptionBenefitID:
+        description: string Primary ID
+  SubscriptionOrderItem:
+    required:
+      - subscriptionOrderItemID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      subscriptionUsage:
+        description:  many-to-one
+      subscriptionOrderItemType:
+        description:  many-to-one
+      orderItem:
+        description:  many-to-one
+      subscriptionOrderItemID:
+        description: string Primary ID   
+  newSubscriptionOrderItem:
+    required:
+      - subscriptionOrderItemID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      subscriptionUsage:
+        description:  many-to-one
+      subscriptionOrderItemType:
+        description:  many-to-one
+      orderItem:
+        description:  many-to-one
+      subscriptionOrderItemID:
+        description: string Primary ID
+  SubscriptionStatus:
+    required:
+      - subscriptionStatusID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      subscriptionStatusChangeReasonType:
+        description:  many-to-one
+      subscriptionStatusType:
+        description:  many-to-one
+      subscriptionUsage:
+        description:  many-to-one
+      effectiveDateTime:
+        description: timestamp 
+      changeDateTime:
+        description: timestamp 
+      subscriptionStatusID:
+        description: string Primary ID   
+  newSubscriptionStatus:
+    required:
+      - subscriptionStatusID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      subscriptionStatusChangeReasonType:
+        description:  many-to-one
+      subscriptionStatusType:
+        description:  many-to-one
+      subscriptionUsage:
+        description:  many-to-one
+      effectiveDateTime:
+        description: timestamp 
+      changeDateTime:
+        description: timestamp 
+      subscriptionStatusID:
+        description: string Primary ID
+  FulfillmentMethod:
+    required:
+      - fulfillmentMethodID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      promotionQualifiers:
+        description:  many-to-many
+      orderFulfillments:
+        description:  one-to-many
+      shippingMethods:
+        description:  one-to-many
+      sortOrder:
+        description: integer 
+      activeFlag:
+        description: boolean 
+      fulfillmentMethodType:
+        description: string 
+      fulfillmentMethodName:
+        description: string 
+      fulfillmentMethodID:
+        description: string Primary ID   
+  newFulfillmentMethod:
+    required:
+      - fulfillmentMethodID
+    properties:
+      modifiedByAccountID:
+        description: string 
+      modifiedDateTime:
+        description: timestamp 
+      createdByAccountID:
+        description: string 
+      createdDateTime:
+        description: timestamp 
+      remoteID:
+        description: string 
+      promotionQualifiers:
+        description:  many-to-many
+      orderFulfillments:
+        description:  one-to-many
+      shippingMethods:
+        description:  one-to-many
+      sortOrder:
+        description: integer 
+      activeFlag:
+        description: boolean 
+      fulfillmentMethodType:
+        description: string 
+      fulfillmentMethodName:
+        description: string 
+      fulfillmentMethodID:
+        description: string Primary ID
+  errorModel:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+      message:
+        type: string
