@@ -136,10 +136,12 @@ component {
 					
 					arguments.slatwallScope.setContent(entityTemplateContent);
 				}else{
-					throw('no contentTemplateFile for the entity');
+					render404(arguments.slatwallScope,site);
+					//throw('no contentTemplateFile for the entity');
 				}
 			}else{
-				throw('no content for entity');
+				render404(arguments.slatwallScope,site);
+				//throw('no content for entity');
 			}
 		}else{
 			if(!isNull(arguments.contenturlTitlePath)){
@@ -151,7 +153,8 @@ component {
 			}
 			
 			if(isNull(content)){
-				throw('content does not exists for #arguments.contenturlTitlePath#');
+				content = render404(arguments.slatwallScope,site);
+				//throw('content does not exists for #arguments.contenturlTitlePath#');
 			}
 			//now that we have the content, get the file name so that we can retrieve it form the site's template directory
 			var contentTemplateFile = content.Setting('contentTemplateFile',[content]);
@@ -168,6 +171,19 @@ component {
 		templateBody = arguments.slatwallScope.getService('hibachiUtilityService').replaceStringTemplate(arguments.slatwallScope.getService('hibachiUtilityService').replaceStringEvaluateTemplate(templateData),arguments.slatwallScope.getContent());
 		
 		writeOutput(templateBody);
+		abort;
+	}
+	
+	function render404(required any slatwallScope, required any site){
+		var context = getPageContext();
+		context.getOut().clearBuffer();
+		var response = context.getResponse();
+		response.setstatus(404);
+		arguments.slatwallScope.getService("hibachiEventService").announceEvent(eventName="404");
+		var content = arguments.slatwallScope.getService('contentService').getContentBySiteIDAndUrlTitlePath(site.getSiteID(),'404');
+		if(!isNull(content)){
+			return content;
+		}
 		abort;
 	}
 	

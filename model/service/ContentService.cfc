@@ -63,8 +63,9 @@ component extends="HibachiService" persistent="false" accessors="true" output="f
 		// Call save on the content
 		arguments.content.setSite(arguments.processObject.getSite());
 		arguments.content.setParentContent(arguments.processObject.getParentContent());
-		arguments.content = this.saveProduct(arguments.content,arguments.data);
-		
+		arguments.data.urlTitle = reReplace(lcase(trim(arguments.data.urlTitle)), "[^a-z0-9 \-]", "", "all");
+		arguments.data.urlTitle = reReplace(arguments.data.urlTitle, "[-\s]+", "-", "all");
+		arguments.content = this.saveContent(arguments.content,arguments.data);
 		return arguments.content;
 	}
 	
@@ -73,14 +74,12 @@ component extends="HibachiService" persistent="false" accessors="true" output="f
 		if(directoryExists(getApplicationValue('applicationRootMappingPath') & '/apps/' & contentSite.getApp().getAppCode() & '/' & contentSite.getSiteCode() & '/templates' )) {
 			var siteDirectory = getApplicationValue('applicationRootMappingPath') & '/apps/' & contentSIte.getApp().getAppCode() & '/' & contentSIte.getSiteCode();
 			var templateDirectory = siteDirectory & '/templates';
-			var directoryList = directoryList(templateDirectory);
-			
+			var directoryList = directoryList(templateDirectory,false,"query");
 			var templates = [];
 			for(var directory in directoryList){
 				var template ={};
-				var templateName = listLast(directory,'/');
-				template['name'] = templateName;
-				template['value'] = templateName;
+				template['name'] = directory.name;
+				template['value'] = directory.name;
 				arrayAppend(templates,template);
 			}
 			return templates;

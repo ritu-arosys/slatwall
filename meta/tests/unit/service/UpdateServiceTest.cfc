@@ -46,61 +46,17 @@
 Notes:
 
 */
-component output="false" accessors="true" extends="HibachiProcess" {
+component extends="Slatwall.meta.tests.unit.SlatwallUnitTestBase" {
 
-	// Injected Entity
-	property name="content";
-	property name="urlTitle";
-	// Lazy / Injected Objects
-	property name="site";
-	property name="parentContent";
-	
-	// New Properties
-
-	// Data Properties (ID's)
-	property name="siteID";			// Only used on new sku
-	property name="parentContentID";		// Only used on new product
-	
-	// Data Properties (Related Entity Populate)
-	
-	// Data Properties (Object / Array Populate)
-	
-	// Option Properties
-	
-	// Helper Properties
-	
-	// ======================== START: Defaults ============================
-	
-	public any function getSite() {
-		if(!structKeyExists(variables, "site") && !isNull(getSiteID())) {
-			variables.site = getService("siteService").getSite(getSiteID());
-		}
-		return variables.site;
+	public void function setUp() {
+		super.setup();
+		
+		variables.service = request.slatwallScope.getService("updateService");
 	}
 	
-	public any function getParentContent() {
-		if(!structKeyExists(variables, "parentContent") && !isNull(getParentContentID())) {
-			variables.parentContent = getService("contentService").getContent(getParentContentID());
-		}
-		return variables.parentContent;
+	public void function updateCMSApplicationsTest(){
+		variables.service.updateCMSApplications();
 	}
-	
-	// ========================  END: Defaults =============================
-
-	// =================== START: Lazy Object Helpers ======================
-	
-	// ===================  END: Lazy Object Helpers =======================
-	
-	// ================== START: New Property Helpers ======================
-	
-	// ==================  END: New Property Helpers =======================
-	
-	// ====================== START: Data Options ==========================
-	
-	// ======================  END: Data Options ===========================
-	
-	// ===================== START: Helper Methods =========================
-	
-	// =====================  END: Helper Methods ==========================
-	
 }
+
+
