@@ -145,10 +145,12 @@ component output="false" accessors="true" extends="HibachiService" {
 			}//<--|end custom customProperties
 			writeLog(file="Slatwall", text="Done adding custom entity properties to core.");
 			//<--takes around 111 milliseconds when adding custom properties from multiple custom entity files using getTickCount at start and finish.
+			
+			
 			//|-------------------------->End add custom properties to core
 			
 			//|-------------------------->Copy all swe files to cfc directory with cfc extension so custom properties and core changes get picked up by Hibernate.
-			/*
+			
 			//Lock the thread and grab our component definitions from the custom model directory.
 			lock name="UpdateSlatwallComponentsFromSlatwallEntityFiles" type="exclusive" timeout="40" {
 				if (!isNull(directoryList)){
@@ -170,7 +172,7 @@ component output="false" accessors="true" extends="HibachiService" {
 					}//<--end for
 				}//<--end if
 			}//<--end copy lock
-			*/
+			
 			
 			return true;
 			
