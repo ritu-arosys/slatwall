@@ -69,26 +69,88 @@ component output="false" accessors="true" extends="HibachiService" {
 		
 		return returnTitle;
 	}
+	
 	/**
 	*Return true if we are able to move the entities and false otherwise.
 	*/
 	public boolean function moveEntitiesFromPrecompilationToModelDirectory(){
 		//==================== START: ENTITY UPDATE ============================//
-		try{/*
+		try{
 			//Grab the path separator in use for this filesystem.
 			fileObj = createObject("java", "java.io.File"); 
-			defaultSeparator = fileObj.separator;
+			defaultSeparator = fileObj.separator; //<--a safe path separator that changes depending on the file system / or \
 			//Use that separator to build a path.
 			path = "#ExpandPath('/')#"&defaultSeparator&"preCompiledModel";
 			pathCustom = "#ExpandPath('/')#"&defaultSeparator&"custom"&defaultSeparator&"model"&defaultSeparator&"entity";
 			//Use the path to grab a file list making sure that we don't access at the same time as anyone else'
 			lock name="getFileList" type="exclusive" timeout="5" {
 				directoryList = DirectoryList(path, false, "path", "*.swe", "directory ASC");
-				directoryListCustom = DirectoryList(pathCustom, false, "path", "*.swe", "directory ASC");
+				directoryListByName = DirectoryList(path, false, "name", "*.swe", "directory ASC");
+				directoryListCustom = DirectoryList(pathCustom, false, "name", "*.swe", "directory ASC");
 			}//<--end list lock
 			
+			directories = ArrayToList(directoryList);
+			var matches = 0;
+			var matchArray = [];
+			for (var fileName in directoryListCustom){
+				var result = ListFind(ArrayToList(directoryListByName), fileName);
+				if (result >= 1){
+					matches+=1;
+					ArrayAppend(matchArray, fileName);
+				}
+			}
+			if (matches <= 0){
+				return true;
+			}	
+			//Now that we know we have custom entity definitions copy them into our core .swe file.
+			//------------------------>Add custom properties to core
+			var merge = initMerge();
+			writeLog(file="Slatwall", text="Adding custom entity properties to core.");
+			for (var match in matchArray){
+				
+				//Getting properties from a custom .swe file in the custom directory
+				var customProperties = merge.getpropertiesFromFile(pathCustom&defaultSeparator&"#match#");
+				var coreProperties = merge.getpropertiesFromFile(path&defaultSeparator&"#match#");
+				
+				//Compare to make sure that these have not already been added.
+				var foundProperties = [];
+				for (var property in customProperties){
+					if (ArrayFind(coreProperties, property)){
+						//remove from out list.
+						ArrayAppend(foundProperties, property);
+					}
+				}
+				
+				//Remove any properties that have already been added from the custom folder
+				for (property in foundProperties){
+					ArrayDelete(customProperties, property);
+				}
+				
+				//Add those customProperties we found to our core .swe file.
+				var temp = "";
+				for (var property in customProperties){
+					temp &=property & "    ";
+				}
+				
+				//If we have custom properties that we have not added before, add them using a lock for safety
+				if (Len(temp)){
+					source = merge.addpropertiesToFile(temp, path&defaultSeparator&"#match#");
+					lock name="WriteUpdatedEntityFile" type="exclusive" timeout="2" {
+						FileWrite(path&defaultSeparator&"#match#" , source);
+					}//<--|end lock
+				}//<--|end if
+				else {
+					writeLog(file="Slatwall", text="No new custom properties found.");
+				}//<--end else
+			}//<--|end custom customProperties
+			writeLog(file="Slatwall", text="Done adding custom entity properties to core.");
+			//<--takes around 111 milliseconds when adding custom properties from multiple custom entity files using getTickCount at start and finish.
+			//|-------------------------->End add custom properties to core
+			
+			//|-------------------------->Copy all swe files to cfc directory with cfc extension so custom properties and core changes get picked up by Hibernate.
+			/*
 			//Lock the thread and grab our component definitions from the custom model directory.
-			lock name="UpdateSlatwallComponentsFromEntityDefinitions" type="exclusive" timeout="40" {
+			lock name="UpdateSlatwallComponentsFromSlatwallEntityFiles" type="exclusive" timeout="40" {
 				if (!isNull(directoryList)){
 					for (record in directoryList){
 						//Clean up the file name
@@ -100,7 +162,7 @@ component output="false" accessors="true" extends="HibachiService" {
 						entityDefinitionFile = FileOpen(record, "read");
 						x = FileRead(entityDefinitionFile, 100000);
 						fileString = x.toString();
-						//Add persistent = "true" to the component argument list
+						//Add persistent = "true" to the component argument list as well as a custom application key, table name and prefix.
 						newString = Replace(fileString, 'accessors', ' persistent="true" accessors' );
 						//Write and then close the file.
 						FileWrite("#ExpandPath('/')#"&defaultSeparator&"model"&defaultSeparator&"entity"&defaultSeparator&"#fileName#.cfc" , newString);
@@ -108,29 +170,29 @@ component output="false" accessors="true" extends="HibachiService" {
 					}//<--end for
 				}//<--end if
 			}//<--end copy lock
-			//Now that we copied our own entities, grab the properties and methods from any custom entities with the same name and merge them with our own.
-			//If there are files in the custom directory, figure out if any filenames match core files. If they do, merge them, if they don't add them.
 			*/
 			
-			//parser setup
-			var cfPropertyConfig = {
-				jarArray = [ExpandPath("/Slatwall/org/Hibachi/CFProperty/CFTranspiler.jar")]
-			};
-			
-			cfPropertyConfig.classLoader = CreateObject("component", "Slatwall.org.Hibachi.antisamy.lib.javaloader.JavaLoader").init(cfPropertyConfig.jarArray);
-			var cfTranspiler = cfPropertyConfig.classLoader.create("Transpiler").init();
-			dataStruct = cfTranspiler.transpileDelegate("#ExpandPath('/Slatwall/model/entity/Access.cfc')#", "basic", "array");
-			writeDump(var=dataStruct);
-			dataStruct = cfTranspiler.transpileDelegate("#ExpandPath('/Slatwall/model/entity/Account.cfc')#", "annotations", "struct");
-			writeDump(var=dataStruct);abort;
 			return true;
+			
 		}catch(any e){
 			//<--log that we couldn't update the entities but try to continue with bootstraping the application
 			writeLog(file="Slatwall", text="Could not finish moving .swe files from custom folder to model entity folder: #e#");
+			writeDump("Aborted"); abort;
 			return false;
+			
 		}//<--end catch
-	//========================END: ENTITY UPDATE=========================//
 	}
+	//Helper methods for merging component entity and methods. CFTranmission will merge properties and methods into
+	//a cfc in a safe way (without disturbing any other code).
+	public any function initMerge(){
+		var cfMergeConfig = {
+				jarArray = [ExpandPath("/Slatwall/org/Hibachi/MergeEntities/CFTransmission.jar")]
+			};
+			cfMergeConfig.classLoader = CreateObject("component", "Slatwall.org.Hibachi.antisamy.lib.javaloader.JavaLoader").init(cfMergeConfig.jarArray);
+			var cfTransmission = cfMergeConfig.classLoader.create("CFTransmission");
+			return cfTransmission;
+	}
+	//========================END: ENTITY UPDATE=========================//
 	public boolean function loadDataFromXMLDirectory(required string xmlDirectory, boolean ignorePreviouslyInserted=true) {
 		var dirList = directoryList(arguments.xmlDirectory);
 		

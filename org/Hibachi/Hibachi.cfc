@@ -513,6 +513,7 @@ component extends="FW1.framework" {
 						getHibachiScope().getService("hibachiTagService").cfsetting(requesttimeout=600);
 						
 						//Move entities from Precompilation to the model directory so that we have any custom changes.
+						
 						var success = getBeanFactory().getBean("dataService").moveEntitiesFromPrecompilationToModelDirectory();
 						if (success){
 							writeLog(file="Slatwall", text="General Log - Entities moved from precompilation to model entity folder");
