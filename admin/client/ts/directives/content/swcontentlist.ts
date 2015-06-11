@@ -7,12 +7,14 @@ angular.module('slatwalladmin')
 	'$slatwall',
 	'partialsPath',
     'paginationService',
+    'observerService',
 	function (
 			$log,
             $timeout,
 			$slatwall,
 			partialsPath,
-            paginationService
+            paginationService,
+            observerService
 	) {
 	    return {
 	        restrict: 'E',
@@ -25,6 +27,10 @@ angular.module('slatwalladmin')
                 }
                 
                 scope.loadingCollection = false;
+                
+                scope.selectedSite;
+                scope.orderBy;
+                var orderByConfig;
                 
 	        	scope.getCollection = function(isSearching){
                     var columnsConfig = [
@@ -57,21 +63,22 @@ angular.module('slatwalladmin')
                         {
                             propertyIdentifier:'_content.allowPurchaseFlag',
                             isVisible:true,
+                            ormtype:'boolean',
                             isSearchable:false
                         },
                         {
                             propertyIdentifier:'_content.productListingPageFlag',
                             isVisible:true,
+                            ormtype:'boolean',
                             isSearchable:false
                         },
                         {
                             propertyIdentifier:'_content.activeFlag',
                             isVisible:true,
+                            ormtype:'boolean',
                             isSearchable:false
                         }
                     ];
-                    
-                   
                     
 	        		var options = {
                         currentPage:scope.currentPage, 
@@ -91,7 +98,6 @@ angular.module('slatwalladmin')
                               ]
                             }
                           ];
-                        options.filterGroupsConfig = angular.toJson(filterGroupsConfig);
                          column = {
                             propertyIdentifier:'_content.title',
                             isVisible:true,
@@ -117,7 +123,6 @@ angular.module('slatwalladmin')
                               ]
                             }
                           ];
-                        options.filterGroupsConfig = angular.toJson(filterGroupsConfig);
                        column = {
                             propertyIdentifier:'_content.title',
                             isVisible:false,
@@ -134,7 +139,25 @@ angular.module('slatwalladmin')
                         };  
                         columnsConfig.unshift(titlePathColumn);
                     }
+                    //if we have a selected Site add the filter
+                    if(angular.isDefined(scope.selectedSite)){
+                        var selectedSiteFilter = {
+                            logicalOperator:"AND",
+                            propertyIdentifier:"_content.site.siteID",
+                            comparisonOperator:"=",
+                            value:scope.selectedSite.siteID
+                        };
+                        filterGroupsConfig[0].filterGroup.push(selectedSiteFilter);
+                    }
                     
+                    if(angular.isDefined(scope.orderBy)){
+                        var orderByConfig = [];
+                        orderByConfig.push(scope.orderBy);    
+                        options.orderByConfig = angular.toJson(orderByConfig);
+                    }
+                    
+                    
+                    options.filterGroupsConfig = angular.toJson(filterGroupsConfig);
                     options.columnsConfig = angular.toJson(columnsConfig);
                     
 	        		var collectionListingPromise = $slatwall.getEntity(
@@ -170,7 +193,28 @@ angular.module('slatwalladmin')
                         scope.getCollection(true);
                     }, 500);
                 };
+               
                 
+            var siteChanged = function(selectedSiteOption){
+                scope.selectedSite = selectedSiteOption;
+                scope.getCollection();
+            }
+            
+            observerService.attach(siteChanged,'optionsChanged','siteOptions');
+                
+            var sortChanged = function(orderBy){
+                scope.orderBy = orderBy;
+                scope.getCollection();
+            };
+            observerService.attach(sortChanged,'sortByColumn','siteSorting');
+            
+            scope.$on('$destroy', function handler() {
+                observerService.detachByEvent('optionsChanged');
+                observerService.detachByEvent('sortByColumn');
+            });
+                
+            
+            
 	    }
 	}
 }]);

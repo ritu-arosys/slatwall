@@ -78,7 +78,7 @@ Notes:
 	
 	public string function getAppPath(){
 		if(!structKeyExists(variables,'appPath')){
-			var appsPath = expandPath('/Slatwall/custom/apps');
+			var appsPath = expandPath('/Slatwall/apps');
 			variables.appPath = appsPath & '/' & getAppCode();
 		}
 		return variables.appPath;
@@ -126,7 +126,7 @@ Notes:
 	
 	public string function getAppRootPath(){
 		if(!structKeyExists(variables,'appRootPath') && !isNull(getAppCode())){
-			variables.appRootPath = '/custom/apps/' & getAppCode();
+			variables.appRootPath = '/apps/' & getAppCode();
 		}
 		return variables.appRootPath;
 	}

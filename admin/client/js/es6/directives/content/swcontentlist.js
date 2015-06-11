@@ -5,7 +5,8 @@ angular.module('slatwalladmin').directive('swContentList', [
     '$slatwall',
     'partialsPath',
     'paginationService',
-    function ($log, $timeout, $slatwall, partialsPath, paginationService) {
+    'observerService',
+    function ($log, $timeout, $slatwall, partialsPath, paginationService, observerService) {
         return {
             restrict: 'E',
             templateUrl: partialsPath + 'content/contentlist.html',
@@ -16,6 +17,9 @@ angular.module('slatwalladmin').directive('swContentList', [
                     pageShow = scope.pageShow;
                 }
                 scope.loadingCollection = false;
+                scope.selectedSite;
+                scope.orderBy;
+                var orderByConfig;
                 scope.getCollection = function (isSearching) {
                     var columnsConfig = [
                         {
@@ -40,16 +44,19 @@ angular.module('slatwalladmin').directive('swContentList', [
                         {
                             propertyIdentifier: '_content.allowPurchaseFlag',
                             isVisible: true,
+                            ormtype: 'boolean',
                             isSearchable: false
                         },
                         {
                             propertyIdentifier: '_content.productListingPageFlag',
                             isVisible: true,
+                            ormtype: 'boolean',
                             isSearchable: false
                         },
                         {
                             propertyIdentifier: '_content.activeFlag',
                             isVisible: true,
+                            ormtype: 'boolean',
                             isSearchable: false
                         }
                     ];
@@ -71,7 +78,6 @@ angular.module('slatwalladmin').directive('swContentList', [
                                 ]
                             }
                         ];
-                        options.filterGroupsConfig = angular.toJson(filterGroupsConfig);
                         column = {
                             propertyIdentifier: '_content.title',
                             isVisible: true,
@@ -98,7 +104,6 @@ angular.module('slatwalladmin').directive('swContentList', [
                                 ]
                             }
                         ];
-                        options.filterGroupsConfig = angular.toJson(filterGroupsConfig);
                         column = {
                             propertyIdentifier: '_content.title',
                             isVisible: false,
@@ -114,6 +119,22 @@ angular.module('slatwalladmin').directive('swContentList', [
                         };
                         columnsConfig.unshift(titlePathColumn);
                     }
+                    //if we have a selected Site add the filter
+                    if (angular.isDefined(scope.selectedSite)) {
+                        var selectedSiteFilter = {
+                            logicalOperator: "AND",
+                            propertyIdentifier: "_content.site.siteID",
+                            comparisonOperator: "=",
+                            value: scope.selectedSite.siteID
+                        };
+                        filterGroupsConfig[0].filterGroup.push(selectedSiteFilter);
+                    }
+                    if (angular.isDefined(scope.orderBy)) {
+                        var orderByConfig = [];
+                        orderByConfig.push(scope.orderBy);
+                        options.orderByConfig = angular.toJson(orderByConfig);
+                    }
+                    options.filterGroupsConfig = angular.toJson(filterGroupsConfig);
                     options.columnsConfig = angular.toJson(columnsConfig);
                     var collectionListingPromise = $slatwall.getEntity(scope.entityName, options);
                     collectionListingPromise.then(function (value) {
@@ -142,6 +163,20 @@ angular.module('slatwalladmin').directive('swContentList', [
                         scope.getCollection(true);
                     }, 500);
                 };
+                var siteChanged = function (selectedSiteOption) {
+                    scope.selectedSite = selectedSiteOption;
+                    scope.getCollection();
+                };
+                observerService.attach(siteChanged, 'optionsChanged', 'siteOptions');
+                var sortChanged = function (orderBy) {
+                    scope.orderBy = orderBy;
+                    scope.getCollection();
+                };
+                observerService.attach(sortChanged, 'sortByColumn', 'siteSorting');
+                scope.$on('$destroy', function handler() {
+                    observerService.detachByEvent('optionsChanged');
+                    observerService.detachByEvent('sortByColumn');
+                });
             }
         };
     }

@@ -9,6 +9,7 @@
 					<li><a title="Shopping Cart" href="/meta/sample/shoppingcart.cfm">Shopping Cart</a></li>
 					<li><a title="Checkout" href="/meta/sample/checkout.cfm">Checkout</a></li>
 					<li><a title="My Account" href="/meta/sample/account.cfm">My Account</a></li>
+					<li><a title="My Library" href="/meta/sample/library.cfm">My Library </a></li>
 				</ul>
 			</div>
 		</div>

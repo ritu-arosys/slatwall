@@ -38,11 +38,8 @@ component output="false" accessors="true" extends="Slatwall.org.Hibachi.HibachiC
 		}
 		//Call the public method
 		var publicService = getService('PublicService');
-		if ( StructKeyExists(arguments.rc, "context") ){
-			publicService.invokeMethod("#arguments.rc.context#", {rc=arguments.rc});
-		}else{
 			publicService.invokeMethod("getPublicContexts", {rc=arguments.rc});
-		}
+		
 	}
 	
 	public any function post( required struct rc ) {

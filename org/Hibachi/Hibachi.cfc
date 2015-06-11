@@ -513,11 +513,11 @@ component extends="FW1.framework" {
 						
 						//Move entities from Precompilation to the model directory so that we have any custom changes.
 						
-						var success = getBeanFactory().getBean("dataService").moveEntitiesFromPrecompilationToModelDirectory();
+						var success = getBeanFactory().getBean("dataService").updateEntitiesWithCustomProperties();
 						if (success){
-							writeLog(file="Slatwall", text="General Log - Entities moved from precompilation to model entity folder");
+							writeLog(file="Slatwall", text="General Log - Attempting to update entities with custom properties.");
 						}else{
-							writeLog(file="Slatwall", text="General Log - Error moving entities from precompilation to model entity folder");
+							writeLog(file="Slatwall", text="General Log - Error updating entities with custom properties");
 						}
 						
 						// Reload ORM

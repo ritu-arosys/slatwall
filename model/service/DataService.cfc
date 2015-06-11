@@ -71,22 +71,22 @@ component output="false" accessors="true" extends="HibachiService" {
 	}
 	
 	/**
-	*Return true if we are able to move the entities and false otherwise.
+	*Return true if we are able to update the entities with custom properties and false otherwise.
 	*/
-	public boolean function moveEntitiesFromPrecompilationToModelDirectory(){
+	public boolean function updateEntitiesWithCustomProperties(){
 		//==================== START: ENTITY UPDATE ============================//
 		try{
 			//Grab the path separator in use for this filesystem.
 			fileObj = createObject("java", "java.io.File"); 
 			defaultSeparator = fileObj.separator; //<--a safe path separator that changes depending on the file system / or \
 			//Use that separator to build a path.
-			path = "#ExpandPath('/')#"&defaultSeparator&"preCompiledModel";
+			path = "#ExpandPath('/')#"&defaultSeparator&"model"&defaultSeparator&"entity";
 			pathCustom = "#ExpandPath('/')#"&defaultSeparator&"custom"&defaultSeparator&"model"&defaultSeparator&"entity";
 			//Use the path to grab a file list making sure that we don't access at the same time as anyone else'
 			lock name="getFileList" type="exclusive" timeout="5" {
-				directoryList = DirectoryList(path, false, "path", "*.swe", "directory ASC");
-				directoryListByName = DirectoryList(path, false, "name", "*.swe", "directory ASC");
-				directoryListCustom = DirectoryList(pathCustom, false, "name", "*.swe", "directory ASC");
+				directoryList = DirectoryList(path, false, "path", "*.cfc", "directory ASC");
+				directoryListByName = DirectoryList(path, false, "name", "*.cfc", "directory ASC");
+				directoryListCustom = DirectoryList(pathCustom, false, "name", "*.cfc", "directory ASC");
 			}//<--end list lock
 			
 			directories = ArrayToList(directoryList);
@@ -116,7 +116,7 @@ component output="false" accessors="true" extends="HibachiService" {
 				var foundProperties = [];
 				for (var property in customProperties){
 					if (ArrayFind(coreProperties, property)){
-						//remove from out list.
+						//remove from our list.
 						ArrayAppend(foundProperties, property);
 					}
 				}
@@ -151,6 +151,7 @@ component output="false" accessors="true" extends="HibachiService" {
 			
 			//|-------------------------->Copy all swe files to cfc directory with cfc extension so custom properties and core changes get picked up by Hibernate.
 			//Lock the thread and grab our component definitions from the custom model directory.
+			/*
 			lock name="UpdateSlatwallComponentsFromSlatwallEntityFiles" type="exclusive" timeout="40" {
 				if (!isNull(directoryList)){
 					for (record in directoryList){
@@ -171,16 +172,12 @@ component output="false" accessors="true" extends="HibachiService" {
 					}//<--end for
 				}//<--end if
 			}//<--end copy lock
-			
-			
+			*/
 			return true;
-			
 		}catch(any e){
 			//<--log that we couldn't update the entities but try to continue with bootstraping the application
-			writeLog(file="Slatwall", text="Could not finish moving .swe files from custom folder to model entity folder: #e#");
-			writeDump("Aborted"); abort;
+			writeLog(file="Slatwall", text="Could not finish updating files from custom folder to model entity folder: #e#");
 			return false;
-			
 		}//<--end catch
 	}
 	//Helper methods for merging component entity and methods. CFTranmission will merge properties and methods into
