@@ -180,6 +180,16 @@ component output="false" accessors="true" extends="HibachiService" {
 			return false;
 		}//<--end catch
 	}
+	/**
+	*Return true if we are able to update the entities with custom properties and false otherwise.
+	*/
+	public boolean function updateViewsWithCustomTabs(){
+		
+	}
+	
+	
+	
+	
 	//Helper methods for merging component entity and methods. CFTranmission will merge properties and methods into
 	//a cfc in a safe way (without disturbing any other code).
 	public any function initMerge(){

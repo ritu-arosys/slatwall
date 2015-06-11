@@ -126,8 +126,11 @@ Notes:
 
 			<!--- Comments --->
 			<swa:SlatwallAdminTabComments object="#rc.product#" />
+			
+			<!--- Custom Tabs --->
+			<swa:SlatwallCustomTabs tabDirectory="producttabs" />
+				
 		</hb:HibachiEntityDetailGroup>
 
 	</hb:HibachiEntityDetailForm>
-
 </cfoutput>

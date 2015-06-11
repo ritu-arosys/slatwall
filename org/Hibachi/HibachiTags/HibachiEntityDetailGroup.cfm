@@ -20,7 +20,8 @@
 		<!--- Make sure there is a view --->
 		<cfif not len(tab.view) and len(tab.property)>
 			<cfset tab.view = "#attributes.subsystem#:#attributes.section#/#lcase(attributes.object.getClassName())#tabs/#lcase(tab.property)#" />
-			
+			<cfset tabLocation = "#lcase(attributes.object.getClassName())#tabs" />
+
 			<cfset propertyMetaData = attributes.object.getPropertyMetaData( tab.property ) />
 			
 			<cfif not len(tab.text)>
@@ -52,8 +53,7 @@
 			</cfif>
 		</cfif>
 	</cfloop>
-
-	<cfoutput>
+	<cfoutput>	
 		<cfif not attributes.createOrModalFlag>
 			<div class="row s-pannel-control">
 				<div class="col-md-12 s-toggle-panels">
@@ -61,7 +61,6 @@
 					<a href="##" class="j-closeall j-tool-tip-item" data-toggle="tooltip" data-placement="bottom" title="Collapse All"><i class="fa fa-compress"></i></a>
 				</div>
 			</div>
-
 			<cfset iteration = 0 />
 			<div class="panel-group s-pannel-group" id="accordion">		  
 				<cfloop array="#thistag.tabs#" index="tab">
@@ -99,8 +98,7 @@
 						<div id="tabSystem" class="panel-collapse collapse">
 							<content class="s-body-box">
 								<cfoutput>
-									<div <cfif activeTab eq tab.tabid> class="tab-pane active" <cfelse> class="tab-pane" </cfif> id="tabSystem">
-										
+									<div <cfif activeTab eq tab.tabid> class="tab-pane active" <cfelse> class="tab-pane" </cfif> id="tabSystem">							
 											<hb:HibachiPropertyList> 
 												<hb:HibachiPropertyDisplay object="#attributes.object#" property="#attributes.object.getPrimaryIDPropertyName()#" />
 												<cfif structKeyExists(attributes.object,'remoteID')>
@@ -123,12 +121,10 @@
 												</cfif>
 											</hb:HibachiPropertyList>
 											
-											<hb:HibachiTimeline object="#attributes.object#" />
-										
+											<hb:HibachiTimeline object="#attributes.object#" />	
 									</div>
 								</cfoutput>
 							</content><!--- s-body-box --->
-						
 					</div><!--- panel panel-default --->
 				</cfif>	
 			</div>
