@@ -49,9 +49,6 @@ Notes:
  component  displayname="Product" entityname="SlatwallProduct"  table="SWProduct"  persistent="true" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="productService" hb_permission="this" hb_processContexts="addOptionGroup,addOption,addSubscriptionSku,deleteDefaultImage,updateDefaultImageFileNames,updateSkus,addProductReview" {
 	
 	// Persistent Properties
-	property name="customProductTransactionCode" hb_populateEnabled="public" ormtype="string" ;
-    property name="customProductCDSNumber" hb_populateEnabled="public" ormtype="string" ;
-    
 	property name="productID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";
 	property name="activeFlag" ormtype="boolean";
 	property name="urlTitle" ormtype="string" unique="true";
