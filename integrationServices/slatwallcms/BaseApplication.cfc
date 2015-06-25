@@ -46,7 +46,7 @@
 Notes:
 
 */
-component {
+component extends="Slatwall.org.Hibachi.Hibachi"{
 	
 	// Allow For Application Config
 	try{include "../../config/configApplication.cfm";}catch(any e){}
@@ -65,16 +65,10 @@ component {
 	this.ormSettings.automanageSession = false;
 	
 	function onRequestStart() {
-		runRequestActions();
-		
+		runRequestActions(argumentCollection=arguments);
 	}
 	
 	function runRequestActions() {
-//		if (!structKeyExists(application, "slatwallFW1Application")) {
-//			application.slatwallFW1Application = createObject("component", "Slatwall.Application");
-//		}
-//		application.slatwallFW1Application.bootstrap();
-		
 		if(structKeyExists(form, "slatAction")) {
 			for(var action in listToArray(form.slatAction)) {
 				request.slatwallScope.doAction( action );
@@ -98,9 +92,12 @@ component {
 				}
 			}
 		}
+		generateRenderedContent(argumentCollection=arguments);
+		onRequestEnd();
 	}
 	
 	function generateRenderedContent() {
+		
 		var site = arguments.slatwallScope.getSite();
 		var templatePath = site.getApp().getAppRootPath() & '/' & site.getSiteCode() & '/templates/';
 		var contentPath = '';
@@ -136,7 +133,7 @@ component {
 			var entityTemplateContent = arguments.slatwallScope.getService("contentService").getContent( entityDisplayTemplateSetting );;
 			if(!isnull(entityTemplateContent)){
 				arguments.slatwallScope.setContent( entityTemplateContent );
-				var contentTemplateFile = entityTemplateContent.setting('contentTemplateFile',[content]);
+				var contentTemplateFile = entityTemplateContent.setting('contentTemplateFile',[entityTemplateContent]);
 				if(!isNull(contentTemplateFile)){
 					
 					contentPath = templatePath & contentTemplateFile;
@@ -170,9 +167,7 @@ component {
 			contentPath = templatePath & contentTemplateFile;
 			arguments.slatwallScope.setContent(content);
 		}
-		var $ = {
-			slatwall=arguments.slatwallScope
-		};
+		var $ = getApplicationScope(argumentCollection=arguments);
 		savecontent variable="templateData"{
 			include "#contentPath#";
 		}
@@ -194,5 +189,114 @@ component {
 		}
 		abort;
 	}
+	
+	public any function getApplicationScope(){
+		var applicationScope = this;
+		applicationScope.slatwall = arguments.slatwallScope;
+		return applicationScope;
+	}
+	
+	// Implicit onMissingMethod() to handle standard CRUD
+	public any function onMissingMethod(string missingMethodName, struct missingMethodArguments) {
+		if(structKeyExists(arguments, "missingMethodName")) {
+			if( left(arguments.missingMethodName, 6) == "render" ) {
+				var entityName = arguments.missingMethodName.substring( 6 );
+				var genericGetterName = replace(arguments.missingMethodName,'render','get');
+				if(structCount(arguments.missingMethodArguments) == 2){
+					var entity = getHibachiScope().getService('hibachiService').invokeMethod(genericGetterName,{1=arguments.missingMethodArguments[1]});
+					return entity.getValueByPropertyIdentifier(arguments.missingMethodArguments[2]);
+				}else if(structCount(arguments.missingMethodArguments) == 3){
+					var entity = getHibachiScope().getService('hibachiService').invokeMethod(genericGetterName,{1=[arguments.missingMethodArguments[1], arguments.missingMethodArguments[2]]});
+					return entity.getValueByPropertyIdentifier(arguments.missingMethodArguments[3]);
+				}
+			}
+		}
+	}
+	
+	public string function renderNav(
+		string startContentId=""
+		, numeric viewDepth=1
+		, numeric currDepth=1
+		, string siteCode=""
+		, string navClass=""
+		, string navID=""
+		, string liKidsClass=""
+		, string liKidsAttributes=""
+		, string liActiveClass="active"
+		, string liActiveAttributes=""
+		, string liKidsNestedClass=""
+		, string aKidsClass="" 
+		, string aKidsAttributes="" 
+		, string aActiveClass="active"
+		, string aActiveAttributes=""
+		, string ulNestedClass="" 
+		, string ulNestedAttributes="" 
+		, string target = "" 
+		, array contentCollection=[]
+	){
+		//if content id does not exist then get home
+		if(!len(arguments.startContentID)){
+			var currentSite = getHibachiScope().getService('siteService').getCurrentRequestSite();
+			arguments.content = getHibachiScope().getService('contentService').getDefaultContentBySite(currentSite);
+		}else{
+			arguments.content = getHibachiScope().getService('contentService').getContent(arguments.startContentId);
+		}
+		
+		if(!len(arguments.siteCode)){
+			arguments.siteCode = arguments.content.getSite().getSiteCode();
+		}
+		
+		if(!arraylen(arguments.contentCollection)){
+			arguments.contentCollection = arguments.content.getChildContents();
+		}
+		
+		
+		//var firstLevelItems = arguments.content.getChildContents();
+		savecontent variable="navHTML"{
+			include 'templates/navtemplate.cfm';
+		};
+		return navHTML;
+		
+	}
+	
+	public string function addLink(
+		required any content, 
+		string title, 
+		string navClass="", 
+		string target="",
+		string navId="",
+		boolean showCurrent=true
+	){
+				
+		var link ="";
+		var href ="";
+		var theClass = arguments.navClass;
+		
+		if(arguments.showCurrent){
+			arguments.showCurrent=listFind(getHibachiScope().content().getContentIDPath(),arguments.content.getContentID());
+		}
+		
+		if(arguments.showCurrent){
+			theClass=listAppend(theClass,arguments.aActiveClass," ");
+		}
+		
+		if(arguments.content.hasChildContent()){
+			theClass=listAppend(theClass,arguments.aKidsClass," ");
+		}
+		
+		href=createHREF(
+			arguments.content
+		);
+		
+		link='<a href="/#href#"#iif(len(arguments.target) and arguments.target neq '_self',de(' target="#arguments.target#"'),de(""))##iif(len(theClass),de(' class="#theClass#"'),de(""))##iif(len(arguments.navId),de(' id="#arguments.navId#"'),de(""))##iif(arguments.showCurrent,de(' #replace(arguments.aActiveAttributes,"##","####","all")#'),de(""))##iif(arguments.content.hasChildContent() and len(arguments.aKidsAttributes),de(' #replace(arguments.aKidsAttributes,"##","####","all")#'),de(""))#>#HTMLEditFormat(arguments.title)#</a>';
+		return link;
+	}
+	
+	public string function createHref(required any content, string queryString=""){
+		var href=arguments.content.getURLTitlePath();
+	
+		return href;
+	}
+	
 	
 }

@@ -46,7 +46,7 @@
 Notes:
 
 */
- component  entityname="SlatwallSite"  table="SWSite"  persistent="true" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="siteService" hb_permission="this" {
+component entityname="SlatwallSite" table="SwSite" persistent="true" accessors="true" extends="HibachiEntity" cacheuse="transactional" hb_serviceName="siteService" hb_permission="this" {
 	
 	// Persistent Properties
 	property name="siteID" ormtype="string" length="32" fieldtype="id" generator="uuid" unsavedvalue="" default="";
@@ -79,6 +79,7 @@ Notes:
 	// Non-Persistent Properties
 	property name="sitePath" persistent="false";
 	property name="templatesPath" persistent="false";
+	property name="assetsPath" persistent="false"; 
 	
 	public boolean function getAllowAdminAccessFlag() {
 		if(isNull(variables.allowAdminAccessFlag)) {
@@ -96,9 +97,20 @@ Notes:
 	
 	public string function getTemplatesPath(){
 		if(!structKeyExists(variables,'templatesPath')){
-			variables.templatesPath = getSitePath() & '/' & 'templates';
+			variables.templatesPath = getSitePath() & '/templates';
 		}
 		return variables.templatesPath;
+	}
+	
+	public string function getAssetsPath(){
+		if(!structKeyExists(variables,'assetsPath')){
+			variables.assetsPath = getSitePath() & '/assets';
+		}
+		return variables.assetsPath;
+	}
+	
+	public string function getSharedAssetsPath(){
+		return getService('siteService').getSharedAssetsPath();
 	}
 	
 	// ============ START: Non-Persistent Property Methods =================

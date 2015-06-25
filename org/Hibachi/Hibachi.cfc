@@ -70,6 +70,7 @@ component extends="FW1.framework" {
 	variables.framework.hibachi = {};
 	variables.framework.hibachi.authenticationSubsystems = "admin,public,api";
 	variables.framework.hibachi.debugFlag = false;
+	variables.framework.hibachi.updateDestinationContentExclustionList = '/.git,/apps,/integrationServices,/custom,/WEB-INF,/.project,/setting.xml,/.htaccess,/web.config,/.settings,/.gitignore';
 	variables.framework.hibachi.gzipJavascript = true;
 	variables.framework.hibachi.errorDisplayFlag = false;
 	variables.framework.hibachi.errorNotifyEmailAddresses = '';
@@ -370,6 +371,7 @@ component extends="FW1.framework" {
 					applicationInitData["applicationRootMappingPath"] = this.mappings[ "/#variables.framework.applicationKey#" ];
 					applicationInitData["applicationReloadKey"] = 		variables.framework.reload;
 					applicationInitData["applicationReloadPassword"] =	variables.framework.password;
+					applicationInitData["updateDestinationContentExclustionList"] = variables.framework.hibachi.updateDestinationContentExclustionList;
 					applicationInitData["applicationUpdateKey"] = 		variables.framework.hibachi.fullUpdateKey;
 					applicationInitData["applicationUpdatePassword"] =	variables.framework.hibachi.fullUpdatePassword;
 					applicationInitData["debugFlag"] =					variables.framework.hibachi.debugFlag;
@@ -519,6 +521,14 @@ component extends="FW1.framework" {
 						}else{
 							writeLog(file="Slatwall", text="General Log - Error updating entities with custom properties");
 						}
+						
+						//Update custom properties
+//						var success = getHibachiScope().getService('updateService').updateEntitiesWithCustomProperties();
+//						if (success){
+//							writeLog(file="Slatwall", text="General Log - Attempting to update entities with custom properties.");
+//						}else{
+//							writeLog(file="Slatwall", text="General Log - Error updating entities with custom properties");
+//						}
 						
 						// Reload ORM
 						writeLog(file="#variables.framework.applicationKey#", text="General Log - ORMReload() started");

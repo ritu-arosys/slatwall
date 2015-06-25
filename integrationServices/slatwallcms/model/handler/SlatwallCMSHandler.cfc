@@ -49,13 +49,15 @@ component {
         var pathArray = listToArray(pathInfo,'/');
         var pathArrayLen = arrayLen(pathArray);
         
+        
+        
         //Make sure this isn't a call to the api, if it is, return without using CMS logic
 		if(pathArrayLen && pathArray[1] == 'api'){
         		return;
         }
         //try to get a site form the domain name
 		var domainNameSite = arguments.slatwallScope.getService('siteService').getCurrentRequestSite();
-       
+      
        	if(!isNull(domainNameSite)){
    			//render site via apps route
 	        if(pathArrayLen && pathArray[1] == 'apps'){
@@ -172,8 +174,7 @@ component {
 		
 		if(directoryExists(sitePath)) {
 			var slatwallCMSApplication = getSlatwallCMSApplication(site);
-			slatwallCMSApplication.generateRenderedContent(argumentCollection=arguments.argumentsCollection);
-			
+			slatwallCMSApplication.onRequestStart(argumentCollection=arguments.argumentsCollection);
 		}else{
 			throw('site directory does not exist for ' & site.getSiteName());
 		}
