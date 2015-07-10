@@ -1193,8 +1193,6 @@ select:focus {
 }
 #slatwall-navbar .navbar-header {
   padding: 18px;
-  margin-left: 15px /*Remove for responsive*/;
-  margin-right: 15px /*Remove for responsive*/;
 }
 #slatwall-navbar .navbar-header a.brand {
   margin: 3px 0px 2px 0px;
