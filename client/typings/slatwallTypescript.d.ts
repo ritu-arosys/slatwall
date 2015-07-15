@@ -10,10 +10,12 @@
 /// <reference path="../../admin/client/ts/controllers/preprocessaccount_addaccountpayment.ts" />
 /// <reference path="../../admin/client/ts/controllers/routercontroller.ts" />
 /// <reference path="../../admin/client/ts/model/alert.ts" />
+/// <reference path="../../admin/client/ts/modules/loggingmodule.ts" />
 /// <reference path="../../admin/client/ts/modules/slatwalladmin.ts" />
 /// <reference path="../../admin/client/ts/services/alertservice.ts" />
 /// <reference path="../../admin/client/ts/services/collectionservice.ts" />
 /// <reference path="../../admin/client/ts/services/dialogservice.ts" />
+/// <reference path="../../admin/client/ts/services/exceptionhandler.ts" />
 /// <reference path="../../admin/client/ts/services/formservice.ts" />
 /// <reference path="../../admin/client/ts/services/metadataservice.ts" />
 /// <reference path="../../admin/client/ts/services/observerservice.ts" />
@@ -46,6 +48,26 @@
 /// <reference path="../../admin/client/ts/directives/content/swcontenteditor.ts" />
 /// <reference path="../../admin/client/ts/directives/content/swcontentlist.ts" />
 /// <reference path="../../admin/client/ts/directives/content/swcontentnode.ts" />
+<<<<<<< HEAD
+=======
+/// <reference path="../../admin/client/ts/directives/common/swclickoutside.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swcolumnsorter.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swconfirm.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swdirective.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swexportaction.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swfindhref.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swheaderwithtabs.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swhref.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swloading.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swoptions.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swpaginationbar.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swpropertydisplay.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swrbkey.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swresizedimage.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swscrolltrigger.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swselection.ts" />
+/// <reference path="../../admin/client/ts/directives/common/swsortable.ts" />
+>>>>>>> branch 'feature' of ssh://git@github.com/ten24/slatwall.git
 /// <reference path="../../admin/client/ts/directives/orderitem/swchildorderitem.ts" />
 /// <reference path="../../admin/client/ts/directives/orderitem/swoishippinglabelstamp.ts" />
 /// <reference path="../../admin/client/ts/directives/orderitem/sworderitem.ts" />
@@ -55,6 +77,7 @@
 /// <reference path="../../admin/client/ts/directives/productBundleGroup/swproductbundlegroup.ts" />
 /// <reference path="../../admin/client/ts/directives/productBundleGroup/swproductbundlegroups.ts" />
 /// <reference path="../../admin/client/ts/directives/productBundleGroup/swproductbundlegrouptype.ts" />
+<<<<<<< HEAD
 /// <reference path="../../admin/client/ts/directives/common/swactioncaller.ts" />
 /// <reference path="../../admin/client/ts/directives/common/swactiondropdownbutton.ts" />
 /// <reference path="../../admin/client/ts/directives/common/swactiondropdownnav.ts" />
@@ -79,6 +102,8 @@
 /// <reference path="../../admin/client/ts/directives/common/swscrolltrigger.ts" />
 /// <reference path="../../admin/client/ts/directives/common/swselection.ts" />
 /// <reference path="../../admin/client/ts/directives/common/swsortable.ts" />
+=======
+>>>>>>> branch 'feature' of ssh://git@github.com/ten24/slatwall.git
 /// <reference path="../../admin/client/ts/directives/workflow/swadmincreatesuperuser.ts" />
 /// <reference path="../../admin/client/ts/directives/workflow/swworkflowbasic.ts" />
 /// <reference path="../../admin/client/ts/directives/workflow/swworkflowcondition.ts" />
