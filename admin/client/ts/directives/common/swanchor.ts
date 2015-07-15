@@ -32,7 +32,22 @@ angular.module('slatwalladmin')
 				tag:"="
 			},
 			link:function(scope,element,attrs){	
-				
+				if(!scope.disabled){ 
+					
+					element.removeAttr("data-disabled"); 
+
+					if (!scope.modal){
+						element.removeAttr("data-toggle"); 
+						element.removeAttr("data-target");
+					}
+				} else { 
+					element.removeAttr("data-toggle"); 
+					element.removeAttr("data-target");
+				}
+
+				if(!scope.confirm){ 
+					element.removeAttr("confirmText"); 
+				}
 			}
 		};
 	}
