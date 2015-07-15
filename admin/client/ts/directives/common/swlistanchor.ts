@@ -10,7 +10,7 @@ angular.module('slatwalladmin')
 		partialsPath
 	){
 	return{
-			restrict:'A',
+			restrict:'E',
 			templateUrl: partialsPath+'listanchor.html',
 			scope: {
 				action:"=", 
