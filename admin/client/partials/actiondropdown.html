@@ -1,0 +1,25 @@
+<div ng-if="actionDropdownAttributes.type == 'button'">
+	<div class="btn-group">
+		<button class="btn {{actionDropdownAttributes.buttonClass}} dropdown-toggle btn-primary" data-toggle="dropdown"><i class="fa fa-{{actionDropdownAttributes.icon}}"></i> <span ng-bind="actionDropdownAttributes.title"></span> <span class="caret"></span></button>
+		<ul class="dropdown-menu {{actionDropdownAttributes.dropdownClass}}" id="{{actionDropdownAttributes.dropdownID}}">
+			<li sw-process-caller ng-switch="processCaller.type" ng-repeat="processCaller in actionDropdownAttributes.processCallers" attributes="processCaller"></li>
+		</ul>
+	</div>
+</div>
+
+<li class="dropdown" ng-if="actionDropdownAttributes.type == 'nav'">
+	<a href="#" class="dropdown-toggle"><i class="fa fa-{{actionDropdownAttributes.icon}}"></i> <span ng-bind="actionDropdownAttributes.title"></span> </a>
+	<ul class="dropdown-menu {{actionDropdownAttributes.dropdownClass}}" id="{{actionDropdownAttributes.dropdownID}}">
+		<li sw-process-caller ng-switch="processCaller.type" ng-repeat="processCaller in actionDropdownAttributes.processCallers" attributes="processCaller"></li>
+	</ul>
+</li>
+
+
+<div ng-if="actionDropdownAttributes.type == 'sidenav'">
+	<li>
+		<a href="#"><i class="fa fa-{{actionDropdownAttributes.icon}}"></i> {{actionDropdownAttributes.title}} <span class="fa arrow"></span></a>
+		<ul id="{{actionDropdownAttributes.dropdownID}}">
+			<li sw-process-caller ng-switch="processCaller.type" ng-repeat="processCaller in actionDropdownAttributes.processCallers" attributes="processCaller"></li>
+		</ul>
+	</li>
+</div>

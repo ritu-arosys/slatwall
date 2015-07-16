@@ -1,5 +1,5 @@
 angular.module('slatwalladmin')
-.directive('swActionDropdownButton', [
+.directive('swActionDropdown', [
 	'$log',
 	'$timeout',
 	'$http',
@@ -11,14 +11,9 @@ angular.module('slatwalladmin')
 	){
 	return{
 			restrict:'E',
-			templateUrl: partialsPath+'actiondropdownsidebutton.html',
-			transclude:true,
+			templateUrl: 'http://cf11.slatwall/admin/client/partials/actiondropdown.html',
 			scope: {
-				title:"=", 
-				icon:"=",  
-				dropdownClass:"=", 
-				dropdownID:"=", 
-				buttonClass:"="
+				actionDropdownAttributes:"=attributes"
 			},
 			link:function(scope,element,attrs){	
 				
