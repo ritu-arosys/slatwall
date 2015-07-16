@@ -465,6 +465,8 @@ body.s-login-screen {background-image: url(/assets/images/login-bg.jpg);backgrou
 @media only screen and (max-width: 992px) {
     body {padding:0px /*Remove for responsive*/;}
 }
+.s-loading-icon-fullwidth {width: 100%; text-align: center;}
+.s-loading-icon-fullwidth i {font-size: 40px;}
 hr {border-color:@black-20;}
 hr.s-dotted {border:none;border-bottom:3px dotted @black-5;margin-top:20px;margin-bottom:20px;}
 a {color:@brand-primary;}
@@ -607,6 +609,9 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, input.error, select.e
 .s-login-box div, .s-login-box .form-group {width:100%;margin:0px;padding:0px;margin-bottom:5px;}
 .s-login-box h2 {margin-top:0px;font-size:18px;font-family: @font-family-semibold;}
 
+.s-access-denied {width: 100%;text-align: center;color: #fff;}
+.s-access-denied h3 {font-size: 28px;}
+.s-access-denied p {font-size: 16px;max-width: 370px;margin: auto;}
 .s-access-denied a {color:#F9AC68;}
 .s-access-denied a:hover {color:#F5943E;text-decoration:underline;}
 
@@ -628,7 +633,6 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, input.error, select.e
 .s-property-info dd {padding-left:10px;}
 .s-property-info dt {font-family: @font-family-semibold;}
 .form-horizontal .control-label {margin-bottom:4px;}
-.form-horizontal .radio {padding-left: 22px;}
 
 .btn-group {float:right;}
 .btn-toolbar {float:right; margin-top:10px;}

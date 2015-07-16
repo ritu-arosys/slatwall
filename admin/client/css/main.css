@@ -265,6 +265,13 @@ body.s-login-screen {
     padding: 0px /*Remove for responsive*/;
   }
 }
+.s-loading-icon-fullwidth {
+  width: 100%;
+  text-align: center;
+}
+.s-loading-icon-fullwidth i {
+  font-size: 40px;
+}
 hr {
   border-color: #cccccc;
 }
@@ -849,6 +856,19 @@ select.error {
   font-size: 18px;
   font-family: "open_sanssemibold", Helvetica, Arial, sans-serif;
 }
+.s-access-denied {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+.s-access-denied h3 {
+  font-size: 28px;
+}
+.s-access-denied p {
+  font-size: 16px;
+  max-width: 370px;
+  margin: auto;
+}
 .s-access-denied a {
   color: #F9AC68;
 }
@@ -902,9 +922,6 @@ select.error {
 }
 .form-horizontal .control-label {
   margin-bottom: 4px;
-}
-.form-horizontal .radio {
-  padding-left: 22px;
 }
 .btn-group {
   float: right;
