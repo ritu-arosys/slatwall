@@ -1,3 +1,22 @@
+<button ng-switch-when="button"
+      id="{{processCaller.id}}"
+      class="btn {{processCaller.class}}" 
+      title="{{processCaller.title}}" 
+      name="{{processCaller.name}}" 
+      value="{{processCaller.action}}" 
+      href="{{processCaller.url}}"
+      data-toggle="{{processCaller.modal}}"
+      data-target="#adminModal"
+      data-disabled="{{processCaller.disabledText}}"
+      data-confirm="{{processCaller.confirmText}}">
+   <i class="glyphicon glyphicon-{{processCaller.icon}}"></i>
+   <span ng-bind="processCaller.text"></span>
+</button>
+
+<span ng-switch-when="divider">
+<!--Prevents Default-->
+</span>
+
 <a ng-switch-default
    title="processCaller.title" 
    id="processCaller.id"
@@ -11,17 +30,3 @@
    <i class="glyphicon glyphicon-{{processCaller.icon}}"></i>
    <span ng-bind="processCaller.text"></span>
 </a>
-<button ng-switch-when="button"
-		id="{{processCaller.id}}"
-		class="btn {{processCaller.class}}" 
-		title="{{processCaller.title}}" 
-		name="{{processCaller.name}}" 
-		value="{{processCaller.action}}" 
-		sw-href="{{processCaller.url}}"
-		data-toggle="{{processCaller.modal}}"
-		data-target="#adminModal"
-		data-disabled="{{processCaller.disabledText}}"
-		data-confirm="{{processCaller.confirmText}}">
-		<i class="glyphicon glyphicon-{{processCaller.icon}}"></i>
-   		<span ng-bind="processCaller.text"></span>
-</button>

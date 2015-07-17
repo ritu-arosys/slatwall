@@ -16,7 +16,9 @@ angular.module('slatwalladmin')
 				processCaller:"=attributes"
 			},
 			link:function(scope,element,attrs){	
-				scope.processCaller.bindText = scope.processCaller.icon + scope.processCaller.text;
+				if(scope.processCaller.type == "divider"){ 
+					element.attr("class", "divider");
+				}
 			}
 		};
 	}

@@ -8,9 +8,16 @@
 		</div>
 
 		<div class="col-md-6">
-			<div class="btn-toolbar">
-				<div ng-repeat="actionCallerDropdown in actionBarAttributes.buttonGroups">
-					<sw-action-dropdown attributes="actionCallerDropdown"></sw-action-dropdown>
+			
+			<div class="btn-toolbar" ng-if="actionBarAttributes.type=='listing'">
+				<sw-action-dropdown ng-switch="actionCallerDropdown.type" ng-repeat="actionCallerDropdown in actionBarAttributes.buttonGroups" attributes="actionCallerDropdown"></sw-action-dropdown>
+			</div>
+			
+			<div class="btn-toolbar" ng-if="actionBarAttributes.type=='detail'">
+				<div class="btn-group btn-group-sm">
+					<!--- Detail: Back Button -->
+					<span sw-process-caller ng-switch="actionBarAttributes.back.type" attributes="actionBarAttributes.back"></span>
+					<sw-action-dropdown ng-switch="actionCallerDropdown.type" ng-repeat="actionCallerDropdown in actionBarAttributes.buttonGroups" attributes="actionCallerDropdown"></sw-action-dropdown>
 				</div>
 			</div>
 		</div>
