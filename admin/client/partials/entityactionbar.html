@@ -9,16 +9,36 @@
 
 		<div class="col-md-6">
 			
-			<div class="btn-toolbar" ng-if="actionBarAttributes.type=='listing'">
+			<div class="btn-toolbar" ng-if="actionBarAttributes.type == 'listing'">
 				<sw-action-dropdown ng-switch="actionCallerDropdown.type" ng-repeat="actionCallerDropdown in actionBarAttributes.buttonGroups" attributes="actionCallerDropdown"></sw-action-dropdown>
 			</div>
 			
-			<div class="btn-toolbar" ng-if="actionBarAttributes.type=='detail'">
+			<div class="btn-toolbar" ng-if="actionBarAttributes.type == 'detail'">
 				<div class="btn-group btn-group-sm">
 					<!--- Detail: Back Button -->
 					<span sw-process-caller ng-switch="actionBarAttributes.back.type" attributes="actionBarAttributes.back"></span>
 					<sw-action-dropdown ng-switch="actionCallerDropdown.type" ng-repeat="actionCallerDropdown in actionBarAttributes.buttonGroups" attributes="actionCallerDropdown"></sw-action-dropdown>
 				</div>
+				<!--- Detail: CRUD Buttons -->
+				<div class="btn-group btn-group-sm">
+					<span sw-process-caller ng-if="actionBarAttributes.delete!==undefined" ng-switch="actionBarAttributes.delete.type" attributes="actionBarAttributes.delete" class="btn-group"></span>
+					<span sw-process-caller ng-if="actionBarAttributes.cancel!==undefined" ng-switch="actionBarAttributes.cancel.type" attributes="actionBarAttributes.cancel" class="btn-group"></span>
+					<span sw-process-caller ng-if="actionBarAttributes.save!==undefined" ng-switch="actionBarAttributes.save.type" attributes="actionBarAttributes.save" class="btn-group"></span>
+					<span sw-process-caller ng-if="actionBarAttributes.edit!==undefined" ng-switch="actionBarAttributes.edit.type" attributes="actionBarAttributes.edit"></span>
+				</div>
+				
+			</div>
+
+			<div class="btn-toolbar" ng-if="actionBarAttributes.type == 'process'">
+				<div class="btn-group btn-group-sm">
+					<!--- Detail: Back Button -->
+					<span sw-process-caller ng-switch="actionBarAttributes.back.type" attributes="actionBarAttributes.back"></span>
+				</div>
+				<!--- Detail: CRUD Buttons -->
+				<div class="btn-group btn-group-sm">
+					<button type="submit" class="btn btn-primary"><!--Bind to Submit--></button>
+				</div>
+				
 			</div>
 		</div>
 	</nav>

@@ -106,6 +106,31 @@ angular.module('slatwalladmin').controller('anotherCoolController', [
 				icon:"arrow-left", 
 				text:"Back"
 			},
+			delete:{ 
+				action:"deleteaction",
+				querystring:"query", 
+				type:"button",
+				text:"delete",
+				class:"btn-default s-remove",
+				icon:"trash icon-white"
+			}, 
+			cancel:{ 
+				action:"cancelaction",
+				querystring:"query", 
+				type:"button",
+				text:"cancel",
+				class:"btn-default s-remove",
+				icon:"remove icon-white"
+			},
+			save:{
+				action:"saveaction",
+				querystring:"query", 
+				type:"button",
+				text:"save",
+				class:"btn-success s-remove",
+				icon:"ok icon-white",
+				submit:"true"
+			}, 
 			buttonGroups:{ 
 				actionCallerDropdown:{
 					title:"A Detail Product View", 

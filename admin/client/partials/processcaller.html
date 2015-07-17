@@ -18,15 +18,15 @@
 </span>
 
 <a ng-switch-default
-   title="processCaller.title" 
-   id="processCaller.id"
-   class="processCaller.class" 
+   title="{{processCaller.title}}" 
+   id="{{processCaller.id}}"
+   class="{{processCaller.class}}" 
    target="_self" 
-   href="processCaller.url"  
-   data-toggle="modal" 
+   href="{{processCaller.url}}"  
+   data-toggle="{{modal}}" 
    data-target="#adminModal" 
-   data-disabled="processCaller.disabledText" 
-   data-confirm="processCaller.confirmText">
+   data-disabled="{{processCaller.disabledText}}" 
+   data-confirm="{{processCaller.confirmText}}">
    <i class="glyphicon glyphicon-{{processCaller.icon}}"></i>
    <span ng-bind="processCaller.text"></span>
 </a>
