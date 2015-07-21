@@ -19,28 +19,18 @@ angular.module('slatwalladmin').controller('jaspersCoolController', [
 					type:"button",
 					processCallers:{
 						a:{ 
-							action:"admin:entity.preprocessproduct", 
 							entity:"product", 
-							processContext:"create", 
 							text:"Content Access",
-							icon:"",
-							queryString:"baseProductType=contentAccess",
 							confirmText:"Are you sure?",
-							disabled:false,
 							disabledText:"", 
 							type:"list",
 							url:"http://cf11.slatwall",
 							class:"adminentitypreprocessproduct"
 						},
-						b:{ 
-							action:"admin:entity.preprocessproduct", 
+						b:{  
 							entity:"product", 
-							processContext:"create", 
 							text:"Merchandise",
-							icon:"",
-							queryString:"baseProductType=contentAccess",
 							confirmText:"Are you sure?",
-							disabled:false,
 							disabledText:"", 
 							type:"list",
 							url:"http://cf11.slatwall",
@@ -50,28 +40,18 @@ angular.module('slatwalladmin').controller('jaspersCoolController', [
 							type:"divider"
 						},
 						d:{ 
-							action:"admin:entity.preprocessproduct", 
 							entity:"product", 
-							processContext:"create", 
 							text:"Subscription",
-							icon:"",
-							queryString:"baseProductType=contentAccess",
 							confirmText:"Are you sure?",
-							disabled:false,
 							disabledText:"", 
 							type:"list",
 							url:"http://cf11.slatwall",
 							class:"adminentitypreprocessproduct"
 						},
 						e:{ 
-							action:"admin:entity.preprocessproduct", 
 							entity:"", 
-							processContext:"create", 
 							text:"Event",
-							icon:"",
-							queryString:"baseProductType=contentAccess",
 							confirmText:"Are you sure?",
-							disabled:false,
 							disabledText:"", 
 							type:"list",
 							url:"http://cf11.slatwall",
@@ -100,31 +80,23 @@ angular.module('slatwalladmin').controller('anotherCoolController', [
 			showCreate:"false",  
 			back:{
 				action:"backaction", 
-				queryString:"backquerystring",
 				type:"button",
 				class:"btn btn-default", 
 				icon:"arrow-left", 
 				text:"Back"
 			},
 			delete:{ 
-				action:"deleteaction",
-				querystring:"query", 
+				action:"deleteaction", 
 				type:"button",
-				text:"Delete",
-				class:"btn-default s-remove",
-				icon:"trash icon-white"
+				text:"Delete"
 			}, 
 			cancel:{ 
 				action:"cancelaction",
-				querystring:"query", 
 				type:"button",
-				text:"Cancel",
-				class:"btn-default",
-				icon:"remove icon-white"
+				text:"Cancel"
 			},
 			save:{
-				action:"saveaction",
-				querystring:"query", 
+				action:"saveaction", 
 				type:"button",
 				text:"Save",
 				class:"btn-success",
@@ -141,69 +113,42 @@ angular.module('slatwalladmin').controller('anotherCoolController', [
 					processCallers:{
 						a:{
 							action:"admin:entity.preprocessproduct",
-							processContext:"updateSkus",
-							type:"list", 
-							text:"Update Skus", 
-							modal:"true" 
+							text:"Update Skus"
 						}, 
 						b:{ 
 							action:"admin:entity.preprocessproduct",
-							processContext:"updateDefaultImageFileNames",
-							type:"list", 
-							text:"Update Default Image Filenames",
-							modal:"true"
+							text:"Update Default Image Filenames"
 						}, 
 						c:{
 							type:"divider"
 						}, 
 						d:{ 
 							action:"admin:entity.preprocessproduct",
-							processContext:"addOptionGroup",
-							type:"list", 
-							text:"Add Option Group",
-							modal:"true"
+							text:"Add Option Group"
 						}, 
 						e:{
 							action:"admin:entity.preprocessproduct",
-							processContext:"addOption",
-							type:"list", 
-							text:"Add Option",
-							modal:"true"
+							text:"Add Option"
 						}, 
 						f:{ 
 							action:"admin:entity.preprocessproduct",
-							processContext:"addSku",
-							type:"list", 
-							text:"Add Sku",
-							modal:"true"
+							text:"Add Sku"
 						},
 						g:{ 
 							action:"admin:entity.preprocessproduct",
-							processContext:"addSubscriptionSku",
-							type:"list", 
-							text:"Add Subscription Sku",
-							modal:"true"
+							text:"Add Subscription Sku"
 						}, 
 						h:{
 							action:"admin:entity.createImage", 
-							querystring:"somequery", 
-							type:"list", 
-							text:"Create Image",
-							modal:"true"
+							text:"Create Image"
 						},
 						i:{
-							action:"admin:entity.createfile", 
-							querystring:"somequery", 
-							type:"list", 
-							text:"Create File",
-							modal:"true"
+							action:"admin:entity.createfile",  
+							text:"Create File"
 						},
 						j:{
 							action:"admin:entity.createcomment", 
-							querystring:"somequery", 
-							type:"list", 
-							text:"Create Comment",
-							modal:"true"
+							text:"Create Comment"
 						}
 												
 					}
