@@ -188,11 +188,11 @@ component entityname="SlatwallSku" table="SwSku" persistent=true accessors=true 
 		var optionString = "";
 		for(var option in getOptions()){
 			if(option.getOptionGroup().getImageGroupFlag()){
-				optionString &= getProduct().setting('productImageOptionCodeDelimiter') & reReplaceNoCase(option.getOptionCode(), "[^a-z0-9\-\_]","","all");
+				optionString &= getProduct().setting('productImageOptionCodeDelimiter') & reReplaceNoCase(option.getOptionCode(), '[^a-z0-9\-\_]',"","all");
 			}
 		}
 		
-		return reReplaceNoCase(getProduct().getProductCode(), "[^a-z0-9\-\_]","","all") & optionString & ".#getProduct().setting('productImageDefaultExtension')#";
+		return reReplaceNoCase(getProduct().getProductCode(), '[^a-z0-9\-\_]',"","all") & optionString & ".#getProduct().setting('productImageDefaultExtension')#";
 	}
 	
     public string function getImageExtension() {
