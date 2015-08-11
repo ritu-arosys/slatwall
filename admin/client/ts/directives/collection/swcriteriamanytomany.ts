@@ -7,13 +7,15 @@ angular.module('slatwalladmin')
 	'collectionPartialsPath',
 	'collectionService',
 	'metadataService',
+	'dialogService',
 	function(
 		$log,
 		$slatwall,
 		$filter,
 		collectionPartialsPath,
 		collectionService,
-		metadataService
+		metadataService,
+		dialogService
 	){
 		return {
 			restrict: 'E',
@@ -90,6 +92,20 @@ angular.module('slatwalladmin')
 					scope.selectedFilterPropertyChanged({selectedFilterProperty:scope.selectedFilterProperty.selectedCriteriaType});
 					//update criteria to display the condition of the new critera we have selected
 					
+				};
+
+				scope.addNewCollection = function(){
+					console.log('Add new collection click');
+					dialogService.addPageDialog('collection/criteriacreatecollection', {
+						entityName: scope.selectedFilterProperty.cfc
+					});
+				};
+
+				scope.viewSelectedCollection = function(){
+					dialogService.addPageDialog('collection/criteriacreatecollection', {
+						entityName: 'collection',
+						entityId: scope.selectedFilterProperty.selectedCollection.collectionID
+					});
 				};
 			}
 		};

@@ -7,14 +7,10 @@ module slatwalladmin{
             public title:string,
             public isVisible:boolean,
             public isDeletable:boolean,
+            public isSearchable:boolean,
+            public isExportable:boolean,
             public attributeID?:string,
             public attributeSetObject?:string
-        ){}
-    }
-
-    class FilterGroup{
-        constructor(
-            public filterGroups:Filter[]
         ){}
     }
 
@@ -42,19 +38,28 @@ module slatwalladmin{
     }
 
     export class CollectionConfig {
+        collection: any;
 
         constructor(
             private $slatwall,
             public  baseEntityName:string,
-            private baseEntityAlias:string,
+            private baseEntityAlias?:string,
             private columns?:Column[],
-            private filterGroups:Filter[]=[],
+            private filterGroups:Array=[{filterGroup: []}],
             private joins?:Join[],
             private orderBy?:OrderBy[],
             private currentPage:number = 1,
             private pageShow:number = 10,
             private keywords:string = ''
-        ){}
+        ){
+            if(!angular.isUndefined(this.baseEntityName)){
+                this.collection = this.$slatwall['new' + this.getEntityName()]();
+                if(angular.isUndefined(this.baseEntityAlias)){
+                    this.baseEntityAlias = '_' + this.baseEntityName.toLowerCase();
+
+                }
+            }
+        }
 
 
         loadJson(jsonCollection){
@@ -76,8 +81,7 @@ module slatwalladmin{
 
         getJson(){
             var config = this;
-            delete config['$slatwall'];
-            //config.filterGroups= [{'filterGroup': this.filterGroups}];
+            //delete config['$slatwall'];
             return angular.toJson(config);
         }
 
@@ -88,7 +92,7 @@ module slatwalladmin{
         getOptions(){
             return {
                 columnsConfig: angular.toJson(this.columns),
-                filterGroupsConfig: angular.toJson([{'filterGroup': this.filterGroups}]),
+                filterGroupsConfig: angular.toJson(this.filterGroups),
                 joinsConfig: angular.toJson(this.joins),
                 currentPage: this.currentPage,
                 pageShow: this.pageShow,
@@ -101,25 +105,31 @@ module slatwalladmin{
         }
 
         private formatCollectionName(propertyIdentifier:string, property:boolean=true){
-            var collection = '';
-            var parts = propertyIdentifier.split('.');
+            var collection = '',
+                parts = propertyIdentifier.split('.');
+
+            if(!this.collection)
+                this.collection = this.$slatwall['new' + this.getEntityName()]();
+
             for (var i = 0; i < parts.length; i++) {
-                if (typeof this.$slatwall['new' + this.capitalize(parts[i])] !== "function"){
-                    if(property) collection += ((i)?'':this.baseEntityAlias)+'.' + parts[i];
-                    break;
+                if (typeof this.$slatwall['new' + this.capitalize(parts[i])] !== "function") {
+                    if (property) collection += ((i)?'':this.baseEntityAlias) + '.' + parts[i];
+                    if(!angular.isObject(this.collection.metaData[parts[i]])) break;
+                }else{
+                    collection += '_' + parts[i].toLowerCase();
                 }
-                collection += '_' + parts[i].toLowerCase();
             }
             return collection;
         }
 
         private addJoin(associationName: string) {
-            var joinFound:boolean = false;
-            if(angular.isUndefined(this.columns)){
+            var joinFound:boolean = false,
+                parts = associationName.split('.'),
+                collection = '';
+
+            if(angular.isUndefined(this.joins)){
                 this.joins = [];
             }
-            var parts = associationName.split('.');
-            var collection = '';
             for (var i = 0; i < parts.length; i++) {
                 joinFound = false;
                 if (typeof this.$slatwall['new' + this.capitalize(parts[i])] !== "function") break;
@@ -151,8 +161,11 @@ module slatwalladmin{
         }
 
         addColumn(column: string, title: string = '', options:Object = {}){
-            var isVisible = true;
-            var isDeletable = true;
+            var isVisible = true,
+                isDeletable = true,
+                isSearchable = true,
+                isExportable = true;
+
             if(angular.isUndefined(this.columns)){
                 this.columns = [];
             }
@@ -162,12 +175,24 @@ module slatwalladmin{
             if(!angular.isUndefined(options['isDeletable'])){
                 isDeletable = options['isDeletable'];
             }
+            if(!angular.isUndefined(options['isSearchable'])){
+                isSearchable = options['isSearchable'];
+            }
+            if(!angular.isUndefined(options['isExportable'])){
+                isExportable = options['isExportable'];
+            }
+            if(angular.isUndefined(options['isExportable']) && !isVisible){
+                isExportable = false;
+            }
+
 
             this.columns.push(new Column(
                 column,
                 title,
                 isVisible,
                 isDeletable,
+                isSearchable,
+                isExportable,
                 options['attributeID'],
                 options['attributeSetObject']
             ));
@@ -185,8 +210,7 @@ module slatwalladmin{
                     if(_DividedTitles[index] !== undefined && _DividedTitles[index] != '') {
                         title = _DividedTitles[index].trim();
                     }else {
-                        var startAlias = new RegExp('^'+this.baseEntityAlias +'\\.');
-                        title = column.replace(startAlias, '').replace(/\./g, '_');
+                        title = this.$slatwall.getRBKey("entity."+this.baseEntityName.toLowerCase()+"."+column.toLowerCase());
                     }
                     this.addColumn(this.formatCollectionName(column),title, options);
 
@@ -194,15 +218,18 @@ module slatwalladmin{
             }else{
                 this.addJoin(propertyIdentifier);
                 propertyIdentifier = this.addAlias(propertyIdentifier);
-                if(title == '') title = propertyIdentifier.trim().replace(this.baseEntityAlias+'.','').replace(/\./g,'_');
+                if(title == '') title = this.$slatwall.getRBKey("entity."+this.baseEntityName.toLowerCase()+"."+propertyIdentifier.toLowerCase());
                 this.addColumn(this.formatCollectionName(propertyIdentifier),title, options);
             }
         }
 
-        addFilter(propertyIdentifier: string, value:string, comparisonOperator: string = '=', logicalOperator: string = ''){
+        addFilter(propertyIdentifier: string, value:string, comparisonOperator: string = '=', logicalOperator?: string){
             this.addJoin(propertyIdentifier);
-            this.filterGroups.push(
-                new Filter(this.formatCollectionName(propertyIdentifier), value, comparisonOperator, logicalOperator)
+
+            if(this.filterGroups[0].filterGroup.length && !logicalOperator) logicalOperator = 'AND';
+
+            this.filterGroups[0].filterGroup.push(
+                new Filter(propertyIdentifier, value, comparisonOperator, logicalOperator)
             );
 
         }

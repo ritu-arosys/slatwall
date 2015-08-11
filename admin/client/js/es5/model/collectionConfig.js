@@ -1,21 +1,17 @@
 var slatwalladmin;
 (function (slatwalladmin) {
     var Column = (function () {
-        function Column(propertyIdentifier, title, isVisible, isDeletable, attributeID, attributeSetObject) {
+        function Column(propertyIdentifier, title, isVisible, isDeletable, isSearchable, isExportable, attributeID, attributeSetObject) {
             this.propertyIdentifier = propertyIdentifier;
             this.title = title;
             this.isVisible = isVisible;
             this.isDeletable = isDeletable;
+            this.isSearchable = isSearchable;
+            this.isExportable = isExportable;
             this.attributeID = attributeID;
             this.attributeSetObject = attributeSetObject;
         }
         return Column;
-    })();
-    var FilterGroup = (function () {
-        function FilterGroup(filterGroups) {
-            this.filterGroups = filterGroups;
-        }
-        return FilterGroup;
     })();
     var Filter = (function () {
         function Filter(propertyIdentifier, value, comparisonOperator, logicalOperator) {
@@ -42,7 +38,7 @@ var slatwalladmin;
     })();
     var CollectionConfig = (function () {
         function CollectionConfig($slatwall, baseEntityName, baseEntityAlias, columns, filterGroups, joins, orderBy, currentPage, pageShow, keywords) {
-            if (filterGroups === void 0) { filterGroups = []; }
+            if (filterGroups === void 0) { filterGroups = [{ filterGroup: [] }]; }
             if (currentPage === void 0) { currentPage = 1; }
             if (pageShow === void 0) { pageShow = 10; }
             if (keywords === void 0) { keywords = ''; }
@@ -56,6 +52,12 @@ var slatwalladmin;
             this.currentPage = currentPage;
             this.pageShow = pageShow;
             this.keywords = keywords;
+            if (!angular.isUndefined(this.baseEntityName)) {
+                this.collection = this.$slatwall['new' + this.getEntityName()]();
+                if (angular.isUndefined(this.baseEntityAlias)) {
+                    this.baseEntityAlias = '_' + this.baseEntityName.toLowerCase();
+                }
+            }
         }
         CollectionConfig.prototype.loadJson = function (jsonCollection) {
             //if json then make a javascript object else use the javascript object
@@ -74,8 +76,7 @@ var slatwalladmin;
         };
         CollectionConfig.prototype.getJson = function () {
             var config = this;
-            delete config['$slatwall'];
-            //config.filterGroups= [{'filterGroup': this.filterGroups}];
+            //delete config['$slatwall'];
             return angular.toJson(config);
         };
         CollectionConfig.prototype.getEntityName = function () {
@@ -84,7 +85,7 @@ var slatwalladmin;
         CollectionConfig.prototype.getOptions = function () {
             return {
                 columnsConfig: angular.toJson(this.columns),
-                filterGroupsConfig: angular.toJson([{ 'filterGroup': this.filterGroups }]),
+                filterGroupsConfig: angular.toJson(this.filterGroups),
                 joinsConfig: angular.toJson(this.joins),
                 currentPage: this.currentPage,
                 pageShow: this.pageShow,
@@ -96,25 +97,27 @@ var slatwalladmin;
         };
         CollectionConfig.prototype.formatCollectionName = function (propertyIdentifier, property) {
             if (property === void 0) { property = true; }
-            var collection = '';
-            var parts = propertyIdentifier.split('.');
+            var collection = '', parts = propertyIdentifier.split('.');
+            if (!this.collection)
+                this.collection = this.$slatwall['new' + this.getEntityName()]();
             for (var i = 0; i < parts.length; i++) {
                 if (typeof this.$slatwall['new' + this.capitalize(parts[i])] !== "function") {
                     if (property)
                         collection += ((i) ? '' : this.baseEntityAlias) + '.' + parts[i];
-                    break;
+                    if (!angular.isObject(this.collection.metaData[parts[i]]))
+                        break;
                 }
-                collection += '_' + parts[i].toLowerCase();
+                else {
+                    collection += '_' + parts[i].toLowerCase();
+                }
             }
             return collection;
         };
         CollectionConfig.prototype.addJoin = function (associationName) {
-            var joinFound = false;
-            if (angular.isUndefined(this.columns)) {
+            var joinFound = false, parts = associationName.split('.'), collection = '';
+            if (angular.isUndefined(this.joins)) {
                 this.joins = [];
             }
-            var parts = associationName.split('.');
-            var collection = '';
             for (var i = 0; i < parts.length; i++) {
                 joinFound = false;
                 if (typeof this.$slatwall['new' + this.capitalize(parts[i])] !== "function")
@@ -144,8 +147,7 @@ var slatwalladmin;
         CollectionConfig.prototype.addColumn = function (column, title, options) {
             if (title === void 0) { title = ''; }
             if (options === void 0) { options = {}; }
-            var isVisible = true;
-            var isDeletable = true;
+            var isVisible = true, isDeletable = true, isSearchable = true, isExportable = true;
             if (angular.isUndefined(this.columns)) {
                 this.columns = [];
             }
@@ -155,7 +157,16 @@ var slatwalladmin;
             if (!angular.isUndefined(options['isDeletable'])) {
                 isDeletable = options['isDeletable'];
             }
-            this.columns.push(new Column(column, title, isVisible, isDeletable, options['attributeID'], options['attributeSetObject']));
+            if (!angular.isUndefined(options['isSearchable'])) {
+                isSearchable = options['isSearchable'];
+            }
+            if (!angular.isUndefined(options['isExportable'])) {
+                isExportable = options['isExportable'];
+            }
+            if (angular.isUndefined(options['isExportable']) && !isVisible) {
+                isExportable = false;
+            }
+            this.columns.push(new Column(column, title, isVisible, isDeletable, isSearchable, isExportable, options['attributeID'], options['attributeSetObject']));
         };
         CollectionConfig.prototype.setDisplayProperties = function (propertyIdentifier, title, options) {
             var _this = this;
@@ -171,8 +182,7 @@ var slatwalladmin;
                         title = _DividedTitles[index].trim();
                     }
                     else {
-                        var startAlias = new RegExp('^' + _this.baseEntityAlias + '\\.');
-                        title = column.replace(startAlias, '').replace(/\./g, '_');
+                        title = _this.$slatwall.getRBKey("entity." + _this.baseEntityName.toLowerCase() + "." + column.toLowerCase());
                     }
                     _this.addColumn(_this.formatCollectionName(column), title, options);
                 });
@@ -181,15 +191,16 @@ var slatwalladmin;
                 this.addJoin(propertyIdentifier);
                 propertyIdentifier = this.addAlias(propertyIdentifier);
                 if (title == '')
-                    title = propertyIdentifier.trim().replace(this.baseEntityAlias + '.', '').replace(/\./g, '_');
+                    title = this.$slatwall.getRBKey("entity." + this.baseEntityName.toLowerCase() + "." + propertyIdentifier.toLowerCase());
                 this.addColumn(this.formatCollectionName(propertyIdentifier), title, options);
             }
         };
         CollectionConfig.prototype.addFilter = function (propertyIdentifier, value, comparisonOperator, logicalOperator) {
             if (comparisonOperator === void 0) { comparisonOperator = '='; }
-            if (logicalOperator === void 0) { logicalOperator = ''; }
             this.addJoin(propertyIdentifier);
-            this.filterGroups.push(new Filter(this.formatCollectionName(propertyIdentifier), value, comparisonOperator, logicalOperator));
+            if (this.filterGroups[0].filterGroup.length && !logicalOperator)
+                logicalOperator = 'AND';
+            this.filterGroups[0].filterGroup.push(new Filter(propertyIdentifier, value, comparisonOperator, logicalOperator));
         };
         CollectionConfig.prototype.setOrderBy = function (propertyIdentifier, direction) {
             if (direction === void 0) { direction = 'DESC'; }

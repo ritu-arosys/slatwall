@@ -22,9 +22,10 @@ module slatwalladmin{
             return this._pageDialogs || [];
         }
         
-        addPageDialog = ( name:PageDialog ):void =>{
+		addPageDialog = ( name:PageDialog, params?:any ):void =>{
             var newDialog = {
-                'path' : this.partialsPath + name + '.html'
+				'path' : this.partialsPath + name + '.html',
+				'params' : params
             };
             this._pageDialogs.push( newDialog );
         }
@@ -35,6 +36,10 @@ module slatwalladmin{
         
         getPageDialogs = ():any =>{
             return this._pageDialogs;
+		};
+
+		getCurrentDialog = ():any =>{
+			return this._pageDialogs[this._pageDialogs.length -1];
         }
     }
     angular.module('slatwalladmin').service('dialogService', DialogService);
