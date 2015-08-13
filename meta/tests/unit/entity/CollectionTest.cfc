@@ -109,6 +109,31 @@ component extends="Slatwall.meta.tests.unit.entity.SlatwallEntityTestBase" {
 //		//assertEquals(1,pageRecords[1]['skuCount']);		
 //	
 //	}
+
+public void function testthis(){
+//	var test = ORMExecuteQuery('
+//	SELECT new Map( 
+//		_account.accountID as accountID, _account.superUserFlag as superUserFlag, _account.firstName as firstName, _account.lastName as lastName, _account.company as company, _account.loginLockExpiresDateTime as loginLockExpiresDateTime, _account.failedLoginAttemptCount as failedLoginAttemptCount
+//	) 
+//	FROM SlatwallAccount as _account 
+//	where ( EXISTS ( FROM SlatwallPermissionGroup as __permissiongroup WHERE _account IN elements(__permissiongroup.accounts) ) ) ORDER BY _account.createdDateTime desc');
+//	request.debug(test);
+//	var test = ORMExecuteQuery('SELECT new Map( 
+//		_account.accountID as accountID, _account.superUserFlag as superUserFlag, _account.firstName as firstName, _account.lastName as lastName, _account.company as company, _account.loginLockExpiresDateTime as loginLockExpiresDateTime, _account.failedLoginAttemptCount as failedLoginAttemptCount
+//	) 
+//	FROM SlatwallAccount as _account 
+//	where ( EXISTS ( FROM SlatwallAccountAddress as __permissiongroup WHERE _account = __permissiongroup.address ) ) ORDER BY _account.createdDateTime desc');
+	//accountAddresses
+	var test = ORMExecuteQuery('SELECT new Map( _account.accountID as accountID, _account.superUserFlag as superUserFlag, _account.firstName as firstName, _account.lastName as lastName, _account.company as company, _account.loginLockExpiresDateTime as loginLockExpiresDateTime, _account.failedLoginAttemptCount as failedLoginAttemptCount) 
+	FROM SlatwallAccount as _account 
+	where ( 
+		( (SELECT count(PermissionGroup) 
+			FROM SlatwallPermissionGroup as PermissionGroup 
+			WHERE _account IN elements(PermissionGroup.accounts) ) = 
+			(SELECT count(_permissiongroup) FROM SlatwallPermissionGroup as _permissiongroup WHERE _account in elements(_permissiongroup.accounts) ) ) 
+			) ORDER BY _account.createdDateTime desc');
+			request.debug(test);
+}
 	
 	public void function addDisplayAggregateSUMTest(){
 		var myCollection = variables.entityService.getSkuCollectionList();
